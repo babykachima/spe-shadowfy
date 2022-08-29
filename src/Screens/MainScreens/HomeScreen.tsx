@@ -10,6 +10,25 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import Voice from '@react-native-voice/voice';
+import TrackPlayer, { Capability, TrackType } from 'react-native-track-player';
+
+type TTrack = {
+  id: number;
+  url: string;
+  title: string;
+};
+
+const trackList: Array<TTrack> = [
+  {
+    id: 1,
+    url: require('../../Assets/hello.mp3'),
+    title: 'Play with me',
+  },
+];
+TrackPlayer.updateOptions({
+  capabilities: [Capability.Play, Capability.Pause],
+  compactCapabilities: [Capability.Play, Capability.Pause],
+});
 
 const App = () => {
   const [result, setResult] = useState('');
@@ -24,7 +43,21 @@ const App = () => {
       Voice.destroy().then(Voice.removeAllListeners);
     };
   }, []);
+  //  Track player
+  const setUpTrackPlayer = async () => {
+    try {
+      await TrackPlayer.setupPlayer();
+      await TrackPlayer.add(trackList);
+    } catch (error) {
+      console.log('setUpTrackPlayer error=>', error);
+    }
+  };
+  //
+  useEffect(() => {
+    setUpTrackPlayer();
+  }, []);
 
+  //
   const onSpeechStartHandler = (e: any) => {
     console.log('start handler==>>>', e);
   };
@@ -63,7 +96,14 @@ const App = () => {
       console.log('error raised', error);
     }
   };
-
+  const playTrack = async () => {
+    try {
+      console.log('play;p');
+      await TrackPlayer.play();
+    } catch (error) {
+      console.log('error play: ', error);
+    }
+  };
   return (
     <View style={styles.container}>
       <SafeAreaView>
@@ -99,6 +139,20 @@ const App = () => {
         >
           <Text style={{ color: 'white', fontWeight: 'bold' }}>Stop</Text>
         </TouchableOpacity>
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <TouchableOpacity style={styles.button} onPress={playTrack}>
+            <Text style={styles.text}>Play</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => TrackPlayer.pause()}>
+            <Text style={styles.text}>Pause</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.text}>Next</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.text}>Play</Text>
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
     </View>
   );
@@ -127,6 +181,18 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
     shadowOpacity: 0.4,
+  },
+  text: {
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  button: {
+    marginHorizontal: 3,
+    justifyContent: 'center',
+    width: 100,
+    height: 50,
+    backgroundColor: 'green',
+    borderRadius: 10,
   },
 });
 
