@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import Voice from '@react-native-voice/voice';
-import TrackPlayer, { Capability, TrackType } from 'react-native-track-player';
+import TrackPlayer, { Capability } from 'react-native-track-player';
 
 type TTrack = {
   id: number;
@@ -30,7 +30,7 @@ TrackPlayer.updateOptions({
   compactCapabilities: [Capability.Play, Capability.Pause],
 });
 
-const App = () => {
+const HomeScreen = () => {
   const [result, setResult] = useState('');
   const [isLoading, setLoading] = useState(false);
 
@@ -196,4 +196,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default HomeScreen;
