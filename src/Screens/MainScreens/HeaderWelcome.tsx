@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     marginVertical: 10,
-    fontSize: 20,
+    fontSize: 18,
     color: '#191919',
   },
   titleWelcome: {

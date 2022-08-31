@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
   styleText: {
     fontSize: 12,
     color: '#000000',
+    fontFamily: 'Poppins-Regular',
   },
 });
 export default TextCommon;
