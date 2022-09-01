@@ -4,12 +4,15 @@ import { Text, StyleSheet, View } from 'react-native';
 interface ITextProps {
   title: string;
   containStyles?: any;
+  numberOfLines?: number;
 }
 
-const TextCommon: React.FC<ITextProps> = ({ title, containStyles }) => {
+const TextCommon: React.FC<ITextProps> = ({ title, containStyles, numberOfLines }) => {
   return (
     <View style={styles.contain}>
-      <Text style={[styles.styleText, containStyles]}>{title}</Text>
+      <Text style={[styles.styleText, containStyles]} numberOfLines={numberOfLines}>
+        {title}
+      </Text>
     </View>
   );
 };
