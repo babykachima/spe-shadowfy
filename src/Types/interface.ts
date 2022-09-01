@@ -14,3 +14,7 @@ export interface ILession {
   image: string;
   audio: string;
 }
+export interface IRouteTabar {
+  name: string;
+  icon: string;
+}

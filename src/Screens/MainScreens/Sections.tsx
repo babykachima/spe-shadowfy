@@ -1,46 +1,35 @@
-import React, { useCallback } from 'react';
-import { FlatList, ListRenderItem, TouchableOpacity, Image, View, StyleSheet, ScrollView } from 'react-native';
+import React from 'react';
+import { TouchableOpacity, Image, View, StyleSheet } from 'react-native';
+
 import ButtonCustom from '../../Common/Components/ButtonCustom';
 import TextCommon from '../../Common/Components/TextCommon';
 import { DATA_LESSION } from '../../Common/mockData';
-import { ILession } from '../../Types';
 
 interface ISectionProps {
   headerComponent?: any;
 }
-const Sections: React.FC<ISectionProps> = ({ headerComponent }) => {
-  const renderItem = useCallback<ListRenderItem<ILession>>(({ item }) => {
-    return (
-      <TouchableOpacity style={styles.contain}>
-        <View style={styles.img}>
-          <Image source={{ uri: item.image }} style={styles.image} resizeMode="cover" />
-        </View>
-        <View style={styles.content}>
-          <View style={styles.topContent}>
-            <TextCommon title={item.title} containStyles={styles.title} numberOfLines={2} />
-            <TextCommon title={item.description} containStyles={styles.description} numberOfLines={3} />
-          </View>
-          <View style={styles.bottomContent}>
-            <ButtonCustom title="Borrow it" containStyles={styles.button} />
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  }, []);
-
-  const _keyExtractor = (item: ILession) => {
-    return `${item.id}`;
-  };
+const Sections: React.FC<ISectionProps> = () => {
   return (
-    <FlatList
-      data={DATA_LESSION}
-      ListHeaderComponent={headerComponent}
-      keyExtractor={_keyExtractor}
-      renderItem={renderItem}
-      showsVerticalScrollIndicator={false}
-      showsHorizontalScrollIndicator={false}
-      nestedScrollEnabled={true}
-    />
+    <React.Fragment>
+      {DATA_LESSION.map((item) => {
+        return (
+          <TouchableOpacity style={styles.contain} key={item.id}>
+            <View style={styles.img}>
+              <Image source={{ uri: item.image }} style={styles.image} resizeMode="cover" />
+            </View>
+            <View style={styles.content}>
+              <View style={styles.topContent}>
+                <TextCommon title={item.title} containStyles={styles.title} numberOfLines={2} />
+                <TextCommon title={item.description} containStyles={styles.description} numberOfLines={3} />
+              </View>
+              <View style={styles.bottomContent}>
+                <ButtonCustom title="Borrow it" containStyles={styles.button} />
+              </View>
+            </View>
+          </TouchableOpacity>
+        );
+      })}
+    </React.Fragment>
   );
 };
 

@@ -6,6 +6,6 @@ export const ic_interseting = require('./images/healthy.png');
 export const ic_nature = require('./images/landscape.png');
 export const ic_sport = require('./images/exercise.png');
 export const ic_rightdown = require('./images/right-down.png');
-export const ic_memu = require('./images/menu.png');
+export const ic_menu = require('./images/menu.png');
 export const ic_user = require('./images/user.png');
 export const ic_home = require('./images/home.png');

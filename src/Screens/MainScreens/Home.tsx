@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { StyleSheet, FlatList, View, SafeAreaView, ListRenderItem } from 'react-native';
+import { StyleSheet, FlatList, View, SafeAreaView, ListRenderItem, ScrollView } from 'react-native';
 import { dataBanner, IconCategories } from '../../Common/mockData';
 
 import { IBanner, IIconCategories } from '../../Types';
@@ -67,9 +67,10 @@ const Home: React.FC = () => {
       <View style={styles.header}>
         <HeaderWelcome />
       </View>
-      <View style={styles.content}>
-        <Sections headerComponent={<Header />} />
-      </View>
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        <Header />
+        <Sections />
+      </ScrollView>
     </SafeAreaView>
   );
 };
