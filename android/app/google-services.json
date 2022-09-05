@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "697902738879",
+    "project_id": "spe-shadowfy",
+    "storage_bucket": "spe-shadowfy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697902738879:android:ffba0ae73286773f3b450a",
+        "android_client_info": {
+          "package_name": "com.speshadowfy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "697902738879-5pub9g5p6bgjb0hmv1nroluikae56frl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.speshadowfy",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "697902738879-udam816ef8etjucvig45hjvccsudhqqt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOtNxxW-KrdzuxvF3VhVmSy_jqMXxAd3s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "697902738879-udam816ef8etjucvig45hjvccsudhqqt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "697902738879-6t0aom9g1o5rlbpi7vpjn4d4352c4epr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.speshadowfy"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
