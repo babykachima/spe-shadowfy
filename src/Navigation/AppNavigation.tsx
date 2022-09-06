@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useMemo } from 'react';
 import Login from '../Screens/AuthScreens/Login';
+import Welcome from '../Screens/AuthScreens/Welcome';
 import Home from '../Screens/MainScreens/Home';
 import ListLession from '../Screens/MainScreens/ListLession';
 
@@ -9,10 +10,11 @@ import Tabbar from './Tabbar';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
-  let isLogin: boolean = false;
+  let isLogin: boolean = true;
   const authScreens = useMemo(() => {
     return (
       <React.Fragment>
+        <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Login" component={Login} />
       </React.Fragment>
     );

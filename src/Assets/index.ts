@@ -9,3 +9,7 @@ export const ic_rightdown = require('./images/right-down.png');
 export const ic_menu = require('./images/menu.png');
 export const ic_user = require('./images/user.png');
 export const ic_home = require('./images/home.png');
+export const ic_facebook = require('./images/facebook.png');
+export const ic_google = require('./images/google.png');
+export const ic_logosignin = require('./images/study-signin.jpg');
+export const ic_study_english = require('./images/study-english.jpg');
