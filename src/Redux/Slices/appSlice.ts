@@ -12,12 +12,14 @@ export const appSlice = createSlice({
   initialState: createInitUserState(),
   reducers: {
     setAccessToken: (state, action: PayloadAction<string | undefined>) => {
-      console.log('payload action -->', action.payload);
       if (action.payload) {
         state.accessToken = action.payload;
       }
     },
+    logOut: (state) => {
+      state.accessToken = '';
+    },
   },
 });
-export const { setAccessToken } = appSlice.actions;
+export const { setAccessToken, logOut } = appSlice.actions;
 export default appSlice.reducer;

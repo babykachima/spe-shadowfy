@@ -18,3 +18,8 @@ export interface IRouteTabar {
   name: string;
   icon: string;
 }
+export enum EStorage {
+  TOKEN = 'Token',
+  GUEST_MODE = 'GUEST_MODE',
+  REFRESH_TOKEN = 'REFRESH_TOKEN',
+}
