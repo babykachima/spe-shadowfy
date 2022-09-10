@@ -1,10 +1,47 @@
+import auth from '@react-native-firebase/auth';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import React from 'react';
 import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { ic_facebook, ic_google, ic_logosignin } from '../../Assets';
 
 import TextCommon from '../../Common/Components/TextCommon';
+import { setAccessToken } from '../../Redux/Slices/appSlice';
+import { configGoogleSignIn } from '../../Utils';
 
-const Login = () => {
+const Login: React.FC = () => {
+  const dispatch = useDispatch();
+  const handleLoginGoogle = async () => {
+    try {
+      configGoogleSignIn();
+      await GoogleSignin.hasPlayServices();
+      // Get the users ID token
+      const { idToken } = await GoogleSignin.signIn();
+      if (idToken) {
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+        const userApp = await auth().signInWithCredential(googleCredential);
+        const idTokenUser = await userApp?.user.getIdToken();
+        dispatch(setAccessToken(idTokenUser));
+        return userApp;
+      }
+      return;
+    } catch (error: any) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+        console.log('GoogleSignin Error SIGN_IN_CANCELLED');
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+        console.log('GoogleSignin Error IN_PROGRESS');
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+        console.log('GoogleSignin Error PLAY_SERVICES_NOT_AVAILABLE');
+      } else {
+        console.log('GoogleSignin Error', error);
+        // some other error happened
+      }
+    }
+  };
+  const handleLoginFacebook = () => {};
   return (
     <SafeAreaView style={styles.contain}>
       <View style={styles.header}>
@@ -15,11 +52,11 @@ const Login = () => {
         <Image source={ic_logosignin} style={styles.logo} resizeMode="cover" />
       </View>
       <View style={styles.socialContent}>
-        <TouchableOpacity style={[styles.button, styles.btnGoogle]}>
+        <TouchableOpacity style={[styles.button, styles.btnGoogle]} onPress={handleLoginGoogle}>
           <Image source={ic_google} style={styles.icon} />
           <TextCommon title="Continue with Google" containStyles={styles.text} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleLoginFacebook}>
           <Image source={ic_facebook} style={styles.icon} />
           <TextCommon title="Continue with Facebook" containStyles={styles.text} />
         </TouchableOpacity>

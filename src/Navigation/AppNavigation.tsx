@@ -1,6 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { getIdUserToken } from '../Redux/selector';
 import Login from '../Screens/AuthScreens/Login';
 import Welcome from '../Screens/AuthScreens/Welcome';
 import Home from '../Screens/MainScreens/Home';
@@ -9,8 +11,10 @@ import ListLession from '../Screens/MainScreens/ListLession';
 import Tabbar from './Tabbar';
 
 const Stack = createNativeStackNavigator();
+
 const App = () => {
-  let isLogin: boolean = true;
+  const accessToken = useSelector(getIdUserToken);
+
   const authScreens = useMemo(() => {
     return (
       <React.Fragment>
@@ -34,11 +38,11 @@ const App = () => {
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Tabbar" screenOptions={{ headerShown: false }}>
-          {isLogin ? authScreens : mainScreens}
+          {accessToken ? authScreens : mainScreens}
         </Stack.Navigator>
       </NavigationContainer>
     );
-  }, [authScreens, mainScreens, isLogin]);
+  }, [authScreens, mainScreens, accessToken]);
 
   return <React.Fragment>{NavigationView}</React.Fragment>;
 };
