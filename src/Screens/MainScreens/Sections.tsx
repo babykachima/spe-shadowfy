@@ -7,8 +7,9 @@ import { DATA_LESSION } from '../../Common/mockData';
 
 interface ISectionProps {
   headerComponent?: any;
+  onPress: () => void;
 }
-const Sections: React.FC<ISectionProps> = () => {
+const Sections: React.FC<ISectionProps> = ({ onPress }) => {
   return (
     <React.Fragment>
       {DATA_LESSION.map((item) => {
@@ -22,9 +23,9 @@ const Sections: React.FC<ISectionProps> = () => {
                 <TextCommon title={item.title} containStyles={styles.title} numberOfLines={2} />
                 <TextCommon title={item.description} containStyles={styles.description} numberOfLines={3} />
               </View>
-              <View style={styles.bottomContent}>
+              <TouchableOpacity style={styles.bottomContent} onPress={onPress}>
                 <ButtonCustom title="Borrow it" containStyles={styles.button} />
-              </View>
+              </TouchableOpacity>
             </View>
           </TouchableOpacity>
         );

@@ -21,7 +21,7 @@ type TTrack = {
 const trackList: Array<TTrack> = [
   {
     id: 1,
-    url: require('../../Assets/hello.mp3'),
+    url: require('../../Assets/sounds/hello.mp3'),
     title: 'Play with me',
   },
 ];

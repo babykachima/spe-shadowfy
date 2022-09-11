@@ -1,5 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, StyleSheet, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../Redux/Slices/appSlice';
@@ -7,6 +8,7 @@ import { EStorage } from '../../Types';
 
 const UserProfile: React.FC = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const handleLogOut = useCallback(async () => {
     try {
@@ -20,7 +22,7 @@ const UserProfile: React.FC = () => {
 
   return (
     <View style={styles.contain}>
-      <Button title="Logout" onPress={handleLogOut} />
+      <Button title={t('Dang xuat')} onPress={handleLogOut} />
     </View>
   );
 };
