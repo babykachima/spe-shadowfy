@@ -4,7 +4,6 @@ import { Button, StyleSheet, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../Redux/Slices/appSlice';
 import { EStorage } from '../../Types';
-import { storage } from '../../Utils/storage';
 
 const UserProfile: React.FC = () => {
   const dispatch = useDispatch();
@@ -12,7 +11,6 @@ const UserProfile: React.FC = () => {
   const handleLogOut = useCallback(async () => {
     try {
       await auth().signOut();
-      storage.set(EStorage.TOKEN, '');
     } catch (error) {
       console.log('handleLogOut error:', error);
     } finally {

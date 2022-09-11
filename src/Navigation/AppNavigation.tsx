@@ -1,14 +1,14 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useEffect, useMemo } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getIdUserToken } from '../Redux/selector';
 import Login from '../Screens/AuthScreens/Login';
 import Welcome from '../Screens/AuthScreens/Welcome';
 import Home from '../Screens/MainScreens/Home';
 import ListLession from '../Screens/MainScreens/ListLession';
 import { EStorage } from '../Types';
-import { storage } from '../Utils/storage';
 
 import Tabbar from './Tabbar';
 
@@ -16,10 +16,17 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   const accessToken = useSelector(getIdUserToken);
+
   useEffect(() => {
-    if (accessToken) {
-      storage.set(EStorage.TOKEN, accessToken);
-    }
+    async () => {
+      try {
+        if (accessToken) {
+          await AsyncStorage.setItem(EStorage.TOKEN, accessToken);
+        }
+      } catch (error) {
+        console.log('Sign Storage ERROR:', error);
+      }
+    };
   }, [accessToken]);
 
   const isLogin = useMemo(() => {
