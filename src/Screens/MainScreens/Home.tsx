@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
 import { StyleSheet, FlatList, View, SafeAreaView, ListRenderItem, ScrollView } from 'react-native';
 import { dataBanner, IconCategories } from '../../Common/mockData';
@@ -62,6 +63,10 @@ const Header: React.FC = () => {
   );
 };
 const Home: React.FC = () => {
+  const navigation = useNavigation();
+  const navigateScreen = useCallback(() => {
+    navigation.navigate('HomeScreen' as never);
+  }, [navigation]);
   return (
     <SafeAreaView style={styles.contain}>
       <View style={styles.header}>
@@ -69,7 +74,7 @@ const Home: React.FC = () => {
       </View>
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <Header />
-        <Sections />
+        <Sections onPress={navigateScreen} />
       </ScrollView>
     </SafeAreaView>
   );

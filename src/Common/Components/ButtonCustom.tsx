@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import TextCommon from './TextCommon';
 
 interface IButtonProps {
@@ -9,9 +9,9 @@ interface IButtonProps {
 
 const ButtonCustom: React.FC<IButtonProps> = ({ title, containStyles }) => {
   return (
-    <TouchableOpacity style={[styles.button, containStyles]}>
+    <View style={[styles.button, containStyles]}>
       <TextCommon title={title} containStyles={title} />
-    </TouchableOpacity>
+    </View>
   );
 };
 
