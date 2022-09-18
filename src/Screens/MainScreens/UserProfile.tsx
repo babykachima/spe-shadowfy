@@ -1,28 +1,42 @@
 import auth from '@react-native-firebase/auth';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Button, StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
+import Snackbar from 'react-native-snackbar';
 import { useDispatch } from 'react-redux';
+import ButtonCustom from '../../Common/Components/ButtonCustom';
 import { logOut } from '../../Redux/Slices/appSlice';
-import { EStorage } from '../../Types';
 
 const UserProfile: React.FC = () => {
   const dispatch = useDispatch();
-  const { t } = useTranslation();
 
-  const handleLogOut = useCallback(async () => {
-    try {
-      await auth().signOut();
-    } catch (error) {
-      console.log('handleLogOut error:', error);
-    } finally {
-      dispatch(logOut());
-    }
+  const handleLogOut = useCallback(() => {
+    const signOut = async () => {
+      try {
+        dispatch(logOut());
+        await auth().signOut();
+        Snackbar.show({
+          text: 'Logout success!',
+          duration: Snackbar.LENGTH_LONG,
+        });
+      } catch (error) {
+        console.log('handleLogOut error:', error);
+      }
+    };
+
+    Alert.alert('SignOut', 'You are make sure logout!', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      { text: 'OK', onPress: signOut },
+    ]);
   }, [dispatch]);
 
   return (
     <View style={styles.contain}>
-      <Button title={t('Dang xuat')} onPress={handleLogOut} />
+      <TouchableOpacity onPress={handleLogOut}>
+        <ButtonCustom title="Đăng xuất" />
+      </TouchableOpacity>
     </View>
   );
 };

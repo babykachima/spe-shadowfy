@@ -2,6 +2,7 @@ import auth from '@react-native-firebase/auth';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import React from 'react';
 import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import Snackbar from 'react-native-snackbar';
 import { useDispatch } from 'react-redux';
 import { ic_facebook, ic_google, ic_logosignin } from '../../Assets';
 
@@ -22,6 +23,10 @@ const Login: React.FC = () => {
         const userApp = await auth().signInWithCredential(googleCredential);
         const idTokenUser = await userApp?.user.getIdToken();
         dispatch(setAccessToken(idTokenUser));
+        Snackbar.show({
+          text: 'Đăng nhập thành công!',
+          duration: Snackbar.LENGTH_LONG,
+        });
         return userApp;
       }
       return;

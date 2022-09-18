@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { EStorage } from '../../Types';
+import { storage } from '../../Utils/storage';
 import { IUserState } from '../redux-state';
 
 export function createInitUserState(): IUserState {
@@ -13,11 +15,14 @@ export const appSlice = createSlice({
   reducers: {
     setAccessToken: (state, action: PayloadAction<string | undefined>) => {
       if (action.payload) {
+        storage.set(EStorage.TOKEN, action.payload);
         state.accessToken = action.payload;
       }
     },
     logOut: (state) => {
+      console.log('clear store ');
       state.accessToken = '';
+      storage.delete(EStorage.TOKEN);
     },
   },
 });

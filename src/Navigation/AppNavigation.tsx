@@ -1,14 +1,12 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getIdUserToken } from '../Redux/selector';
 import Login from '../Screens/AuthScreens/Login';
 import Welcome from '../Screens/AuthScreens/Welcome';
 import Home from '../Screens/MainScreens/Home';
 import ListLession from '../Screens/MainScreens/ListLession';
-import { EStorage } from '../Types';
 
 import Tabbar from './Tabbar';
 
@@ -16,22 +14,6 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   const accessToken = useSelector(getIdUserToken);
-
-  useEffect(() => {
-    async () => {
-      try {
-        if (accessToken) {
-          await AsyncStorage.setItem(EStorage.TOKEN, accessToken);
-        }
-      } catch (error) {
-        console.log('Sign Storage ERROR:', error);
-      }
-    };
-  }, [accessToken]);
-
-  const isLogin = useMemo(() => {
-    return !accessToken;
-  }, [accessToken]);
 
   const authScreens = useMemo(() => {
     return (
@@ -56,11 +38,11 @@ const App = () => {
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Tabbar" screenOptions={{ headerShown: false }}>
-          {isLogin ? authScreens : mainScreens}
+          {accessToken ? mainScreens : authScreens}
         </Stack.Navigator>
       </NavigationContainer>
     );
-  }, [authScreens, mainScreens, isLogin]);
+  }, [accessToken, authScreens, mainScreens]);
 
   return <React.Fragment>{NavigationView}</React.Fragment>;
 };
