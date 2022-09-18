@@ -8,7 +8,7 @@ export interface IIconCategories {
   icon: string;
 }
 export interface ILession {
-  id: number;
+  id: number | string;
   title: string;
   description: string;
   image: string;

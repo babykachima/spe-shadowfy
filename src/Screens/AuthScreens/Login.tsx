@@ -3,15 +3,15 @@ import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-si
 import React from 'react';
 import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Snackbar from 'react-native-snackbar';
-import { useDispatch } from 'react-redux';
 import { ic_facebook, ic_google, ic_logosignin } from '../../Assets';
 
 import TextCommon from '../../Common/Components/TextCommon';
+import { useAppDispatch } from '../../Redux/hooks';
 import { setAccessToken } from '../../Redux/Slices/appSlice';
 import { configGoogleSignIn } from '../../Utils';
 
 const Login: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleLoginGoogle = async () => {
     try {
       configGoogleSignIn();

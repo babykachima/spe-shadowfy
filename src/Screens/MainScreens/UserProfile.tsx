@@ -2,12 +2,12 @@ import auth from '@react-native-firebase/auth';
 import React, { useCallback } from 'react';
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Snackbar from 'react-native-snackbar';
-import { useDispatch } from 'react-redux';
 import ButtonCustom from '../../Common/Components/ButtonCustom';
+import { useAppDispatch } from '../../Redux/hooks';
 import { logOut } from '../../Redux/Slices/appSlice';
 
 const UserProfile: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleLogOut = useCallback(() => {
     const signOut = async () => {

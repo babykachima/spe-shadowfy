@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getIdUserToken } from '../Redux/selector';
 import Login from '../Screens/AuthScreens/Login';
@@ -9,11 +8,13 @@ import Home from '../Screens/MainScreens/Home';
 import ListLession from '../Screens/MainScreens/ListLession';
 
 import Tabbar from './Tabbar';
+import PracticeShadowing from '../Screens/MainScreens/PracticeShadowing';
+import { useAppSelector } from '../Redux/hooks';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const accessToken = useSelector(getIdUserToken);
+  const accessToken = useAppSelector(getIdUserToken);
 
   const authScreens = useMemo(() => {
     return (
@@ -30,6 +31,7 @@ const App = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="ListLession" component={ListLession} />
         <Stack.Screen name="Tabbar" component={Tabbar} />
+        <Stack.Screen name="PracticeShadowing" component={PracticeShadowing} />
       </React.Fragment>
     );
   }, []);

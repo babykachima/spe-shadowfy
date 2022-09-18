@@ -65,7 +65,7 @@ const Header: React.FC = () => {
 const Home: React.FC = () => {
   const navigation = useNavigation();
   const navigateScreen = useCallback(() => {
-    navigation.navigate('HomeScreen' as never);
+    navigation.navigate('PracticeShadowing' as never);
   }, [navigation]);
   return (
     <SafeAreaView style={styles.contain}>
@@ -74,7 +74,7 @@ const Home: React.FC = () => {
       </View>
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <Header />
-        <Sections onPress={navigateScreen} />
+        <Sections onMoveScreen={navigateScreen} />
       </ScrollView>
     </SafeAreaView>
   );
