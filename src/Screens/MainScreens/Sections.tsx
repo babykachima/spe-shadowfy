@@ -6,10 +6,9 @@ import TextCommon from '../../Common/Components/TextCommon';
 import { DATA_LESSION } from '../../Common/mockData';
 
 interface ISectionProps {
-  headerComponent?: any;
-  onPress: () => void;
+  onMoveScreen: () => void;
 }
-const Sections: React.FC<ISectionProps> = ({ onPress }) => {
+const Sections: React.FC<ISectionProps> = ({ onMoveScreen }) => {
   return (
     <React.Fragment>
       {DATA_LESSION.map((item) => {
@@ -23,7 +22,7 @@ const Sections: React.FC<ISectionProps> = ({ onPress }) => {
                 <TextCommon title={item.title} containStyles={styles.title} numberOfLines={2} />
                 <TextCommon title={item.description} containStyles={styles.description} numberOfLines={3} />
               </View>
-              <TouchableOpacity style={styles.bottomContent} onPress={onPress}>
+              <TouchableOpacity style={styles.bottomContent} onPress={onMoveScreen}>
                 <ButtonCustom title="Borrow it" containStyles={styles.button} />
               </TouchableOpacity>
             </View>
