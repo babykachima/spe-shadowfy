@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
+import { ILession } from '../Types';
 
 export const useGetDataFireStore = (collectionName: string) => {
   const [data, setData] = useState<[]>();
@@ -26,7 +27,7 @@ export const useGetDataFireStore = (collectionName: string) => {
 };
 
 export const useGetDetailDataFireStore = (collectionName: string, docummentId: string) => {
-  const [dataDetail, setDataDetail] = useState();
+  const [dataDetail, setDataDetail] = useState<ILession>();
   const fetchDataDetail = useCallback(async () => {
     const results = await firestore()
       .collection(collectionName)

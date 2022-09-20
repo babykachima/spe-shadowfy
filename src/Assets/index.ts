@@ -14,3 +14,5 @@ export const ic_google = require('./images/google.png');
 export const ic_arrow_back = require('./images/ic_arrow_back.png');
 export const ic_logosignin = require('./images/study-signin.jpg');
 export const ic_study_english = require('./images/study-english.jpg');
+export const ic_pause = require('./images/ic_pause.png');
+export const ic_play = require('./images/ic_play.png');

@@ -22,7 +22,7 @@ export const Header: React.FC<IHeader> = ({ title, goBack, rightIcon }) => {
   }, [rightIcon]);
   return (
     <SafeAreaView style={styles.contain}>
-      <TouchableOpacity onPress={goBack} style={styles.button}>
+      <TouchableOpacity onPress={goBack} style={styles.icon}>
         <Image source={ic_arrow_back} style={styles.img} />
       </TouchableOpacity>
       <View style={styles.contentTitle}>
@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
   },
-  button: {
-    marginLeft: 5,
+  icon: {
+    marginLeft: 10,
     marginBottom: 10,
   },
   title: {
