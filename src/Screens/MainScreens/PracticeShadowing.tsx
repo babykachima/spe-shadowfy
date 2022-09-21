@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
-import TrackPlayer, { Capability } from 'react-native-track-player';
+import Snackbar from 'react-native-snackbar';
+import TrackPlayer, { Capability, usePlaybackState, useProgress, State } from 'react-native-track-player';
 import { StyleSheet, TouchableOpacity, View, Image, ScrollView } from 'react-native';
 import { Header } from '../../Common/Components/Header';
 
@@ -15,36 +16,42 @@ TrackPlayer.updateOptions({
 });
 
 const PracticeShadowing: React.FC = () => {
-  const [isPlay, setIsPlay] = useState<boolean>(false);
   const navigation = useNavigation();
+  const playBackState = usePlaybackState();
   const [lessionsDetail] = useGetDetailDataFireStore('lessions', 'nsTbaEpUysbeU7IeGG5m');
-  console.log('lessionsDetail?.audio ==>', lessionsDetail?.audio);
-  const setupPlayer = useCallback(async () => {
-    try {
-      await TrackPlayer.setupPlayer();
-      await TrackPlayer.add([
-        {
-          id: 'nsTbaEpUysbeU7IeGG5m',
-          url: 'https://firebasestorage.googleapis.com/v0/b/spe-shadowfy.appspot.com/o/news%2FPrague%20protests%2FPrague%20Protests%20%E2%80%93%20Level%201.mp3?alt=media&token=f4c4a024-ad8a-4d6c-9980-002a82aaf093',
-          title: lessionsDetail?.title,
-        },
-      ]);
-    } catch (error) {
-      console.log('eerr ==>', error);
-    }
-  }, [lessionsDetail?.title]);
+  const { position, duration, buffered } = useProgress();
 
   useEffect(() => {
+    const setupPlayer = async () => {
+      try {
+        if (!lessionsDetail?.audio) {
+          return;
+        }
+        await TrackPlayer.setupPlayer();
+        await TrackPlayer.add([
+          {
+            id: 'nsTbaEpUysbeU7IeGG5m',
+            url: lessionsDetail?.audio || '',
+            title: lessionsDetail?.title,
+          },
+        ]);
+      } catch (error) {
+        Snackbar.show({
+          text: `${error}`,
+          duration: Snackbar.LENGTH_LONG,
+        });
+      }
+    };
     setupPlayer();
     return () => {
+      console.log('clean up setup');
       setupPlayer();
     };
-  }, [setupPlayer]);
+  }, [lessionsDetail?.audio, lessionsDetail?.title]);
 
   const playTrack = useCallback(async () => {
     try {
       await TrackPlayer.play();
-      setIsPlay(true);
     } catch (error) {
       console.log('error play: ', error);
     }
@@ -52,12 +59,21 @@ const PracticeShadowing: React.FC = () => {
   const pauseTrack = useCallback(async () => {
     try {
       await TrackPlayer.pause();
-      setIsPlay(false);
     } catch (error) {
       console.log('error pause: ', error);
     }
   }, []);
-  //
+  const handleSlidingComplete = useCallback(async (value: number) => {
+    await TrackPlayer.seekTo(value);
+  }, []);
+
+  const convertPosition = useMemo(() => {
+    return new Date(position * 1000).toISOString().substr(14, 5);
+  }, [position]);
+
+  const convertProgressDuration = useMemo(() => {
+    return new Date((duration - position) * 1000).toISOString().substr(14, 5);
+  }, [duration, position]);
 
   return (
     <View style={styles.contain}>
@@ -68,13 +84,22 @@ const PracticeShadowing: React.FC = () => {
       </ScrollView>
       <View style={styles.playMusic}>
         <View style={styles.slide}>
-          <Slider />
+          <Slider
+            value={position}
+            minimumValue={0}
+            maximumValue={duration}
+            onSlidingComplete={(value) => handleSlidingComplete(value)}
+          />
+          <View style={styles.progressContent}>
+            <TextCommon title={convertPosition} containStyles={styles.position} />
+            <TextCommon title={convertProgressDuration} containStyles={styles.duration} />
+          </View>
           <View style={styles.contentButton}>
             <View>
               <TextCommon title="0.25x" />
             </View>
             <View>
-              {isPlay ? (
+              {playBackState === State.Playing ? (
                 <TouchableOpacity onPress={pauseTrack}>
                   <Image source={ic_pause} style={styles.button} />
                 </TouchableOpacity>
@@ -97,13 +122,14 @@ const styles = StyleSheet.create({
   contain: {
     flex: 1,
     justifyContent: 'space-between',
+    backgroundColor: '#ffffff',
   },
   playMusic: {
     width: '100%',
     height: 150,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    backgroundColor: '#c3c3c3',
+    backgroundColor: '#DCE0ED',
   },
   slide: {
     paddingHorizontal: 20,
@@ -127,6 +153,19 @@ const styles = StyleSheet.create({
   button: {
     width: 50,
     height: 50,
+  },
+  progressContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  position: {
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  duration: {
+    fontSize: 16,
+    fontWeight: '500',
   },
 });
 export default PracticeShadowing;
