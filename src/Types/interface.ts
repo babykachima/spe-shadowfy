@@ -23,3 +23,9 @@ export enum EStorage {
   GUEST_MODE = 'GUEST_MODE',
   REFRESH_TOKEN = 'REFRESH_TOKEN',
 }
+
+export interface IRate {
+  id: number;
+  rate: string;
+  value: number;
+}

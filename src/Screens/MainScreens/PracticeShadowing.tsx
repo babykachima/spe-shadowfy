@@ -1,38 +1,74 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
-import TrackPlayer, { Capability } from 'react-native-track-player';
-import { StyleSheet, TouchableOpacity, View, Image, ScrollView } from 'react-native';
+import TrackPlayer, { Capability, usePlaybackState, useProgress, State } from 'react-native-track-player';
+import { StyleSheet, TouchableOpacity, View, Image, ScrollView, Modal } from 'react-native';
 import { Header } from '../../Common/Components/Header';
 
 import { useGetDetailDataFireStore } from '../../Hooks/fetchDataFireStore';
-import { ic_pause, ic_play } from '../../Assets';
+import { ic_cancel, ic_pause, ic_play } from '../../Assets';
 import TextCommon from '../../Common/Components/TextCommon';
+import ButtonCustom from '../../Common/Components/ButtonCustom';
+import { listRates } from '../../Utils';
+import { IRate } from '../../Types';
 
 TrackPlayer.updateOptions({
   capabilities: [Capability.Play, Capability.Pause],
   compactCapabilities: [Capability.Play, Capability.Pause],
 });
+interface IModalPopup {
+  visible: boolean;
+  onCloseModal: () => void;
+  onSelectRateItem: () => void;
+}
+const ModalPopup: React.FC<IModalPopup> = ({ visible, onCloseModal, onSelectRateItem }) => {
+  const selectItemRate = (rate: IRate) => {
+    onSelectRateItem(rate);
+    onCloseModal();
+  };
+  return (
+    <Modal animationType="fade" transparent={true} visible={visible}>
+      <View style={styles.modal}>
+        <View style={styles.contentModal}>
+          <TouchableOpacity style={styles.headerContentModal} onPress={onCloseModal}>
+            <Image source={ic_cancel} style={styles.icon} />
+          </TouchableOpacity>
+          {listRates.map((rate) => (
+            <TouchableOpacity style={styles.listRates} key={rate.id} onPress={() => selectItemRate(rate)}>
+              <TextCommon title={rate.rate} containStyles={styles.titleRate} />
+            </TouchableOpacity>
+          ))}
+        </View>
+      </View>
+    </Modal>
+  );
+};
 
 const PracticeShadowing: React.FC = () => {
-  const [isPlay, setIsPlay] = useState<boolean>(false);
   const navigation = useNavigation();
+  const playBackState = usePlaybackState();
   const [lessionsDetail] = useGetDetailDataFireStore('lessions', 'nsTbaEpUysbeU7IeGG5m');
-  console.log('lessionsDetail?.audio ==>', lessionsDetail?.audio);
+  const { position, duration } = useProgress();
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [rate, setRate] = useState<IRate>();
+
   const setupPlayer = useCallback(async () => {
     try {
+      if (!lessionsDetail?.audio) {
+        return;
+      }
       await TrackPlayer.setupPlayer();
       await TrackPlayer.add([
         {
           id: 'nsTbaEpUysbeU7IeGG5m',
-          url: 'https://firebasestorage.googleapis.com/v0/b/spe-shadowfy.appspot.com/o/news%2FPrague%20protests%2FPrague%20Protests%20%E2%80%93%20Level%201.mp3?alt=media&token=f4c4a024-ad8a-4d6c-9980-002a82aaf093',
+          url: lessionsDetail?.audio || '',
           title: lessionsDetail?.title,
         },
       ]);
     } catch (error) {
-      console.log('eerr ==>', error);
+      console.log('setupPlayer error ->', error);
     }
-  }, [lessionsDetail?.title]);
+  }, [lessionsDetail?.audio, lessionsDetail?.title]);
 
   useEffect(() => {
     setupPlayer();
@@ -44,7 +80,6 @@ const PracticeShadowing: React.FC = () => {
   const playTrack = useCallback(async () => {
     try {
       await TrackPlayer.play();
-      setIsPlay(true);
     } catch (error) {
       console.log('error play: ', error);
     }
@@ -52,12 +87,39 @@ const PracticeShadowing: React.FC = () => {
   const pauseTrack = useCallback(async () => {
     try {
       await TrackPlayer.pause();
-      setIsPlay(false);
     } catch (error) {
       console.log('error pause: ', error);
     }
   }, []);
-  //
+  const handleSlidingComplete = useCallback(async (value: number) => {
+    await TrackPlayer.seekTo(value);
+  }, []);
+  const handleResetTrack = useCallback(async () => {
+    await TrackPlayer.seekTo(0);
+  }, []);
+  const handleSetSpeed = useCallback(async () => {
+    setModalVisible(true);
+    if (rate?.value) {
+      await TrackPlayer.setRate(rate.value);
+    }
+  }, [rate?.value]);
+
+  const convertPosition = useMemo(() => {
+    return new Date(position * 1000).toISOString().substr(14, 5);
+  }, [position]);
+
+  const convertProgressDuration = useMemo(() => {
+    return new Date((duration - position) * 1000).toISOString().substr(14, 5);
+  }, [duration, position]);
+
+  const onHandleCloseModal = useCallback(() => {
+    setModalVisible(false);
+  }, []);
+  const onSelectRateItem = useCallback((itemRate: IRate) => {
+    if (itemRate) {
+      setRate(itemRate);
+    }
+  }, []);
 
   return (
     <View style={styles.contain}>
@@ -68,13 +130,22 @@ const PracticeShadowing: React.FC = () => {
       </ScrollView>
       <View style={styles.playMusic}>
         <View style={styles.slide}>
-          <Slider />
+          <Slider
+            value={position}
+            minimumValue={0}
+            maximumValue={duration}
+            onSlidingComplete={(value) => handleSlidingComplete(value)}
+          />
+          <View style={styles.progressContent}>
+            <TextCommon title={convertPosition} containStyles={styles.position} />
+            <TextCommon title={convertProgressDuration} containStyles={styles.duration} />
+          </View>
           <View style={styles.contentButton}>
+            <TouchableOpacity onPress={handleSetSpeed}>
+              <ButtonCustom title={rate?.rate || ''} />
+            </TouchableOpacity>
             <View>
-              <TextCommon title="0.25x" />
-            </View>
-            <View>
-              {isPlay ? (
+              {playBackState === State.Playing ? (
                 <TouchableOpacity onPress={pauseTrack}>
                   <Image source={ic_pause} style={styles.button} />
                 </TouchableOpacity>
@@ -84,12 +155,14 @@ const PracticeShadowing: React.FC = () => {
                 </TouchableOpacity>
               )}
             </View>
-            <TouchableOpacity>
-              <Image source={ic_play} style={styles.button} />
+            <TouchableOpacity onPress={handleResetTrack}>
+              <ButtonCustom title="Reset" />
             </TouchableOpacity>
           </View>
         </View>
       </View>
+      {/* Modal */}
+      <ModalPopup visible={modalVisible} onCloseModal={onHandleCloseModal} onSelectRateItem={onSelectRateItem} />
     </View>
   );
 };
@@ -97,13 +170,14 @@ const styles = StyleSheet.create({
   contain: {
     flex: 1,
     justifyContent: 'space-between',
+    backgroundColor: '#ffffff',
   },
   playMusic: {
     width: '100%',
     height: 150,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    backgroundColor: '#c3c3c3',
+    backgroundColor: '#DCE0ED',
   },
   slide: {
     paddingHorizontal: 20,
@@ -123,10 +197,56 @@ const styles = StyleSheet.create({
   contentButton: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   button: {
     width: 50,
     height: 50,
+  },
+  progressContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  position: {
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  duration: {
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  // Modal
+  modal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(52, 52, 52, 0.8)',
+  },
+  contentModal: {
+    width: '60%',
+    height: 230,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+  },
+  headerContentModal: {
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    margin: 10,
+    tintColor: 'red',
+  },
+  listRates: {
+    width: '100%',
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  titleRate: {
+    fontWeight: '600',
   },
 });
 export default PracticeShadowing;

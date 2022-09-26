@@ -16,3 +16,4 @@ export const ic_logosignin = require('./images/study-signin.jpg');
 export const ic_study_english = require('./images/study-english.jpg');
 export const ic_pause = require('./images/ic_pause.png');
 export const ic_play = require('./images/ic_play.png');
+export const ic_cancel = require('./images/ic_cancel.png');
