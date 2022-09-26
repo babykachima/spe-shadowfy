@@ -10,7 +10,7 @@ interface ITextProps {
 const TextCommon: React.FC<ITextProps> = ({ title, containStyles, numberOfLines }) => {
   return (
     <View style={styles.contain}>
-      <Text style={[styles.styleText, containStyles]} numberOfLines={numberOfLines}>
+      <Text style={[styles.styleText, containStyles]} numberOfLines={numberOfLines} selectable={true}>
         {title}
       </Text>
     </View>
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   styleText: {
     fontSize: 12,
     color: '#000000',
-    fontFamily: 'Poppins-Regular',
+    // fontFamily: 'Poppins-Regular',
   },
 });
 export default TextCommon;

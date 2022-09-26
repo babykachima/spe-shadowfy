@@ -1,6 +1,7 @@
 {
  "app":{
-   "lession":"bài học",
+  "welcome":"Let's Learning Together!",
+  "lession":"bài học",
   "logout":"Đăng xuất"
  }
 }

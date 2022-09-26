@@ -1,6 +1,7 @@
 import auth from '@react-native-firebase/auth';
 import React, { useCallback } from 'react';
-import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Alert, StyleSheet, TouchableOpacity, View, Button } from 'react-native';
 import Snackbar from 'react-native-snackbar';
 import ButtonCustom from '../../Common/Components/ButtonCustom';
 import { useAppDispatch } from '../../Redux/hooks';
@@ -8,6 +9,7 @@ import { logOut } from '../../Redux/Slices/appSlice';
 
 const UserProfile: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { t, i18n } = useTranslation();
 
   const handleLogOut = useCallback(() => {
     const signOut = async () => {
@@ -32,11 +34,17 @@ const UserProfile: React.FC = () => {
     ]);
   }, [dispatch]);
 
+  const onChangeLanguage = () => {
+    console.log('Change language English');
+    i18n.changeLanguage('en');
+  };
+
   return (
     <View style={styles.contain}>
       <TouchableOpacity onPress={handleLogOut}>
-        <ButtonCustom title="Đăng xuất" />
+        <ButtonCustom title={t('app.logout')} />
       </TouchableOpacity>
+      <Button title="Change language" color="#841584" onPress={onChangeLanguage} />
     </View>
   );
 };
