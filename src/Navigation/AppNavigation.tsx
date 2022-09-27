@@ -1,15 +1,17 @@
-import React, { useMemo } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, { useMemo } from 'react';
 import { getIdUserToken } from '../Redux/selector';
+import '../Translations';
+
 import Login from '../Screens/AuthScreens/Login';
 import Welcome from '../Screens/AuthScreens/Welcome';
 import Home from '../Screens/MainScreens/Home';
 import ListLession from '../Screens/MainScreens/ListLession';
 
-import Tabbar from './Tabbar';
-import PracticeShadowing from '../Screens/MainScreens/PracticeShadowing';
 import { useAppSelector } from '../Redux/hooks';
+import PracticeShadowing from '../Screens/MainScreens/PracticeShadowing';
+import Tabbar from './Tabbar';
 
 const Stack = createNativeStackNavigator();
 

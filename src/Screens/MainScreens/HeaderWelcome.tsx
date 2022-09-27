@@ -1,15 +1,18 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import Avatar from '../../Common/Components/Avatar';
 import TextCommon from '../../Common/Components/TextCommon';
 
 const HeaderWelcome = () => {
+  const { t } = useTranslation();
+
   return (
     <SafeAreaView style={styles.contain}>
       <View style={styles.header}>
         <View style={styles.titleContent}>
           <TextCommon title="Hello,Ethan" containStyles={styles.headerTitle} />
-          <TextCommon title="Let's Learning Together!" containStyles={styles.titleWelcome} />
+          <TextCommon title={t('app.welcome')} containStyles={styles.titleWelcome} />
         </View>
         <Avatar />
       </View>
