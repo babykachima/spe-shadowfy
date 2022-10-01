@@ -29,3 +29,8 @@ export interface IRate {
   rate: string;
   value: number;
 }
+export enum SizeIcon {
+  M = 'm',
+  S = 's',
+  L = 'l',
+}

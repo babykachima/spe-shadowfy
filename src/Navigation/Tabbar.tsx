@@ -1,55 +1,68 @@
-import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import ListLession from '../Screens/MainScreens/ListLession';
+import React, { useMemo } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { ic_home, ic_lessions, ic_setting } from '../Assets';
+import IconCustom from '../Common/Components/IconCustom';
+import TextCommon from '../Common/Components/TextCommon';
 import Home from '../Screens/MainScreens/Home';
-import { ic_home, ic_menu, ic_user } from '../Assets';
-import { Image, StyleSheet } from 'react-native';
+import ListLession from '../Screens/MainScreens/ListLession';
 import UserProfile from '../Screens/MainScreens/UserProfile';
+import { Colors } from '../Utils/colors';
 
 const Tab = createBottomTabNavigator();
+
+interface ICustomBarIcon {
+  iconUrl: number;
+  title: string;
+  focused: boolean;
+}
+
+const CustomBarIcon: React.FC<ICustomBarIcon> = ({ iconUrl, title, focused }) => {
+  const selectedTitle = useMemo(() => {
+    return focused ? styles.selectedTitle : styles.noSelectTitle;
+  }, [focused]);
+  const selectedIcon = useMemo(() => {
+    return focused ? Colors.primaryColor : Colors.grayColor;
+  }, [focused]);
+  return (
+    <View style={styles.icon}>
+      <IconCustom iconUrl={iconUrl} size="l" tintColor={selectedIcon} />
+      <TextCommon title={title} containStyles={selectedTitle} />
+    </View>
+  );
+};
+
 const Tabbar: React.FC = () => {
   const getScreenOptions = () => {
     return {
       headerShown: false,
-      tabBarActiveBackgroundColor: '#FECC31',
     };
   };
+
   return (
-    <Tab.Navigator screenOptions={getScreenOptions}>
+    <Tab.Navigator
+      screenOptions={getScreenOptions}
+      tabBarOptions={{
+        showLabel: false,
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={Home}
-        options={{
-          tabBarLabelStyle: {
-            fontSize: 12,
-            color: '#000000',
-          },
-          tabBarLabel: 'Home',
-          tabBarIcon: () => <Image source={ic_home} style={styles.icon} />,
-        }}
+        options={{ tabBarIcon: ({ focused }) => <CustomBarIcon iconUrl={ic_home} focused={focused} title={'Home'} /> }}
       />
       <Tab.Screen
         name="ListLession"
         component={ListLession}
         options={{
-          tabBarLabelStyle: {
-            fontSize: 12,
-            color: '#000000',
-          },
-          tabBarLabel: 'Lessions',
-          tabBarIcon: () => <Image source={ic_menu} style={styles.icon} />,
+          tabBarIcon: ({ focused }) => <CustomBarIcon iconUrl={ic_lessions} focused={focused} title={'Lessions'} />,
         }}
       />
       <Tab.Screen
         name="UserProfile"
         component={UserProfile}
         options={{
-          tabBarLabelStyle: {
-            fontSize: 12,
-            color: '#000000',
-          },
-          tabBarLabel: 'Person',
-          tabBarIcon: () => <Image source={ic_user} style={styles.icon} />,
+          tabBarIcon: ({ focused }) => <CustomBarIcon iconUrl={ic_setting} focused={focused} title={'Settings'} />,
         }}
       />
     </Tab.Navigator>
@@ -58,8 +71,16 @@ const Tabbar: React.FC = () => {
 
 const styles = StyleSheet.create({
   icon: {
-    width: 25,
-    height: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  selectedTitle: {
+    fontWeight: '600',
+    color: Colors.primaryColor,
+  },
+  noSelectTitle: {
+    color: Colors.grayColor,
   },
 });
 

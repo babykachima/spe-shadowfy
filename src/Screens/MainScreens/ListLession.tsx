@@ -1,9 +1,12 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
-import { FlatList, Image, ListRenderItem, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import ButtonCustom from '../../Common/Components/ButtonCustom';
+import { FlatList, ListRenderItem, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+
+import ItemLessions from '../../Common/Components/ItemLession';
 import TextCommon from '../../Common/Components/TextCommon';
 import { DATA_LESSION, IconCategories } from '../../Common/mockData';
 import { IIconCategories, ILession } from '../../Types';
+import { Screens } from '../../Utils/navigationConfig';
 
 const SlideCategory: React.FC = () => {
   const _renderItem = useCallback<ListRenderItem<IIconCategories>>(({ item }) => {
@@ -18,7 +21,7 @@ const SlideCategory: React.FC = () => {
   };
   return (
     <View>
-      <TextCommon title="LIST LESSION" containStyles={styles.title} />
+      <TextCommon title="List lessions" containStyles={styles.title} />
       <FlatList
         data={IconCategories}
         renderItem={_renderItem}
@@ -32,24 +35,16 @@ const SlideCategory: React.FC = () => {
 };
 
 const Lessions = () => {
-  const _renderItem = useCallback<ListRenderItem<ILession>>(({ item }) => {
-    return (
-      <TouchableOpacity style={styles.containLession} key={item.id}>
-        <View style={styles.img}>
-          <Image source={{ uri: item.image }} style={styles.image} resizeMode="cover" />
-        </View>
-        <View style={styles.content}>
-          <View style={styles.topContent}>
-            <TextCommon title={item.title} containStyles={styles.titleLession} numberOfLines={2} />
-            <TextCommon title={item.description} containStyles={styles.description} numberOfLines={3} />
-          </View>
-          <View style={styles.bottomContent}>
-            <ButtonCustom title="Borrow it" containStyles={styles.button} />
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  }, []);
+  const navigation = useNavigation();
+  const navigateScreen = useCallback(() => {
+    navigation.navigate(Screens.PracticeShadowing as never);
+  }, [navigation]);
+  const _renderItem = useCallback<ListRenderItem<ILession>>(
+    ({ item }) => {
+      return <ItemLessions item={item} onPress={navigateScreen} />;
+    },
+    [navigateScreen]
+  );
   const _keyExtractor = (item: ILession) => {
     return `${item.id}`;
   };

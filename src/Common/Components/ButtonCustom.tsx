@@ -1,32 +1,31 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Colors } from '../../Utils/colors';
 import TextCommon from './TextCommon';
 
 interface IButtonProps {
   title: string;
   containStyles?: any;
+  styleTitle?: any;
+  onPress: () => void;
 }
 
-const ButtonCustom: React.FC<IButtonProps> = ({ title, containStyles }) => {
+const ButtonCustom: React.FC<IButtonProps> = ({ title, styleTitle, containStyles, onPress }) => {
   return (
-    <View style={[styles.button, containStyles]}>
-      <TextCommon title={title} containStyles={title} />
-    </View>
+    <TouchableOpacity style={[styles.button, containStyles]} onPress={onPress}>
+      <TextCommon title={title} containStyles={styleTitle} />
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#FECC31',
+    backgroundColor: Colors.primaryColor,
     padding: 10,
     borderRadius: 50,
     width: 100,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  title: {
-    fontSize: 12,
-    textAlign: 'center',
   },
 });
 
