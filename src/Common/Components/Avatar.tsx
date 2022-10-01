@@ -3,7 +3,6 @@ import { Image, StyleSheet, View } from 'react-native';
 import { ic_avatar } from '../../Assets';
 
 const Avatar = () => {
-  console.log('ic_avatar -->', typeof ic_avatar);
   return (
     <View style={styles.contain}>
       <Image source={ic_avatar} resizeMode="cover" style={styles.styleImage} />
@@ -14,8 +13,8 @@ const Avatar = () => {
 const styles = StyleSheet.create({
   contain: {},
   styleImage: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     borderRadius: 50,
   },
 });

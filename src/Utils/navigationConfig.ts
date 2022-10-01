@@ -4,6 +4,7 @@ export const Screens = {
   PracticeShadowing: 'PracticeShadowing',
   Welcome: 'Welcome',
   Login: 'Login',
+  Settings: 'Settings',
 };
 
 export type RootStackParamList = {};

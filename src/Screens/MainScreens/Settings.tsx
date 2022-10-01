@@ -3,11 +3,13 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, StyleSheet, TouchableOpacity, View, Button } from 'react-native';
 import Snackbar from 'react-native-snackbar';
+import Avatar from '../../Common/Components/Avatar';
 import ButtonCustom from '../../Common/Components/ButtonCustom';
+import TextCommon from '../../Common/Components/TextCommon';
 import { useAppDispatch } from '../../Redux/hooks';
 import { logOut } from '../../Redux/Slices/appSlice';
 
-const UserProfile: React.FC = () => {
+const Settings: React.FC = () => {
   const dispatch = useAppDispatch();
   const { t, i18n } = useTranslation();
 
@@ -41,10 +43,13 @@ const UserProfile: React.FC = () => {
 
   return (
     <View style={styles.contain}>
-      <TouchableOpacity onPress={handleLogOut}>
-        <ButtonCustom title={t('app.logout')} />
-      </TouchableOpacity>
-      <Button title="Change language" color="#841584" onPress={onChangeLanguage} />
+      <View style={styles.header}>
+        <Avatar />
+        <View>
+          <TextCommon title="Tuan Nguyen" />
+          <TextCommon title="09872832372" />
+        </View>
+      </View>
     </View>
   );
 };
@@ -54,9 +59,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
   button: {
     backgroundColor: 'pink',
     borderRadius: 10,
   },
 });
-export default UserProfile;
+export default Settings;

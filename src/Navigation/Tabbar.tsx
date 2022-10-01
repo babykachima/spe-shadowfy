@@ -6,7 +6,7 @@ import IconCustom from '../Common/Components/IconCustom';
 import TextCommon from '../Common/Components/TextCommon';
 import Home from '../Screens/MainScreens/Home';
 import ListLession from '../Screens/MainScreens/ListLession';
-import UserProfile from '../Screens/MainScreens/UserProfile';
+import Settings from '../Screens/MainScreens/Settings';
 import { Colors } from '../Utils/colors';
 
 const Tab = createBottomTabNavigator();
@@ -59,8 +59,8 @@ const Tabbar: React.FC = () => {
         }}
       />
       <Tab.Screen
-        name="UserProfile"
-        component={UserProfile}
+        name="Settings"
+        component={Settings}
         options={{
           tabBarIcon: ({ focused }) => <CustomBarIcon iconUrl={ic_setting} focused={focused} title={'Settings'} />,
         }}

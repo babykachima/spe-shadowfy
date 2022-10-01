@@ -12,7 +12,9 @@ const Sections: React.FC<ISectionProps> = ({ onMoveScreen }) => {
   return (
     <View>
       {DATA_LESSION.map((item) => (
-        <ItemLessions item={item} onPress={onMoveScreen} />
+        <React.Fragment key={item.id}>
+          <ItemLessions item={item} onPress={onMoveScreen} />
+        </React.Fragment>
       ))}
     </View>
   );

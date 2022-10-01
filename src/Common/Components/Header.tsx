@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { TouchableOpacity, View, Image, StyleSheet, SafeAreaView } from 'react-native';
-import { ic_arrow_back, ic_menu } from '../../Assets';
+import { ic_goback, ic_question } from '../../Assets';
+import { Colors } from '../../Utils/colors';
 import TextCommon from './TextCommon';
 
 interface IHeader {
@@ -16,14 +17,14 @@ export const Header: React.FC<IHeader> = ({ title, goBack, rightIcon }) => {
     }
     return (
       <TouchableOpacity>
-        <Image source={ic_menu} style={styles.img} />
+        <Image source={ic_question} style={styles.img} />
       </TouchableOpacity>
     );
   }, [rightIcon]);
   return (
     <SafeAreaView style={styles.contain}>
       <TouchableOpacity onPress={goBack} style={styles.icon}>
-        <Image source={ic_arrow_back} style={styles.img} />
+        <Image source={ic_goback} style={styles.img} />
       </TouchableOpacity>
       <View style={styles.contentTitle}>
         <TextCommon title={title} containStyles={styles.title} />
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
   img: {
     width: 18,
     height: 18,
+    tintColor: Colors.textColor,
   },
   icon: {
     marginLeft: 10,

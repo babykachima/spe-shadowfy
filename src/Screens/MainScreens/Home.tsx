@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { Colors } from '../../Utils/colors';
 import { Screens } from '../../Utils/navigationConfig';
 
 import HeaderWelcome from './HeaderWelcome';
@@ -28,6 +29,7 @@ const Home: React.FC = () => {
 const styles = StyleSheet.create({
   contain: {
     flex: 1,
+    backgroundColor: Colors.white,
   },
   header: {},
   categoryHeader: {

@@ -1,4 +1,4 @@
-import { ic_funny, ic_history, ic_interseting, ic_nature, ic_news, ic_sport } from '../../Assets';
+import { ic_paper } from '../../Assets';
 import { IBanner, IIconCategories, ILession } from '../../Types';
 
 export const dataBanner: Array<IBanner> = [
@@ -28,32 +28,32 @@ export const IconCategories: Array<IIconCategories> = [
   {
     id: 1,
     title: 'Funny',
-    icon: ic_funny,
+    icon: ic_paper,
   },
   {
     id: 2,
     title: 'History',
-    icon: ic_history,
+    icon: ic_paper,
   },
   {
     id: 3,
     title: 'Interseting',
-    icon: ic_interseting,
+    icon: ic_paper,
   },
   {
     id: 4,
     title: 'Nature',
-    icon: ic_nature,
+    icon: ic_paper,
   },
   {
     id: 5,
     title: 'News',
-    icon: ic_news,
+    icon: ic_paper,
   },
   {
     id: 6,
     title: 'Sport',
-    icon: ic_sport,
+    icon: ic_paper,
   },
 ];
 export const DATA_LESSION: Array<ILession> = [
