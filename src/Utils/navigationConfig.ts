@@ -5,6 +5,8 @@ export const Screens = {
   Welcome: 'Welcome',
   Login: 'Login',
   Settings: 'Settings',
+  Sentence: 'Sentence',
+  Pharagraph: 'Pharagraph',
 };
 
 export type RootStackParamList = {};

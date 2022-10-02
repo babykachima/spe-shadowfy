@@ -2,7 +2,7 @@
 export const ic_arrow_right = require('./images/icons/ic_arrow_right.png');
 export const ic_cancel = require('./images/icons/ic_cancel.png');
 export const ic_faq = require('./images/icons/ic_faq.png');
-export const ic_goback = require('./images/icons/ic_goback.png');
+export const ic_goback = require('./images/icons/ic_arrow_back.png');
 export const ic_home = require('./images/icons/ic_home.png');
 export const ic_info = require('./images/icons/ic_info.png');
 export const ic_lessions = require('./images/icons/ic_lessions.png');

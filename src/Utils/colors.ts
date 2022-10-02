@@ -7,6 +7,7 @@ interface IColors {
   borderColor: string;
   grayColor: string;
   cardColor: string;
+  bgModalColor: string;
 }
 
 export const Colors: IColors = {
@@ -14,8 +15,9 @@ export const Colors: IColors = {
   primaryColorLayout: '#D0C9F1FF',
   textColor: '#1A191EFF',
   white: '#FFFFFF',
-  warningColor: '#EB383EFF',
+  warningColor: '#F27D81',
   borderColor: '#ACADAD',
   grayColor: '#5D5C67',
-  cardColor: '#FFF9F9',
+  cardColor: '#EAEAEB',
+  bgModalColor: '#F9F9FA',
 };
