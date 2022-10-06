@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
+import { Colors } from '../../Utils/colors';
 
 interface ITextProps {
   title: string;
@@ -21,8 +22,8 @@ const styles = StyleSheet.create({
   contain: {},
   styleText: {
     fontSize: 12,
-    color: '#000000',
-    // fontFamily: 'Poppins-Regular',
+    color: Colors.textColor,
+    fontFamily: 'Poppins-Regular',
   },
 });
 export default TextCommon;

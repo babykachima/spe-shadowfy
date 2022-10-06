@@ -5,7 +5,7 @@ export interface IBanner {
 export interface IIconCategories {
   id: number;
   title: string;
-  icon: string;
+  icon: string | number;
 }
 export interface ILession {
   id: number | string;
@@ -28,4 +28,9 @@ export interface IRate {
   id: number;
   rate: string;
   value: number;
+}
+export enum SizeIcon {
+  M = 'm',
+  S = 's',
+  L = 'l',
 }

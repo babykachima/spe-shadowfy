@@ -1,8 +1,31 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { FlatList, ListRenderItem, SafeAreaView, StyleSheet, View } from 'react-native';
 import Avatar from '../../Common/Components/Avatar';
 import TextCommon from '../../Common/Components/TextCommon';
+import { dataBanner } from '../../Common/mockData';
+import { IBanner } from '../../Types';
+import ItemBanner from './ItemBanner';
+
+const Banner = () => {
+  const _renderItem = useCallback<ListRenderItem<IBanner>>(({ item }) => {
+    return <ItemBanner data={item} />;
+  }, []);
+  const _keyExtractor = (item: IBanner) => {
+    return `${item.id}`;
+  };
+  return (
+    <FlatList
+      data={dataBanner}
+      renderItem={_renderItem}
+      keyExtractor={_keyExtractor}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      pagingEnabled={true}
+      nestedScrollEnabled={true}
+    />
+  );
+};
 
 const HeaderWelcome = () => {
   const { t } = useTranslation();
@@ -16,6 +39,7 @@ const HeaderWelcome = () => {
         </View>
         <Avatar />
       </View>
+      <Banner />
     </SafeAreaView>
   );
 };

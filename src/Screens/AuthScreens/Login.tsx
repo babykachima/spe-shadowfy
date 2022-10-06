@@ -3,12 +3,13 @@ import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-si
 import React from 'react';
 import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Snackbar from 'react-native-snackbar';
-import { ic_facebook, ic_google, ic_logosignin } from '../../Assets';
+import { ic_google, ic_view_02 } from '../../Assets';
 
 import TextCommon from '../../Common/Components/TextCommon';
 import { useAppDispatch } from '../../Redux/hooks';
 import { setAccessToken } from '../../Redux/Slices/appSlice';
 import { configGoogleSignIn } from '../../Utils';
+import { Colors } from '../../Utils/colors';
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -46,24 +47,23 @@ const Login: React.FC = () => {
       }
     }
   };
-  const handleLoginFacebook = () => {};
+
   return (
     <SafeAreaView style={styles.contain}>
       <View style={styles.header}>
-        <View style={styles.contentHeader}>
+        <View style={styles.titleHeader}>
           <TextCommon title="Sign In" containStyles={styles.title} />
-          <TextCommon title="Let's go on start with interesting lessons!" containStyles={styles.description} />
         </View>
-        <Image source={ic_logosignin} style={styles.logo} resizeMode="cover" />
+        <View style={styles.contentImg}>
+          <Image source={ic_view_02} style={styles.logo} resizeMode="cover" />
+        </View>
       </View>
       <View style={styles.socialContent}>
+        <TextCommon title="Let's go on start with interesting lessons!" containStyles={styles.description} />
+        <TextCommon title="login with" containStyles={styles.loginWith} />
         <TouchableOpacity style={[styles.button, styles.btnGoogle]} onPress={handleLoginGoogle}>
           <Image source={ic_google} style={styles.icon} />
           <TextCommon title="Continue with Google" containStyles={styles.text} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleLoginFacebook}>
-          <Image source={ic_facebook} style={styles.icon} />
-          <TextCommon title="Continue with Facebook" containStyles={styles.text} />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -73,31 +73,42 @@ const Login: React.FC = () => {
 const styles = StyleSheet.create({
   contain: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Colors.white,
   },
   header: {
-    justifyContent: 'center',
-    alignItems: 'center',
     marginBottom: 40,
   },
-  contentHeader: {
-    marginBottom: 20,
+  titleHeader: {
+    margin: 20,
+  },
+  contentImg: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   logo: {
-    width: '100%',
-    height: 230,
+    maxWidth: 350,
+    height: 350,
   },
   title: {
-    fontSize: 30,
-    fontWeight: '600',
+    fontSize: 28,
+    fontWeight: 'bold',
     marginTop: 10,
   },
   description: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  loginWith: {
     fontSize: 16,
-    fontWeight: '400',
+    fontWeight: 'bold',
+    marginVertical: 20,
+    color: Colors.primaryColor,
   },
   socialContent: {
-    paddingHorizontal: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
   },
   icon: {
     width: 30,
@@ -112,7 +123,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderWidth: 1,
     borderRadius: 40,
-    borderColor: '#ACADAD',
+    borderColor: Colors.borderColor,
   },
   btnGoogle: {
     marginBottom: 15,

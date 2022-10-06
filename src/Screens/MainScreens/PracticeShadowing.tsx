@@ -6,11 +6,14 @@ import { StyleSheet, TouchableOpacity, View, Image, ScrollView, Modal } from 're
 import { Header } from '../../Common/Components/Header';
 
 import { useGetDetailDataFireStore } from '../../Hooks/fetchDataFireStore';
-import { ic_cancel, ic_pause, ic_play } from '../../Assets';
+import { ic_cancel, ic_pause, ic_play, ic_translation } from '../../Assets';
 import TextCommon from '../../Common/Components/TextCommon';
-import ButtonCustom from '../../Common/Components/ButtonCustom';
+import ButtonCustom, { ButtonIconCustom } from '../../Common/Components/ButtonCustom';
 import { listRates } from '../../Utils';
 import { IRate } from '../../Types';
+import { Colors } from '../../Utils/colors';
+import IconCustom from '../../Common/Components/IconCustom';
+import { PopoverNote } from '../../Common/Components/PopoverCustom';
 
 TrackPlayer.updateOptions({
   capabilities: [Capability.Play, Capability.Pause],
@@ -51,6 +54,16 @@ const PracticeShadowing: React.FC = () => {
   const { position, duration } = useProgress();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [rate, setRate] = useState<IRate>();
+  //
+
+  const [isOpenPopover, setIsOpenPopover] = useState(false);
+
+  const setOpenPopover = useCallback(() => {
+    setIsOpenPopover(true);
+  }, []);
+  const setClosePopover = useCallback(() => {
+    setIsOpenPopover(false);
+  }, []);
 
   const setupPlayer = useCallback(async () => {
     try {
@@ -123,10 +136,17 @@ const PracticeShadowing: React.FC = () => {
 
   return (
     <View style={styles.contain}>
-      <Header title="Practice" goBack={navigation.goBack} />
+      <Header title="Practice" goBack={navigation.goBack} onPressPopover={setOpenPopover} rightIcon={true} />
       <ScrollView style={styles.contentDescription}>
         <TextCommon title={lessionsDetail?.title || ''} containStyles={styles.title} numberOfLines={2} />
         <TextCommon title={lessionsDetail?.description || ''} containStyles={styles.textDes} />
+        <ButtonIconCustom
+          iconUrl={ic_translation}
+          title={'Translate'}
+          tintColor={Colors.white}
+          onPress={() => console.log('Translate')}
+          containStyles={styles.buttonIcon}
+        />
       </ScrollView>
       <View style={styles.playMusic}>
         <View style={styles.slide}>
@@ -134,6 +154,8 @@ const PracticeShadowing: React.FC = () => {
             value={position}
             minimumValue={0}
             maximumValue={duration}
+            maximumTrackTintColor={Colors.primaryColorLayout}
+            minimumTrackTintColor={Colors.primaryColor}
             onSlidingComplete={(value) => handleSlidingComplete(value)}
           />
           <View style={styles.progressContent}>
@@ -141,28 +163,25 @@ const PracticeShadowing: React.FC = () => {
             <TextCommon title={convertProgressDuration} containStyles={styles.duration} />
           </View>
           <View style={styles.contentButton}>
-            <TouchableOpacity onPress={handleSetSpeed}>
-              <ButtonCustom title={rate?.rate || ''} />
-            </TouchableOpacity>
+            <ButtonCustom title={rate?.rate || ''} onPress={handleSetSpeed} containStyles={styles.button} />
             <View>
               {playBackState === State.Playing ? (
                 <TouchableOpacity onPress={pauseTrack}>
-                  <Image source={ic_pause} style={styles.button} />
+                  <IconCustom iconUrl={ic_pause} />
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity onPress={playTrack}>
-                  <Image source={ic_play} style={styles.button} />
+                  <IconCustom iconUrl={ic_play} />
                 </TouchableOpacity>
               )}
             </View>
-            <TouchableOpacity onPress={handleResetTrack}>
-              <ButtonCustom title="Reset" />
-            </TouchableOpacity>
+            <ButtonCustom title="Reset" onPress={handleResetTrack} containStyles={styles.button} />
           </View>
         </View>
       </View>
       {/* Modal */}
       <ModalPopup visible={modalVisible} onCloseModal={onHandleCloseModal} onSelectRateItem={onSelectRateItem} />
+      <PopoverNote isVisible={isOpenPopover} onRequestClose={setClosePopover} />
     </View>
   );
 };
@@ -170,14 +189,14 @@ const styles = StyleSheet.create({
   contain: {
     flex: 1,
     justifyContent: 'space-between',
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.white,
   },
   playMusic: {
     width: '100%',
     height: 150,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    backgroundColor: '#DCE0ED',
+    backgroundColor: Colors.bgModalColor,
   },
   slide: {
     paddingHorizontal: 20,
@@ -200,8 +219,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    width: 50,
-    height: 50,
+    borderRadius: 10,
+  },
+  buttonIcon: {
+    borderRadius: 10,
+    marginVertical: 20,
   },
   progressContent: {
     flexDirection: 'row',

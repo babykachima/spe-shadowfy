@@ -1,34 +1,37 @@
 import React, { useMemo } from 'react';
-import { TouchableOpacity, View, Image, StyleSheet, SafeAreaView } from 'react-native';
-import { ic_arrow_back, ic_menu } from '../../Assets';
+import { TouchableOpacity, View, StyleSheet, SafeAreaView } from 'react-native';
+import { ic_goback, ic_info } from '../../Assets';
+import { Colors } from '../../Utils/colors';
+import IconCustom from './IconCustom';
 import TextCommon from './TextCommon';
 
 interface IHeader {
   title: string;
   goBack: () => void;
   rightIcon?: boolean;
+  onPressPopover?: () => void;
 }
 
-export const Header: React.FC<IHeader> = ({ title, goBack, rightIcon }) => {
-  const renderRightItem = useMemo(() => {
+export const Header: React.FC<IHeader> = ({ title, goBack, onPressPopover, rightIcon }) => {
+  const renderRightIcon = useMemo(() => {
     if (!rightIcon) {
       return <View style={styles.rightItem} />;
     }
     return (
-      <TouchableOpacity>
-        <Image source={ic_menu} style={styles.img} />
+      <TouchableOpacity style={styles.iconRight} onPress={onPressPopover}>
+        <IconCustom iconUrl={ic_info} size="l" />
       </TouchableOpacity>
     );
-  }, [rightIcon]);
+  }, [onPressPopover, rightIcon]);
   return (
     <SafeAreaView style={styles.contain}>
-      <TouchableOpacity onPress={goBack} style={styles.icon}>
-        <Image source={ic_arrow_back} style={styles.img} />
+      <TouchableOpacity onPress={goBack} style={styles.iconLeft}>
+        <IconCustom iconUrl={ic_goback} size="l" />
       </TouchableOpacity>
       <View style={styles.contentTitle}>
         <TextCommon title={title} containStyles={styles.title} />
       </View>
-      {renderRightItem}
+      {renderRightIcon}
     </SafeAreaView>
   );
 };
@@ -43,11 +46,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   img: {
-    width: 18,
-    height: 18,
+    width: 20,
+    height: 20,
+    tintColor: Colors.textColor,
   },
-  icon: {
+  iconLeft: {
     marginLeft: 10,
+    marginBottom: 10,
+  },
+  iconRight: {
+    marginRight: 10,
     marginBottom: 10,
   },
   title: {
