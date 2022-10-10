@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     paddingVertical: 20,
-    paddingHorizontal: 20,
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -51,11 +50,11 @@ const styles = StyleSheet.create({
     tintColor: Colors.textColor,
   },
   iconLeft: {
-    marginLeft: 10,
+    marginLeft: 2,
     marginBottom: 10,
   },
   iconRight: {
-    marginRight: 10,
+    marginRight: 2,
     marginBottom: 10,
   },
   title: {

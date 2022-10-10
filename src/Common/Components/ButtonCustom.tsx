@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
   buttonIcon: {
     maxWidth: 120,
     backgroundColor: Colors.primaryColor,
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
     borderRadius: 10,
     flexDirection: 'row',
     justifyContent: 'flex-start',

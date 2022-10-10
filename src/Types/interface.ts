@@ -24,11 +24,6 @@ export enum EStorage {
   REFRESH_TOKEN = 'REFRESH_TOKEN',
 }
 
-export interface IRate {
-  id: number;
-  rate: string;
-  value: number;
-}
 export enum SizeIcon {
   M = 'm',
   S = 's',

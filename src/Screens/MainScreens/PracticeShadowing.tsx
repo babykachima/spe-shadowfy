@@ -1,61 +1,29 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
-import TrackPlayer, { Capability, usePlaybackState, useProgress, State } from 'react-native-track-player';
-import { StyleSheet, TouchableOpacity, View, Image, ScrollView, Modal } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import TrackPlayer, { Capability, State, usePlaybackState, useProgress } from 'react-native-track-player';
 import { Header } from '../../Common/Components/Header';
 
-import { useGetDetailDataFireStore } from '../../Hooks/fetchDataFireStore';
-import { ic_cancel, ic_pause, ic_play, ic_translation } from '../../Assets';
-import TextCommon from '../../Common/Components/TextCommon';
+import { ic_pause, ic_play, ic_translation } from '../../Assets';
 import ButtonCustom, { ButtonIconCustom } from '../../Common/Components/ButtonCustom';
-import { listRates } from '../../Utils';
-import { IRate } from '../../Types';
-import { Colors } from '../../Utils/colors';
+import TextCommon from '../../Common/Components/TextCommon';
+import { useGetDetailDataFireStore } from '../../Hooks/fetchDataFireStore';
+
 import IconCustom from '../../Common/Components/IconCustom';
 import { PopoverNote } from '../../Common/Components/PopoverCustom';
+import { Colors } from '../../Utils/colors';
 
 TrackPlayer.updateOptions({
   capabilities: [Capability.Play, Capability.Pause],
   compactCapabilities: [Capability.Play, Capability.Pause],
 });
-interface IModalPopup {
-  visible: boolean;
-  onCloseModal: () => void;
-  onSelectRateItem: () => void;
-}
-const ModalPopup: React.FC<IModalPopup> = ({ visible, onCloseModal, onSelectRateItem }) => {
-  const selectItemRate = (rate: IRate) => {
-    onSelectRateItem(rate);
-    onCloseModal();
-  };
-  return (
-    <Modal animationType="fade" transparent={true} visible={visible}>
-      <View style={styles.modal}>
-        <View style={styles.contentModal}>
-          <TouchableOpacity style={styles.headerContentModal} onPress={onCloseModal}>
-            <Image source={ic_cancel} style={styles.icon} />
-          </TouchableOpacity>
-          {listRates.map((rate) => (
-            <TouchableOpacity style={styles.listRates} key={rate.id} onPress={() => selectItemRate(rate)}>
-              <TextCommon title={rate.rate} containStyles={styles.titleRate} />
-            </TouchableOpacity>
-          ))}
-        </View>
-      </View>
-    </Modal>
-  );
-};
 
 const PracticeShadowing: React.FC = () => {
   const navigation = useNavigation();
   const playBackState = usePlaybackState();
   const [lessionsDetail] = useGetDetailDataFireStore('lessions', 'nsTbaEpUysbeU7IeGG5m');
   const { position, duration } = useProgress();
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [rate, setRate] = useState<IRate>();
-  //
-
   const [isOpenPopover, setIsOpenPopover] = useState(false);
 
   const setOpenPopover = useCallback(() => {
@@ -111,11 +79,8 @@ const PracticeShadowing: React.FC = () => {
     await TrackPlayer.seekTo(0);
   }, []);
   const handleSetSpeed = useCallback(async () => {
-    setModalVisible(true);
-    if (rate?.value) {
-      await TrackPlayer.setRate(rate.value);
-    }
-  }, [rate?.value]);
+    await TrackPlayer.setRate(1);
+  }, []);
 
   const convertPosition = useMemo(() => {
     return new Date(position * 1000).toISOString().substr(14, 5);
@@ -125,18 +90,9 @@ const PracticeShadowing: React.FC = () => {
     return new Date((duration - position) * 1000).toISOString().substr(14, 5);
   }, [duration, position]);
 
-  const onHandleCloseModal = useCallback(() => {
-    setModalVisible(false);
-  }, []);
-  const onSelectRateItem = useCallback((itemRate: IRate) => {
-    if (itemRate) {
-      setRate(itemRate);
-    }
-  }, []);
-
   return (
     <View style={styles.contain}>
-      <Header title="Practice" goBack={navigation.goBack} onPressPopover={setOpenPopover} rightIcon={true} />
+      <Header title="Practice Shadowing" goBack={navigation.goBack} onPressPopover={setOpenPopover} rightIcon={true} />
       <ScrollView style={styles.contentDescription}>
         <TextCommon title={lessionsDetail?.title || ''} containStyles={styles.title} numberOfLines={2} />
         <TextCommon title={lessionsDetail?.description || ''} containStyles={styles.textDes} />
@@ -163,7 +119,7 @@ const PracticeShadowing: React.FC = () => {
             <TextCommon title={convertProgressDuration} containStyles={styles.duration} />
           </View>
           <View style={styles.contentButton}>
-            <ButtonCustom title={rate?.rate || ''} onPress={handleSetSpeed} containStyles={styles.button} />
+            <ButtonCustom title={'1x'} onPress={handleSetSpeed} containStyles={styles.button} />
             <View>
               {playBackState === State.Playing ? (
                 <TouchableOpacity onPress={pauseTrack}>
@@ -180,7 +136,6 @@ const PracticeShadowing: React.FC = () => {
         </View>
       </View>
       {/* Modal */}
-      <ModalPopup visible={modalVisible} onCloseModal={onHandleCloseModal} onSelectRateItem={onSelectRateItem} />
       <PopoverNote isVisible={isOpenPopover} onRequestClose={setClosePopover} />
     </View>
   );
