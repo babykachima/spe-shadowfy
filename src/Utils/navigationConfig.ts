@@ -7,9 +7,14 @@ export const Screens = {
   Settings: 'Settings',
   Sentence: 'Sentence',
   Pharagraph: 'Pharagraph',
+  CheckVoice: 'CheckVoice',
 };
 
-export type RootStackParamList = {};
+export type RootStackParamList = {
+  CheckVoice: {
+    data: string;
+  };
+};
 
 export enum IKeyScreen {
   Dashboard,

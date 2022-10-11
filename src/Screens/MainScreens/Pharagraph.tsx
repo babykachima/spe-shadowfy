@@ -11,11 +11,12 @@ import { Colors } from '../../Utils/colors';
 import Voice from '@react-native-voice/voice';
 
 import ShadowComponent from '../../Common/Components/ShadowComponent';
+import { Screens } from '../../Utils/navigationConfig';
 
 const Pharagraph: React.FC = () => {
   const navigation = useNavigation();
   const [lessionsDetail] = useGetDetailDataFireStore('lessions', 'nsTbaEpUysbeU7IeGG5m');
-  const [result, setResult] = useState('');
+  const [result, setResult] = useState<string>('');
   const [isLoading, setLoading] = useState(false);
   //Recording
   useEffect(() => {
@@ -114,6 +115,15 @@ const Pharagraph: React.FC = () => {
   const handleSlidingComplete = useCallback(async (value: number) => {
     await TrackPlayer.seekTo(value);
   }, []);
+
+  const handleCheckVoiceResult = useCallback(() => {
+    navigation.navigate(Screens.CheckVoice as never, {
+      data: {
+        result: result,
+        content: lessionsDetail?.description,
+      },
+    });
+  }, [navigation, result]);
   return (
     <View style={styles.contain}>
       <Header title={'Pharagraph'} rightIcon={false} goBack={navigation.goBack} />
@@ -132,6 +142,7 @@ const Pharagraph: React.FC = () => {
         stopRecording={stopRecording}
         onTextChange={onHandleTextChange}
         clearTextVoice={onHandleClearTextVoice}
+        onCheckVoice={handleCheckVoiceResult}
       />
     </View>
   );

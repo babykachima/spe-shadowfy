@@ -13,6 +13,7 @@ interface IShadow {
   stopRecording: () => void;
   onTextChange: (text: string) => void;
   clearTextVoice: () => void;
+  onCheckVoice: () => void;
 }
 
 const ShadowComponent: React.FC<IShadow> = ({
@@ -22,6 +23,7 @@ const ShadowComponent: React.FC<IShadow> = ({
   stopRecording,
   onTextChange,
   clearTextVoice,
+  onCheckVoice,
 }) => {
   const renderStatusButton = useMemo(() => {
     return value ? false : true;
@@ -52,7 +54,7 @@ const ShadowComponent: React.FC<IShadow> = ({
             <TextCommon title="Start Voice" containStyles={styles.textVoice} />
           </View>
         )}
-        <ButtonCustom title="Check" onPress={() => console.log('Check value')} disabled={renderStatusButton} />
+        <ButtonCustom title="Check" onPress={onCheckVoice} disabled={renderStatusButton} />
       </View>
     </View>
   );
