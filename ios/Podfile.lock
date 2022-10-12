@@ -1123,6 +1123,8 @@ PODS:
     - SwiftAudioEx (= 0.15.2)
   - react-native-voice (3.2.4):
     - React-Core
+  - react-native-webview (11.23.1):
+    - React-Core
   - React-perflogger (0.69.5)
   - React-RCTActionSheet (0.69.5):
     - React-Core/RCTActionSheetHeaders (= 0.69.5)
@@ -1280,6 +1282,7 @@ DEPENDENCIES:
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - react-native-track-player (from `../node_modules/react-native-track-player`)
   - "react-native-voice (from `../node_modules/@react-native-voice/voice`)"
+  - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -1402,6 +1405,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-track-player"
   react-native-voice:
     :path: "../node_modules/@react-native-voice/voice"
+  react-native-webview:
+    :path: "../node_modules/react-native-webview"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -1514,6 +1519,7 @@ SPEC CHECKSUMS:
   react-native-slider: d3ae4270cf8a8cc45a69912db0cc42b151560d5a
   react-native-track-player: 12c7bdc776f11c382c11fecdade3743ebe0af78c
   react-native-voice: f5e8eec2278451d0017eb6a30a6ccc726aca34e0
+  react-native-webview: d33e2db8925d090871ffeb232dfa50cb3a727581
   React-perflogger: 367418425c5e4a9f0f80385ee1eaacd2a7348f8e
   React-RCTActionSheet: e4885e7136f98ded1137cd3daccc05eaed97d5a6
   React-RCTAnimation: 7c5a74f301c9b763343ba98a3dd776ed2676993f

@@ -15,6 +15,7 @@ import Tabbar from './Tabbar';
 import Sentence from '../Screens/MainScreens/Sentence';
 import Pharagraph from '../Screens/MainScreens/Pharagraph';
 import CheckVoice from '../Screens/MainScreens/CheckVoice';
+import Translations from '../Screens/MainScreens/Translation';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +41,7 @@ const App = () => {
         <Stack.Screen name="Sentence" component={Sentence} />
         <Stack.Screen name="Pharagraph" component={Pharagraph} />
         <Stack.Screen name="CheckVoice" component={CheckVoice} />
+        <Stack.Screen name="Translations" component={Translations} />
       </React.Fragment>
     );
   }, []);

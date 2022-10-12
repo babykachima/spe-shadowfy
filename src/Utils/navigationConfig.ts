@@ -8,6 +8,7 @@ export const Screens = {
   Sentence: 'Sentence',
   Pharagraph: 'Pharagraph',
   CheckVoice: 'CheckVoice',
+  Translations: 'Translations',
 };
 
 export type RootStackParamList = {
