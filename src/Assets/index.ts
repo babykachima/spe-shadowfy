@@ -16,6 +16,8 @@ export const ic_play = require('./images/icons/ic_play.png');
 export const ic_question = require('./images/icons/ic_question.png');
 export const ic_setting = require('./images/icons/ic_setting.png');
 export const ic_translation = require('./images/icons/ic_translation.png');
+export const ic_vietnam = require('./images/icons/ic_vietnam.png');
+export const ic_uk = require('./images/icons/ic_united_kingdom.png');
 
 // LIST IMAGES
 export const ic_view_01 = require('./images/ic_view_01.png');
