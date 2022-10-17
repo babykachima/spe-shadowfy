@@ -16,6 +16,8 @@ import Sentence from '../Screens/MainScreens/Sentence';
 import Pharagraph from '../Screens/MainScreens/Pharagraph';
 import CheckVoice from '../Screens/MainScreens/CheckVoice';
 import Translations from '../Screens/MainScreens/Translation';
+import FAQ from '../Screens/MainScreens/FAQ';
+import TermAndPolicy from '../Screens/MainScreens/TermAndPolicy';
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +44,8 @@ const App = () => {
         <Stack.Screen name="Pharagraph" component={Pharagraph} />
         <Stack.Screen name="CheckVoice" component={CheckVoice} />
         <Stack.Screen name="Translations" component={Translations} />
+        <Stack.Screen name="FAQ" component={FAQ} />
+        <Stack.Screen name="TermAndPolicy" component={TermAndPolicy} />
       </React.Fragment>
     );
   }, []);
