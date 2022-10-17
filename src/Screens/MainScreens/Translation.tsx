@@ -1,23 +1,26 @@
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { Header } from '../../Common/Components/Header';
 import { WebView } from 'react-native-webview';
-import { GOOGLE_TRANSLATION } from '../../Utils';
+import { RootRouteProps } from '../../Utils/navigationConfig';
 
 const Translations: React.FC = () => {
+  const route = useRoute<RootRouteProps<'Translations'>>();
+  const data = route?.params?.data;
   const navigation = useNavigation();
+  const endCodeURL = useMemo(() => {
+    if (data) {
+      return encodeURI(data);
+    }
+    return;
+  }, [data]);
 
-  const javascript = `(function() {
-    window.ReactNativeWebView.postMessage(document.getElementsByClassName('#er8xn').value = 'hello');
-})();`;
   return (
     <React.Fragment>
       <Header title="Translation" goBack={navigation.goBack} />
       <WebView
-        source={{ uri: GOOGLE_TRANSLATION }}
-        injectedJavaScriptBeforeContentLoaded={javascript}
-        onMessage={(event) => console.log('Event =>', event.nativeEvent.data)}
+        source={{ uri: `https://translate.google.com/?sl=en&tl=vi&text=${endCodeURL}&op=translate` }}
         style={styles.webView}
       />
     </React.Fragment>

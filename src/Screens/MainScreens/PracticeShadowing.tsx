@@ -92,8 +92,10 @@ const PracticeShadowing: React.FC = () => {
   }, [duration, position]);
 
   const navigateTranslations = useCallback(() => {
-    navigation.navigate(Screens.Translations as never);
-  }, [navigation]);
+    if (lessionsDetail?.description) {
+      navigation.navigate(Screens.Translations as never, { data: lessionsDetail.description } as never);
+    }
+  }, [lessionsDetail?.description, navigation]);
   return (
     <View style={styles.contain}>
       <Header title="Practice Shadowing" goBack={navigation.goBack} onPressPopover={setOpenPopover} rightIcon={true} />

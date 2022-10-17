@@ -15,6 +15,9 @@ export type RootStackParamList = {
   CheckVoice: {
     data: string;
   };
+  Translations: {
+    data: string;
+  };
 };
 
 export enum IKeyScreen {

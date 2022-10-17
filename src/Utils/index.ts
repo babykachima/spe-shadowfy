@@ -6,5 +6,3 @@ export const configGoogleSignIn = () => {
     webClientId: '697902738879-udam816ef8etjucvig45hjvccsudhqqt.apps.googleusercontent.com',
   });
 };
-
-export const GOOGLE_TRANSLATION = 'https://translate.google.com/';
