@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: Colors.white,
   },
   img: {
     width: 20,

@@ -8,12 +8,16 @@ export const Screens = {
   Sentence: 'Sentence',
   Pharagraph: 'Pharagraph',
   CheckVoice: 'CheckVoice',
+  Translations: 'Translations',
   FAQ: 'FAQ',
   TermAndPolicy: 'TermAndPolicy',
 };
 
 export type RootStackParamList = {
   CheckVoice: {
+    data: string;
+  };
+  Translations: {
     data: string;
   };
 };

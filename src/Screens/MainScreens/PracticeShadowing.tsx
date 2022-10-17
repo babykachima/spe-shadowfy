@@ -13,6 +13,7 @@ import { useGetDetailDataFireStore } from '../../Hooks/fetchDataFireStore';
 import IconCustom from '../../Common/Components/IconCustom';
 import { PopoverNote } from '../../Common/Components/PopoverCustom';
 import { Colors } from '../../Utils/colors';
+import { Screens } from '../../Utils/navigationConfig';
 
 TrackPlayer.updateOptions({
   capabilities: [Capability.Play, Capability.Pause],
@@ -90,6 +91,11 @@ const PracticeShadowing: React.FC = () => {
     return new Date((duration - position) * 1000).toISOString().substr(14, 5);
   }, [duration, position]);
 
+  const navigateTranslations = useCallback(() => {
+    if (lessionsDetail?.description) {
+      navigation.navigate(Screens.Translations as never, { data: lessionsDetail.description } as never);
+    }
+  }, [lessionsDetail?.description, navigation]);
   return (
     <View style={styles.contain}>
       <Header title="Practice Shadowing" goBack={navigation.goBack} onPressPopover={setOpenPopover} rightIcon={true} />
@@ -100,7 +106,7 @@ const PracticeShadowing: React.FC = () => {
           iconUrl={ic_translation}
           title={'Translate'}
           tintColor={Colors.white}
-          onPress={() => console.log('Translate')}
+          onPress={navigateTranslations}
           containStyles={styles.buttonIcon}
         />
       </ScrollView>
