@@ -1,8 +1,8 @@
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import Snackbar from 'react-native-snackbar';
 import { ic_google, ic_view_02 } from '../../Assets';
 
 import TextCommon from '../../Common/Components/TextCommon';
@@ -13,6 +13,7 @@ import { Colors } from '../../Utils/colors';
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const handleLoginGoogle = async () => {
     try {
       configGoogleSignIn();
@@ -24,10 +25,6 @@ const Login: React.FC = () => {
         const userApp = await auth().signInWithCredential(googleCredential);
         const idTokenUser = await userApp?.user.getIdToken();
         dispatch(setAccessToken(idTokenUser));
-        Snackbar.show({
-          text: 'Đăng nhập thành công!',
-          duration: Snackbar.LENGTH_LONG,
-        });
         return userApp;
       }
       return;
@@ -52,18 +49,18 @@ const Login: React.FC = () => {
     <SafeAreaView style={styles.contain}>
       <View style={styles.header}>
         <View style={styles.titleHeader}>
-          <TextCommon title="Sign In" containStyles={styles.title} />
+          <TextCommon title={t('app.signin')} containStyles={styles.title} />
         </View>
         <View style={styles.contentImg}>
           <Image source={ic_view_02} style={styles.logo} resizeMode="cover" />
         </View>
       </View>
       <View style={styles.socialContent}>
-        <TextCommon title="Let's go on start with interesting lessons!" containStyles={styles.description} />
-        <TextCommon title="login with" containStyles={styles.loginWith} />
+        <TextCommon title={t('app.let_start')} containStyles={styles.description} />
+        <TextCommon title={t('messages.login_with')} containStyles={styles.loginWith} />
         <TouchableOpacity style={[styles.button, styles.btnGoogle]} onPress={handleLoginGoogle}>
           <Image source={ic_google} style={styles.icon} />
-          <TextCommon title="Continue with Google" containStyles={styles.text} />
+          <TextCommon title={t('app.continue_with_google')} containStyles={styles.text} />
         </TouchableOpacity>
       </View>
     </SafeAreaView>

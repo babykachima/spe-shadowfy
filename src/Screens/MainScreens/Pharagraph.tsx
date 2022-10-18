@@ -43,7 +43,6 @@ const Pharagraph: React.FC = () => {
   };
 
   const startRecording = async () => {
-    console.log('run');
     setLoading(true);
     try {
       const check = await Voice.isAvailable();
@@ -117,13 +116,16 @@ const Pharagraph: React.FC = () => {
   }, []);
 
   const handleCheckVoiceResult = useCallback(() => {
-    navigation.navigate(Screens.CheckVoice as never, {
-      data: {
-        result: result,
-        content: lessionsDetail?.description,
-      },
-    });
-  }, [navigation, result]);
+    navigation.navigate(
+      Screens.CheckVoice as never,
+      {
+        data: {
+          result: result,
+          content: lessionsDetail?.content,
+        },
+      } as never
+    );
+  }, [lessionsDetail?.content, navigation, result]);
   return (
     <View style={styles.contain}>
       <Header title={'Pharagraph'} rightIcon={false} goBack={navigation.goBack} />
@@ -131,7 +133,7 @@ const Pharagraph: React.FC = () => {
         <TextCommon title="The Giant Kingdom" numberOfLines={2} containStyles={styles.title} />
         <PlaySound playTrack={playTrack} pauseTrack={pauseTrack} handleSlidingComplete={handleSlidingComplete} />
         <ScrollView style={styles.contentShadow} showsVerticalScrollIndicator={false}>
-          <TextCommon title={lessionsDetail?.description || ''} containStyles={styles.textDes} />
+          <TextCommon title={lessionsDetail?.content || ''} containStyles={styles.textDes} />
         </ScrollView>
       </View>
 

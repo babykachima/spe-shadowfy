@@ -3,7 +3,7 @@ import { Text, StyleSheet, View } from 'react-native';
 import { Colors } from '../../Utils/colors';
 
 interface ITextProps {
-  title: string;
+  title: string | null | number;
   containStyles?: any;
   numberOfLines?: number;
 }

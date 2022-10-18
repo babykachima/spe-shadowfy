@@ -10,9 +10,11 @@ export interface IIconCategories {
 export interface ILession {
   id: number | string;
   title: string;
-  description: string;
+  content: string;
   image: string;
+  date: string;
   audio: string;
+  create_at: string;
 }
 export interface IRouteTabar {
   name: string;

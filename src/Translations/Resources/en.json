@@ -1,7 +1,41 @@
 {
  "app":{
   "welcome":"Let's Learning Together!",
-  "lession":"bài học",
-  "logout":"Đăng xuất"
+  "home":"Home",
+  "lessions":"Lessions",
+  "settings":"Settings",
+  "logout":"Log out",
+  "hello_users":"Hello",
+  "about_app":"About app",
+  "change_language":"Languages",
+  "faq": "FAQ",
+  "term_and_policy":"Term and Policy",
+  "manager_account":"Account",
+  "signin":"Sign In",
+  "signout": "Log out",
+  "speaking_fluently":"Speaking fluently has never been so easy!",
+  "practice_now":"Practice now!",
+  "let_start":"Let's go on start with interesting lessons!",
+  "continue_with_google":"Continue with Google"
+
+ },
+ "lessions":{
+  "recommend":"Recommend",
+  "see_all":"See all",
+  "study_now":"Study now"
+ },
+ "messages":{
+  "change_language_success":"Change language successfully!",
+  "failed":"Error occurs!",
+  "confirm_logout":"You definitely want to sign out?",
+  "logout_success":"Sign out successful!",
+  "login_with":"login with"
+ },
+ "forms":{
+  "cancel":"Cancel",
+  "oke":"OK"
  }
+
+
+ 
 }

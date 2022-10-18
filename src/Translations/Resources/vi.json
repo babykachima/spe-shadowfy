@@ -1,7 +1,41 @@
 {
  "app":{
-  "welcome":"Luyện tập cùng nhau nào!",
-  "lession":"bài học",
-  "logout":"Đăng xuất"
+  "welcome":"Hãy học cùng nhau nào!",
+  "home":"Trang chủ",
+  "lessions":"Bài học",
+  "settings":"Cài đặt",
+  "logout":"Đăng xuất",
+  "hello_users":"Xin chào",
+  "about_app":"Thông tin về app",
+  "change_language":"Ngôn ngữ mẹ đẻ",
+  "faq": "Câu hỏi thường gặp",
+  "term_and_policy":"Điều khoản và quyền riêng tư",
+  "manager_account":"Quản lý tài khoản",
+  "signin":"Đăng nhập",
+  "signout": "Đăng xuất",
+  "speaking_fluently":"Nói tiếng anh trôi chảy chưa bao giờ dễ đến vậy!",
+  "practice_now":"Luyện tập ngay!",
+  "let_start":"Hãy bắt đầu với những bài học thú vị!",
+  "continue_with_google":"Tiếp tục với Google"
+
+ },
+ "lessions":{
+  "recommend":"Recommend",
+  "see_all":"Xem tất cả",
+  "study_now":"Học ngay"
+ },
+ "messages":{
+  "change_language_success":"Thay đổi ngôn ngữ thành công!",
+  "failed":"Có lỗi xảy ra",
+  "confirm_logout":"Bạn chắc chắn muốn đăng xuất?",
+  "logout_success":"Đăng xuất thành công!",
+  "login_with":"đăng nhập với"
+ },
+ "forms":{
+  "cancel":"Huỷ",
+  "oke":"Đồng ý"
  }
+
+
+ 
 }

@@ -6,3 +6,5 @@ export const configGoogleSignIn = () => {
     webClientId: '697902738879-udam816ef8etjucvig45hjvccsudhqqt.apps.googleusercontent.com',
   });
 };
+
+export const regexCharacters = /[.,\n]/g;

@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { ic_avatar } from '../../Assets';
 
-const Avatar = () => {
+interface IAvatar {
+  photoURL: string | null;
+}
+const Avatar: React.FC<IAvatar> = ({ photoURL }) => {
+  const renderImage = useMemo(() => {
+    return photoURL ? { uri: photoURL } : ic_avatar;
+  }, [photoURL]);
   return (
     <View style={styles.contain}>
-      <Image source={ic_avatar} resizeMode="cover" style={styles.styleImage} />
+      <Image source={renderImage} resizeMode="cover" style={styles.styleImage} />
     </View>
   );
 };
@@ -13,8 +19,8 @@ const Avatar = () => {
 const styles = StyleSheet.create({
   contain: {},
   styleImage: {
-    width: 80,
-    height: 80,
+    width: 50,
+    height: 50,
     borderRadius: 50,
   },
 });

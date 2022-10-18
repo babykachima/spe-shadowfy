@@ -2,7 +2,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useMemo } from 'react';
 import { getIdUserToken } from '../Redux/selector';
-import '../Translations';
 
 import Login from '../Screens/AuthScreens/Login';
 import Welcome from '../Screens/AuthScreens/Welcome';
@@ -10,18 +9,20 @@ import Home from '../Screens/MainScreens/Home';
 import ListLession from '../Screens/MainScreens/ListLession';
 
 import { useAppSelector } from '../Redux/hooks';
-import PracticeShadowing from '../Screens/MainScreens/PracticeShadowing';
-import Tabbar from './Tabbar';
-import Sentence from '../Screens/MainScreens/Sentence';
-import Pharagraph from '../Screens/MainScreens/Pharagraph';
+import AboutApp from '../Screens/MainScreens/AboutApp';
 import CheckVoice from '../Screens/MainScreens/CheckVoice';
-import Translations from '../Screens/MainScreens/Translation';
 import FAQ from '../Screens/MainScreens/FAQ';
+import InfoUser from '../Screens/MainScreens/InfoUser';
+import Pharagraph from '../Screens/MainScreens/Pharagraph';
+import PracticeShadowing from '../Screens/MainScreens/PracticeShadowing';
+import Sentence from '../Screens/MainScreens/Sentence';
 import TermAndPolicy from '../Screens/MainScreens/TermAndPolicy';
+import Translations from '../Screens/MainScreens/Translation';
+import Tabbar from './Tabbar';
 
 const Stack = createNativeStackNavigator();
 
-const App = () => {
+const App: React.FC = () => {
   const accessToken = useAppSelector(getIdUserToken);
 
   const authScreens = useMemo(() => {
@@ -46,6 +47,8 @@ const App = () => {
         <Stack.Screen name="Translations" component={Translations} />
         <Stack.Screen name="FAQ" component={FAQ} />
         <Stack.Screen name="TermAndPolicy" component={TermAndPolicy} />
+        <Stack.Screen name="AboutApp" component={AboutApp} />
+        <Stack.Screen name="InfoUser" component={InfoUser} />
       </React.Fragment>
     );
   }, []);

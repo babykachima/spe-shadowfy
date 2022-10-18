@@ -7,6 +7,7 @@ import TrackPlayer from 'react-native-track-player';
 import ErrorBoundary from 'react-native-error-boundary';
 import { PlaybackService } from './src/Services';
 import { store } from './src/Redux/store';
+import './src/Translations/index';
 
 const Application = () => {
   const handleErrors = (error: Error, stackTrace: string) => {

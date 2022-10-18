@@ -1,16 +1,18 @@
-import auth from '@react-native-firebase/auth';
+import auth, { firebase, FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, Image, Modal, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Snackbar from 'react-native-snackbar';
-import { ic_cancel, ic_faq, ic_paper, ic_translation, ic_uk, ic_vietnam } from '../../Assets';
+
+import { ic_cancel, ic_faq, ic_paper, ic_person, ic_question, ic_translation, ic_uk, ic_vietnam } from '../../Assets';
 import Avatar from '../../Common/Components/Avatar';
 import ButtonCustom from '../../Common/Components/ButtonCustom';
 
 import IconCustom from '../../Common/Components/IconCustom';
 import TextCommon from '../../Common/Components/TextCommon';
 import { useAppDispatch } from '../../Redux/hooks';
+
 import { logOut } from '../../Redux/Slices/appSlice';
 import { Colors } from '../../Utils/colors';
 import { Screens } from '../../Utils/navigationConfig';
@@ -69,9 +71,10 @@ const ModalLanguages: React.FC<IModalLanguages> = ({ visible, onCloseModal, onCh
 };
 
 const Settings: React.FC = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
+  const user: FirebaseAuthTypes.User | null = firebase.auth().currentUser;
 
   const [openModal, setOpenModal] = useState<boolean>(false);
 
@@ -88,28 +91,42 @@ const Settings: React.FC = () => {
         dispatch(logOut());
         await auth().signOut();
         Snackbar.show({
-          text: 'Logout success!',
+          text: t('messages.logout_success'),
           duration: Snackbar.LENGTH_LONG,
         });
       } catch (error) {
-        console.log('handleLogOut error:', error);
+        Snackbar.show({
+          text: t('messages.failed'),
+          duration: Snackbar.LENGTH_LONG,
+        });
       }
     };
-    Alert.alert('SignOut', 'You are make sure logout!', [
+    Alert.alert(t('app.signout'), t('messages.confirm_logout'), [
       {
-        text: 'Cancel',
+        text: t('forms.cancel'),
         style: 'cancel',
       },
-      { text: 'OK', onPress: signOut },
+      { text: t('forms.oke'), onPress: signOut },
     ]);
-  }, [dispatch]);
+  }, [dispatch, t]);
 
-  const handleChangeLanguages = (value: string | number) => {
-    if (value) {
+  const handleChangeLanguages = useCallback(
+    (value: string | number) => {
+      if (!value) {
+        Snackbar.show({
+          text: t('messages.failed'),
+          duration: Snackbar.LENGTH_SHORT,
+        });
+      }
       i18n.changeLanguage(String(value));
       setOpenModal(false);
-    }
-  };
+      Snackbar.show({
+        text: t('messages.change_language_success'),
+        duration: Snackbar.LENGTH_SHORT,
+      });
+    },
+    [i18n, t]
+  );
 
   const navigateFAQ = useCallback(() => {
     navigation.navigate(Screens.FAQ as never);
@@ -117,35 +134,51 @@ const Settings: React.FC = () => {
   const navigateTermPolicy = useCallback(() => {
     navigation.navigate(Screens.TermAndPolicy as never);
   }, [navigation]);
+  const navigateInfoUser = useCallback(() => {
+    navigation.navigate(Screens.InfoUser as never);
+  }, [navigation]);
+  const navigateAboutApp = useCallback(() => {
+    navigation.navigate(Screens.AboutApp as never);
+  }, [navigation]);
 
   return (
     <View style={styles.contain}>
       <View style={styles.subContent}>
         <View style={styles.header}>
-          <Avatar />
+          <Avatar photoURL={user?.photoURL || null} />
           <View>
-            <TextCommon title="Tuan Nguyen" numberOfLines={1} containStyles={styles.textName} />
-            <TextCommon title="09872832372" numberOfLines={1} containStyles={styles.textPhoneNumber} />
+            <TextCommon title={user?.displayName || null} numberOfLines={1} containStyles={styles.textName} />
+            <TextCommon title={user?.phoneNumber || null} numberOfLines={1} containStyles={styles.textPhoneNumber} />
           </View>
         </View>
         <View style={styles.dive} />
         <View style={styles.content}>
+          <TouchableOpacity style={styles.item} onPress={navigateInfoUser}>
+            <IconCustom iconUrl={ic_person} size="l" />
+            <TextCommon title={t('app.manager_account')} containStyles={styles.textItem} />
+          </TouchableOpacity>
+          <View style={styles.diveItem} />
+          <TouchableOpacity style={styles.item} onPress={navigateAboutApp}>
+            <IconCustom iconUrl={ic_question} size="l" />
+            <TextCommon title={t('app.about_app')} containStyles={styles.textItem} />
+          </TouchableOpacity>
+          <View style={styles.diveItem} />
           <TouchableOpacity style={styles.item} onPress={onSetOpenModal}>
             <IconCustom iconUrl={ic_translation} size="l" />
-            <TextCommon title="Change Language" containStyles={styles.textItem} />
+            <TextCommon title={t('app.change_language')} containStyles={styles.textItem} />
           </TouchableOpacity>
           <View style={styles.diveItem} />
           <TouchableOpacity style={styles.item} onPress={navigateFAQ}>
             <IconCustom iconUrl={ic_faq} size="l" />
-            <TextCommon title="FAQ" containStyles={styles.textItem} />
+            <TextCommon title={t('app.faq')} containStyles={styles.textItem} />
           </TouchableOpacity>
           <View style={styles.diveItem} />
           <TouchableOpacity style={styles.item} onPress={navigateTermPolicy}>
             <IconCustom iconUrl={ic_paper} size="l" />
-            <TextCommon title="Term and Policy" containStyles={styles.textItem} />
+            <TextCommon title={t('app.term_and_policy')} containStyles={styles.textItem} />
           </TouchableOpacity>
         </View>
-        <ButtonCustom title="Log Out" onPress={handleLogOut} />
+        <ButtonCustom title={t('app.logout')} onPress={handleLogOut} />
       </View>
       <ModalLanguages visible={openModal} onCloseModal={onSetCloseModal} onChangeLanguage={handleChangeLanguages} />
     </View>
@@ -170,7 +203,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.borderColor,
     marginVertical: 20,
     width: '90%',
-    height: 250,
+    height: 320,
     borderRadius: 10,
     padding: 20,
   },
@@ -188,6 +221,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
+    marginVertical: 5,
   },
   textPhoneNumber: {
     fontSize: 16,

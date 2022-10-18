@@ -92,16 +92,16 @@ const PracticeShadowing: React.FC = () => {
   }, [duration, position]);
 
   const navigateTranslations = useCallback(() => {
-    if (lessionsDetail?.description) {
-      navigation.navigate(Screens.Translations as never, { data: lessionsDetail.description } as never);
+    if (lessionsDetail?.content) {
+      navigation.navigate(Screens.Translations as never, { data: lessionsDetail.content } as never);
     }
-  }, [lessionsDetail?.description, navigation]);
+  }, [lessionsDetail?.content, navigation]);
   return (
     <View style={styles.contain}>
       <Header title="Practice Shadowing" goBack={navigation.goBack} onPressPopover={setOpenPopover} rightIcon={true} />
       <ScrollView style={styles.contentDescription}>
         <TextCommon title={lessionsDetail?.title || ''} containStyles={styles.title} numberOfLines={2} />
-        <TextCommon title={lessionsDetail?.description || ''} containStyles={styles.textDes} />
+        <TextCommon title={lessionsDetail?.content || ''} containStyles={styles.textDes} />
         <ButtonIconCustom
           iconUrl={ic_translation}
           title={'Translate'}
