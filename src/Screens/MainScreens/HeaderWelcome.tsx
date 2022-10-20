@@ -1,13 +1,15 @@
 import { firebase, FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, ListRenderItem, SafeAreaView, StyleSheet, View } from 'react-native';
+import { FlatList, ListRenderItem, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Avatar from '../../Common/Components/Avatar';
 import TextCommon from '../../Common/Components/TextCommon';
 import { dataBanner } from '../../Common/mockData';
 
 import { IBanner } from '../../Types';
 import { Colors } from '../../Utils/colors';
+import { Screens } from '../../Utils/navigationConfig';
 import ItemBanner from './ItemBanner';
 
 const Banner = () => {
@@ -32,6 +34,7 @@ const Banner = () => {
 
 const HeaderWelcome = () => {
   const { t } = useTranslation();
+  const navigation = useNavigation();
   const user: FirebaseAuthTypes.User | null = firebase.auth().currentUser;
   const renderName = useMemo(() => {
     if (user?.displayName) {
@@ -39,6 +42,9 @@ const HeaderWelcome = () => {
     }
     return '';
   }, [user?.displayName]);
+  const navigateInfoUser = useCallback(() => {
+    navigation.navigate(Screens.InfoUser as never);
+  }, [navigation]);
 
   return (
     <SafeAreaView style={styles.contain}>
@@ -50,7 +56,9 @@ const HeaderWelcome = () => {
           </View>
           <TextCommon title={t('app.welcome')} containStyles={styles.titleWelcome} />
         </View>
-        <Avatar photoURL={user?.photoURL || null} />
+        <TouchableOpacity onPress={navigateInfoUser}>
+          <Avatar photoURL={user?.photoURL || null} />
+        </TouchableOpacity>
       </View>
       <Banner />
     </SafeAreaView>

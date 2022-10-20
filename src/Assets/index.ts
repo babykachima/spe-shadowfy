@@ -20,6 +20,7 @@ export const ic_vietnam = require('./images/icons/ic_vietnam.png');
 export const ic_uk = require('./images/icons/ic_united_kingdom.png');
 export const ic_checkmark = require('./images/icons/ic_checkmark.png');
 export const ic_person = require('./images/icons/ic_person_circle.png');
+export const ic_textbook = require('./images/icons/ic_textbook.png');
 
 // LIST IMAGES
 export const ic_view_01 = require('./images/ic_view_01.png');

@@ -34,6 +34,11 @@
  "forms":{
   "cancel":"Cancel",
   "oke":"OK"
+ },
+ "popover":{
+  "dictionary": "Dictionary",
+  "sentence": "Sentence",
+  "pharagraph":"Pharagraph"
  }
 
 
