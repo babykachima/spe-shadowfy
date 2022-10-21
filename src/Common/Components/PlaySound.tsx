@@ -8,12 +8,14 @@ import ButtonCustom from './ButtonCustom';
 import IconCustom from './IconCustom';
 
 interface IPlaySound {
+  rate: string;
   pauseTrack: () => void;
   playTrack: () => void;
   handleSlidingComplete: (value: number) => void;
+  openModal: () => void;
 }
 
-const PlaySound: React.FC<IPlaySound> = ({ pauseTrack, playTrack, handleSlidingComplete }) => {
+const PlaySound: React.FC<IPlaySound> = ({ rate, pauseTrack, playTrack, handleSlidingComplete, openModal }) => {
   const { position, duration } = useProgress();
   const playBackState = usePlaybackState();
   return (
@@ -40,7 +42,7 @@ const PlaySound: React.FC<IPlaySound> = ({ pauseTrack, playTrack, handleSlidingC
           />
         </View>
       </View>
-      <ButtonCustom title="0.34x" onPress={() => console.log('34x')} containStyles={styles.button} />
+      <ButtonCustom title={rate} onPress={openModal} containStyles={styles.button} />
     </View>
   );
 };

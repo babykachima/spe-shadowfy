@@ -15,6 +15,8 @@ import IconCustom from '../../Common/Components/IconCustom';
 import { PopoverNote } from '../../Common/Components/PopoverCustom';
 import { Colors } from '../../Utils/colors';
 import { Screens } from '../../Utils/navigationConfig';
+import ModalCustom, { ModalRate } from '../../Common/Components/ModalCustom';
+import { IRate } from '../../Types';
 
 TrackPlayer.updateOptions({
   capabilities: [Capability.Play, Capability.Pause],
@@ -27,8 +29,11 @@ const PracticeShadowing: React.FC = () => {
   const [lessionsDetail] = useGetDetailDataFireStore('lessions', 'nsTbaEpUysbeU7IeGG5m');
   const { position, duration } = useProgress();
   const [isOpenPopover, setIsOpenPopover] = useState(false);
-  const [textSelected, setTextSelected] = useState<Array<string>>([]);
+  const [isOpenModalDictionary, setIsOpenModalDictionary] = useState<boolean>(false);
+  const [isOpenModalRate, setIsOpenModalRate] = useState<boolean>(false);
+  const [textSelected, setTextSelected] = useState<string>('');
   const paragraph = lessionsDetail?.content.split(' ');
+  const [itemRate, setItemRate] = useState<string>('1x');
 
   const { t } = useTranslation();
 
@@ -37,6 +42,20 @@ const PracticeShadowing: React.FC = () => {
   }, []);
   const setClosePopover = useCallback(() => {
     setIsOpenPopover(false);
+  }, []);
+  //  modal dictionary
+  const setOpenModalDictionary = useCallback(() => {
+    setIsOpenModalDictionary(true);
+  }, []);
+  const setCloseModalDictionary = useCallback(() => {
+    setIsOpenModalDictionary(false);
+  }, []);
+  // Modal rate
+  const setOpenModalRate = useCallback(() => {
+    setIsOpenModalRate(true);
+  }, []);
+  const setCloseModalRate = useCallback(() => {
+    setIsOpenModalRate(false);
   }, []);
 
   const setupPlayer = useCallback(async () => {
@@ -56,13 +75,17 @@ const PracticeShadowing: React.FC = () => {
       console.log('setupPlayer error ->', error);
     }
   }, [lessionsDetail?.audio, lessionsDetail?.title]);
+  const pauseTemporary = useCallback(async () => {
+    await TrackPlayer.pause();
+  }, []);
 
   useEffect(() => {
     setupPlayer();
     return () => {
+      pauseTemporary();
       setupPlayer();
     };
-  }, [setupPlayer]);
+  }, [setupPlayer, pauseTemporary]);
 
   const playTrack = useCallback(async () => {
     try {
@@ -84,9 +107,16 @@ const PracticeShadowing: React.FC = () => {
   const handleResetTrack = useCallback(async () => {
     await TrackPlayer.seekTo(0);
   }, []);
-  const handleSetSpeed = useCallback(async () => {
-    await TrackPlayer.setRate(1);
-  }, []);
+  const handleSetSpeed = useCallback(
+    async (rate: IRate) => {
+      if (rate.value) {
+        await TrackPlayer.setRate(rate.value);
+        setItemRate(rate.rate);
+        setCloseModalRate();
+      }
+    },
+    [setCloseModalRate]
+  );
 
   const convertPosition = useMemo(() => {
     return new Date(position * 1000).toISOString().substr(14, 5);
@@ -102,11 +132,15 @@ const PracticeShadowing: React.FC = () => {
     }
   }, [lessionsDetail?.content, navigation]);
 
-  const handleTextInParagraph = useCallback((text: string) => {
-    if (text) {
-      setTextSelected((prevState) => [...prevState, text]);
-    }
-  }, []);
+  const handleTextInParagraph = useCallback(
+    (text: string) => {
+      if (text) {
+        setTextSelected(text);
+        setOpenModalDictionary();
+      }
+    },
+    [setOpenModalDictionary]
+  );
 
   return (
     <View style={styles.contain}>
@@ -147,7 +181,7 @@ const PracticeShadowing: React.FC = () => {
             <TextCommon title={convertProgressDuration} containStyles={styles.duration} />
           </View>
           <View style={styles.contentButton}>
-            <ButtonCustom title={'1x'} onPress={handleSetSpeed} containStyles={styles.button} />
+            <ButtonCustom title={itemRate} onPress={setOpenModalRate} containStyles={styles.button} />
             <View>
               {playBackState === State.Playing ? (
                 <TouchableOpacity onPress={pauseTrack}>
@@ -165,6 +199,8 @@ const PracticeShadowing: React.FC = () => {
       </View>
       {/* Modal */}
       <PopoverNote isVisible={isOpenPopover} onRequestClose={setClosePopover} />
+      <ModalCustom isVisible={isOpenModalDictionary} onRequestClose={setCloseModalDictionary} word={textSelected} />
+      <ModalRate visible={isOpenModalRate} onCloseModal={setCloseModalRate} onSelectRateItem={handleSetSpeed} />
     </View>
   );
 };
