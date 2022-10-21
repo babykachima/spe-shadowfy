@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 10,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   titleBtnIcon: {
-    marginLeft: 10,
+    marginLeft: 5,
     color: Colors.white,
     fontWeight: 'bold',
     fontSize: 14,
