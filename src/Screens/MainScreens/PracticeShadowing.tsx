@@ -1,7 +1,7 @@
 import Slider from '@react-native-community/slider';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Dimensions, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import TrackPlayer, { Capability, State, usePlaybackState, useProgress } from 'react-native-track-player';
 import { Header } from '../../Common/Components/Header';
 
@@ -10,6 +10,7 @@ import ButtonCustom, { ButtonIconCustom } from '../../Common/Components/ButtonCu
 import TextCommon from '../../Common/Components/TextCommon';
 import { useGetDetailDataFireStore } from '../../Hooks/fetchDataFireStore';
 
+import { useTranslation } from 'react-i18next';
 import IconCustom from '../../Common/Components/IconCustom';
 import { PopoverNote } from '../../Common/Components/PopoverCustom';
 import { Colors } from '../../Utils/colors';
@@ -26,6 +27,10 @@ const PracticeShadowing: React.FC = () => {
   const [lessionsDetail] = useGetDetailDataFireStore('lessions', 'nsTbaEpUysbeU7IeGG5m');
   const { position, duration } = useProgress();
   const [isOpenPopover, setIsOpenPopover] = useState(false);
+  const [textSelected, setTextSelected] = useState<Array<string>>([]);
+  const paragraph = lessionsDetail?.content.split(' ');
+
+  const { t } = useTranslation();
 
   const setOpenPopover = useCallback(() => {
     setIsOpenPopover(true);
@@ -92,19 +97,36 @@ const PracticeShadowing: React.FC = () => {
   }, [duration, position]);
 
   const navigateTranslations = useCallback(() => {
-    if (lessionsDetail?.description) {
-      navigation.navigate(Screens.Translations as never, { data: lessionsDetail.description } as never);
+    if (lessionsDetail?.content) {
+      navigation.navigate(Screens.Translations as never, { data: lessionsDetail.content } as never);
     }
-  }, [lessionsDetail?.description, navigation]);
+  }, [lessionsDetail?.content, navigation]);
+
+  const handleTextInParagraph = useCallback((text: string) => {
+    if (text) {
+      setTextSelected((prevState) => [...prevState, text]);
+    }
+  }, []);
+
   return (
     <View style={styles.contain}>
       <Header title="Practice Shadowing" goBack={navigation.goBack} onPressPopover={setOpenPopover} rightIcon={true} />
       <ScrollView style={styles.contentDescription}>
         <TextCommon title={lessionsDetail?.title || ''} containStyles={styles.title} numberOfLines={2} />
-        <TextCommon title={lessionsDetail?.description || ''} containStyles={styles.textDes} />
+        <View style={styles.textContent}>
+          {paragraph &&
+            paragraph.map((text, index) => (
+              <TextCommon
+                key={index}
+                containStyles={styles.textDes}
+                onPress={() => handleTextInParagraph(text)}
+                title={text}
+              />
+            ))}
+        </View>
         <ButtonIconCustom
           iconUrl={ic_translation}
-          title={'Translate'}
+          title={t('app.translate')}
           tintColor={Colors.white}
           onPress={navigateTranslations}
           containStyles={styles.buttonIcon}
@@ -146,6 +168,7 @@ const PracticeShadowing: React.FC = () => {
     </View>
   );
 };
+const { width } = Dimensions.get('screen');
 const styles = StyleSheet.create({
   contain: {
     flex: 1,
@@ -166,12 +189,19 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingHorizontal: 20,
   },
+  textContent: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    maxWidth: width,
+    marginTop: 10,
+  },
   title: {
     fontWeight: 'bold',
     fontSize: 26,
   },
   textDes: {
-    fontSize: 16,
+    marginRight: 5,
+    fontSize: 16.5,
     lineHeight: 30,
   },
   contentButton: {
@@ -230,6 +260,10 @@ const styles = StyleSheet.create({
   },
   titleRate: {
     fontWeight: '600',
+  },
+  selected: {
+    color: Colors.primaryColor,
+    fontWeight: 'bold',
   },
 });
 export default PracticeShadowing;

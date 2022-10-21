@@ -3,15 +3,16 @@ import { Text, StyleSheet, View } from 'react-native';
 import { Colors } from '../../Utils/colors';
 
 interface ITextProps {
-  title: string;
+  title: string | null | number;
   containStyles?: any;
   numberOfLines?: number;
+  onPress?: () => void;
 }
 
-const TextCommon: React.FC<ITextProps> = ({ title, containStyles, numberOfLines }) => {
+const TextCommon: React.FC<ITextProps> = ({ title, containStyles, numberOfLines, onPress }) => {
   return (
     <View style={styles.contain}>
-      <Text style={[styles.styleText, containStyles]} numberOfLines={numberOfLines} selectable={true}>
+      <Text style={[styles.styleText, containStyles]} numberOfLines={numberOfLines} selectable={true} onPress={onPress}>
         {title}
       </Text>
     </View>

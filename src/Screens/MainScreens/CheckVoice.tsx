@@ -3,6 +3,7 @@ import * as diff from 'diff';
 import React, { useMemo } from 'react';
 import { Dimensions, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Header } from '../../Common/Components/Header';
+import { regexCharacters } from '../../Utils';
 import { Colors } from '../../Utils/colors';
 import { RootRouteProps } from '../../Utils/navigationConfig';
 
@@ -11,9 +12,16 @@ const CheckVoice: React.FC = () => {
   const route = useRoute<RootRouteProps<'CheckVoice'>>();
   const resultVoiceData = route?.params;
 
+  const formatVoiceData = useMemo(() => {
+    if (resultVoiceData.data?.content) {
+      return String(resultVoiceData.data.content).replace(regexCharacters, '').toLowerCase();
+    }
+    return;
+  }, [resultVoiceData.data?.content]);
+
   const compareText = useMemo(() => {
-    const groups = diff.diffWords(resultVoiceData.data?.content, resultVoiceData.data?.result);
-    const mappedNodes = groups.map((group) => {
+    const groups = diff.diffWords(formatVoiceData || '', resultVoiceData.data?.result.toLowerCase());
+    const mappedNodes = groups.map((group, index) => {
       const { value, added, removed } = group;
       let nodeStyles;
       if (added) {
@@ -23,11 +31,15 @@ const CheckVoice: React.FC = () => {
       } else {
         nodeStyles = styles.added;
       }
-      return <Text style={nodeStyles}>{value}</Text>;
+      return (
+        <Text style={nodeStyles} key={index}>
+          {value}
+        </Text>
+      );
     });
 
     return <Text>{mappedNodes}</Text>;
-  }, [resultVoiceData.data?.content, resultVoiceData.data?.result]);
+  }, [formatVoiceData, resultVoiceData.data?.result]);
 
   return (
     <SafeAreaView style={styles.contain}>
@@ -35,12 +47,12 @@ const CheckVoice: React.FC = () => {
       <View style={styles.content}>
         <View style={styles.group}>
           <ScrollView>
-            <Text style={{ fontSize: 16 }}>{resultVoiceData.data?.content}</Text>
+            <Text style={styles.text}>{resultVoiceData.data?.content}</Text>
           </ScrollView>
         </View>
         <View style={styles.group}>
           <ScrollView>
-            <Text style={{ fontSize: 16 }}>{compareText}</Text>
+            <Text style={styles.text}>{compareText}</Text>
           </ScrollView>
         </View>
       </View>
@@ -66,21 +78,23 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 0.5,
     borderRadius: 10,
-    backgroundColor: Colors.primaryColorLayout,
+    backgroundColor: Colors.cardColor,
     padding: 10,
     marginBottom: 20,
   },
+  text: {
+    fontSize: 16,
+  },
+
   added: {
-    color: 'green',
-    backgroundColor: '#b5efdb',
+    color: Colors.greenColor,
   },
   removed: {
-    color: 'red',
-    backgroundColor: '#fec4c0',
+    color: Colors.redColor,
   },
   warning: {
-    color: 'black',
-    backgroundColor: '#F8EC5A',
+    color: Colors.textColor,
+    backgroundColor: Colors.yellowColor,
   },
 });
 

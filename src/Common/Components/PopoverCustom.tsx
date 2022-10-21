@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
+import i18n from 'i18next';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import Popover, { Rect, PopoverPlacement } from 'react-native-popover-view';
-import { ic_paper, ic_pencil, ic_question } from '../../Assets';
+import Popover, { PopoverPlacement, Rect } from 'react-native-popover-view';
+import { ic_paper, ic_pencil, ic_textbook } from '../../Assets';
 import { Colors } from '../../Utils/colors';
 import { Screens } from '../../Utils/navigationConfig';
 import IconCustom from './IconCustom';
@@ -20,26 +21,26 @@ type TListsNode = {
   icon: number;
 };
 enum ENodeItem {
-  TOOLTIP = 'Tool Tip',
+  DICTIONARY = 'Dictionary',
   SENTENCE = 'Sentence',
   PHARAGRAPH = 'Pharagraph',
 }
 const DataChooseNote: Array<TListsNode> = [
   {
     id: 1,
-    name: 'Tool Tip',
+    name: i18n.t('popover.dictionary'),
     key: 'Tool Tip',
-    icon: ic_question,
+    icon: ic_textbook,
   },
   {
     id: 2,
-    name: 'Sentence',
+    name: i18n.t('popover.sentence'),
     key: 'Sentence',
     icon: ic_pencil,
   },
   {
     id: 3,
-    name: 'Pharagraph',
+    name: i18n.t('popover.pharagraph'),
     key: 'Pharagraph',
     icon: ic_paper,
   },
@@ -49,7 +50,7 @@ export const PopoverNote: React.FC<IPopoverNote> = ({ isVisible, onRequestClose 
   const navigation = useNavigation();
   const onHandlePopover = (item: TListsNode) => {
     switch (item.key) {
-      case ENodeItem.TOOLTIP: {
+      case ENodeItem.DICTIONARY: {
         console.log('TOOLTIP');
         return;
       }

@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { ic_home, ic_lessions, ic_setting } from '../Assets';
 import IconCustom from '../Common/Components/IconCustom';
@@ -33,36 +34,39 @@ const CustomBarIcon: React.FC<ICustomBarIcon> = ({ iconUrl, title, focused }) =>
 };
 
 const Tabbar: React.FC = () => {
+  const { t } = useTranslation();
   const getScreenOptions = () => {
     return {
       headerShown: false,
+      tabBarShowLabel: false,
     };
   };
 
   return (
-    <Tab.Navigator
-      screenOptions={getScreenOptions}
-      tabBarOptions={{
-        showLabel: false,
-      }}
-    >
+    <Tab.Navigator screenOptions={getScreenOptions}>
       <Tab.Screen
         name="Home"
         component={Home}
-        options={{ tabBarIcon: ({ focused }) => <CustomBarIcon iconUrl={ic_home} focused={focused} title={'Home'} /> }}
+        options={{
+          tabBarIcon: ({ focused }) => <CustomBarIcon iconUrl={ic_home} focused={focused} title={t('app.home')} />,
+        }}
       />
       <Tab.Screen
         name="ListLession"
         component={ListLession}
         options={{
-          tabBarIcon: ({ focused }) => <CustomBarIcon iconUrl={ic_lessions} focused={focused} title={'Lessions'} />,
+          tabBarIcon: ({ focused }) => (
+            <CustomBarIcon iconUrl={ic_lessions} focused={focused} title={t('app.lessions')} />
+          ),
         }}
       />
       <Tab.Screen
         name="Settings"
         component={Settings}
         options={{
-          tabBarIcon: ({ focused }) => <CustomBarIcon iconUrl={ic_setting} focused={focused} title={'Settings'} />,
+          tabBarIcon: ({ focused }) => (
+            <CustomBarIcon iconUrl={ic_setting} focused={focused} title={t('app.settings')} />
+          ),
         }}
       />
     </Tab.Navigator>
@@ -78,9 +82,11 @@ const styles = StyleSheet.create({
   selectedTitle: {
     fontWeight: '600',
     color: Colors.primaryColor,
+    marginTop: 5,
   },
   noSelectTitle: {
     color: Colors.grayColor,
+    marginTop: 5,
   },
 });
 

@@ -51,11 +51,11 @@ const styles = StyleSheet.create({
     tintColor: Colors.textColor,
   },
   iconLeft: {
-    marginLeft: 2,
+    marginLeft: 5,
     marginBottom: 10,
   },
   iconRight: {
-    marginRight: 2,
+    marginRight: 5,
     marginBottom: 10,
   },
   title: {

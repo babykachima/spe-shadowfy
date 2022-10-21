@@ -1,6 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 export const Screens = {
   Home: 'Home',
+  ListLession: 'ListLession',
   PracticeShadowing: 'PracticeShadowing',
   Welcome: 'Welcome',
   Login: 'Login',
@@ -11,11 +12,16 @@ export const Screens = {
   Translations: 'Translations',
   FAQ: 'FAQ',
   TermAndPolicy: 'TermAndPolicy',
+  AboutApp: 'AboutApp',
+  InfoUser: 'InfoUser',
 };
 
 export type RootStackParamList = {
   CheckVoice: {
-    data: string;
+    data: {
+      result: string;
+      content: string;
+    };
   };
   Translations: {
     data: string;

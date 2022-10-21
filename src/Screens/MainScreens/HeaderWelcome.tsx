@@ -1,10 +1,15 @@
-import React, { useCallback } from 'react';
+import { firebase, FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { useNavigation } from '@react-navigation/native';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, ListRenderItem, SafeAreaView, StyleSheet, View } from 'react-native';
+import { FlatList, ListRenderItem, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Avatar from '../../Common/Components/Avatar';
 import TextCommon from '../../Common/Components/TextCommon';
 import { dataBanner } from '../../Common/mockData';
+
 import { IBanner } from '../../Types';
+import { Colors } from '../../Utils/colors';
+import { Screens } from '../../Utils/navigationConfig';
 import ItemBanner from './ItemBanner';
 
 const Banner = () => {
@@ -29,15 +34,31 @@ const Banner = () => {
 
 const HeaderWelcome = () => {
   const { t } = useTranslation();
+  const navigation = useNavigation();
+  const user: FirebaseAuthTypes.User | null = firebase.auth().currentUser;
+  const renderName = useMemo(() => {
+    if (user?.displayName) {
+      return user.displayName;
+    }
+    return '';
+  }, [user?.displayName]);
+  const navigateInfoUser = useCallback(() => {
+    navigation.navigate(Screens.InfoUser as never);
+  }, [navigation]);
 
   return (
     <SafeAreaView style={styles.contain}>
       <View style={styles.header}>
         <View style={styles.titleContent}>
-          <TextCommon title="Hello,Ethan" containStyles={styles.headerTitle} />
+          <View style={styles.contentName}>
+            <TextCommon title={t('app.hello_users')} containStyles={styles.headerTitle} />
+            <TextCommon title={renderName} containStyles={styles.userName} numberOfLines={1} />
+          </View>
           <TextCommon title={t('app.welcome')} containStyles={styles.titleWelcome} />
         </View>
-        <Avatar />
+        <TouchableOpacity onPress={navigateInfoUser}>
+          <Avatar photoURL={user?.photoURL || null} />
+        </TouchableOpacity>
       </View>
       <Banner />
     </SafeAreaView>
@@ -55,15 +76,28 @@ const styles = StyleSheet.create({
   },
   titleContent: {
     flex: 0.8,
+    marginBottom: 10,
   },
   headerTitle: {
-    marginVertical: 10,
-    fontSize: 18,
-    color: '#191919',
+    fontSize: 16,
+    color: Colors.textColor,
   },
   titleWelcome: {
     fontSize: 30,
     fontWeight: 'bold',
+  },
+  contentName: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  userName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 5,
+    // maxWidth: 230,
+    flexShrink: 1,
   },
 });
 export default HeaderWelcome;

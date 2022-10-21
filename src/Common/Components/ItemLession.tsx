@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../../Utils/colors';
 import ButtonCustom from './ButtonCustom';
@@ -10,8 +11,9 @@ interface IItemLessions {
 }
 
 const ItemLessions: React.FC<IItemLessions> = ({ item, onPress }) => {
+  const { t } = useTranslation();
   return (
-    <TouchableOpacity style={styles.contain} key={item.id}>
+    <TouchableOpacity style={styles.contain} key={item.id} onPress={onPress}>
       <View style={styles.img}>
         <Image source={{ uri: item.image }} style={styles.image} resizeMode="cover" />
       </View>
@@ -21,7 +23,7 @@ const ItemLessions: React.FC<IItemLessions> = ({ item, onPress }) => {
           <TextCommon title={item.description} containStyles={styles.description} numberOfLines={3} />
         </View>
         <View style={styles.button}>
-          <ButtonCustom title="Borrow it" onPress={onPress} styleTitle={styles.titleButton} />
+          <ButtonCustom title={t('lessions.study_now')} onPress={onPress} styleTitle={styles.titleButton} />
         </View>
       </View>
     </TouchableOpacity>

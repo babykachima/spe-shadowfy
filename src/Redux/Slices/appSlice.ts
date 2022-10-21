@@ -20,7 +20,6 @@ export const appSlice = createSlice({
       }
     },
     logOut: (state) => {
-      console.log('clear store ');
       state.accessToken = '';
       storage.delete(EStorage.TOKEN);
     },

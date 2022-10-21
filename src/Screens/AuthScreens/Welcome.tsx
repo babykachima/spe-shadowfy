@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { ic_arrow_right, ic_view_01 } from '../../Assets';
@@ -10,6 +11,7 @@ import { Screens } from '../../Utils/navigationConfig';
 
 const Welcome = () => {
   const navigation = useNavigation();
+  const { t } = useTranslation();
 
   const onNavigateContinue = useCallback(() => {
     navigation.navigate(Screens.Login as never);
@@ -21,12 +23,12 @@ const Welcome = () => {
         <Image source={ic_view_01} style={styles.logo} resizeMode="cover" />
       </View>
       <View style={styles.content}>
-        <TextCommon title="Speaking fluently has never been so easy!" containStyles={styles.titleWelcome} />
+        <TextCommon title={t('app.speaking_fluently')} containStyles={styles.titleWelcome} />
         <View style={styles.containContinue}>
           <TouchableOpacity onPress={onNavigateContinue}>
             <IconCustom iconUrl={ic_arrow_right} />
           </TouchableOpacity>
-          <TextCommon title="Practice now !" containStyles={styles.titlePractice} />
+          <TextCommon title={t('app.practice_now')} containStyles={styles.titlePractice} />
         </View>
       </View>
     </SafeAreaView>
@@ -58,7 +60,6 @@ const styles = StyleSheet.create({
   titleWelcome: {
     fontSize: 24,
     fontWeight: 'bold',
-    fontFamily: 'Poppins-Regular',
   },
   containContinue: {
     marginTop: 50,
@@ -69,7 +70,6 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     fontSize: 18,
     fontWeight: 'bold',
-    fontFamily: 'Poppins-Regular',
     color: Colors.primaryColor,
   },
 });
