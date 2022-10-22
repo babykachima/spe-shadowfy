@@ -22,6 +22,7 @@ const Pharagraph: React.FC = () => {
   const [isLoading, setLoading] = useState(false);
   const [isOpenModalRate, setIsOpenModalRate] = useState<boolean>(false);
   const [itemRate, setItemRate] = useState<string>('1x');
+
   //Recording
   useEffect(() => {
     Voice.onSpeechStart = onSpeechStartHandler;
@@ -75,6 +76,9 @@ const Pharagraph: React.FC = () => {
   }, []);
 
   // Play Track
+  const pauseTemporary = useCallback(async () => {
+    await TrackPlayer.pause();
+  }, []);
   const setupPlayer = useCallback(async () => {
     try {
       if (!lessionsDetail?.audio) {
@@ -97,8 +101,9 @@ const Pharagraph: React.FC = () => {
     setupPlayer();
     return () => {
       setupPlayer();
+      pauseTemporary();
     };
-  }, [setupPlayer]);
+  }, [pauseTemporary, setupPlayer]);
 
   const playTrack = useCallback(async () => {
     try {
@@ -193,7 +198,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: Colors.textColor,
-    fontFamily: 'Poppins-Regular',
     marginBottom: 10,
   },
   contentShadow: {
