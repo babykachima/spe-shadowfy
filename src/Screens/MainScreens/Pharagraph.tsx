@@ -12,12 +12,17 @@ import Voice from '@react-native-voice/voice';
 
 import ShadowComponent from '../../Common/Components/ShadowComponent';
 import { Screens } from '../../Utils/navigationConfig';
+import { ModalRate } from '../../Common/Components/ModalCustom';
+import { IRate } from '../../Types';
 
 const Pharagraph: React.FC = () => {
   const navigation = useNavigation();
   const [lessionsDetail] = useGetDetailDataFireStore('lessions', 'nsTbaEpUysbeU7IeGG5m');
   const [result, setResult] = useState<string>('');
   const [isLoading, setLoading] = useState(false);
+  const [isOpenModalRate, setIsOpenModalRate] = useState<boolean>(false);
+  const [itemRate, setItemRate] = useState<string>('1x');
+
   //Recording
   useEffect(() => {
     Voice.onSpeechStart = onSpeechStartHandler;
@@ -71,6 +76,9 @@ const Pharagraph: React.FC = () => {
   }, []);
 
   // Play Track
+  const pauseTemporary = useCallback(async () => {
+    await TrackPlayer.pause();
+  }, []);
   const setupPlayer = useCallback(async () => {
     try {
       if (!lessionsDetail?.audio) {
@@ -93,8 +101,9 @@ const Pharagraph: React.FC = () => {
     setupPlayer();
     return () => {
       setupPlayer();
+      pauseTemporary();
     };
-  }, [setupPlayer]);
+  }, [pauseTemporary, setupPlayer]);
 
   const playTrack = useCallback(async () => {
     try {
@@ -126,12 +135,36 @@ const Pharagraph: React.FC = () => {
       } as never
     );
   }, [lessionsDetail?.content, navigation, result]);
+  // Modal rate
+  const setOpenModalRate = useCallback(() => {
+    setIsOpenModalRate(true);
+  }, []);
+  const setCloseModalRate = useCallback(() => {
+    setIsOpenModalRate(false);
+  }, []);
+  const handleSetSpeed = useCallback(
+    async (rate: IRate) => {
+      if (rate.value) {
+        await TrackPlayer.setRate(rate.value);
+        setItemRate(rate.rate);
+        setCloseModalRate();
+      }
+    },
+    [setCloseModalRate]
+  );
+
   return (
     <View style={styles.contain}>
       <Header title={'Pharagraph'} rightIcon={false} goBack={navigation.goBack} />
       <View style={styles.content}>
-        <TextCommon title="The Giant Kingdom" numberOfLines={2} containStyles={styles.title} />
-        <PlaySound playTrack={playTrack} pauseTrack={pauseTrack} handleSlidingComplete={handleSlidingComplete} />
+        <TextCommon title={lessionsDetail?.title || ''} numberOfLines={2} containStyles={styles.title} />
+        <PlaySound
+          playTrack={playTrack}
+          pauseTrack={pauseTrack}
+          handleSlidingComplete={handleSlidingComplete}
+          openModal={setOpenModalRate}
+          rate={itemRate}
+        />
         <ScrollView style={styles.contentShadow} showsVerticalScrollIndicator={false}>
           <TextCommon title={lessionsDetail?.content || ''} containStyles={styles.textDes} />
         </ScrollView>
@@ -146,6 +179,7 @@ const Pharagraph: React.FC = () => {
         clearTextVoice={onHandleClearTextVoice}
         onCheckVoice={handleCheckVoiceResult}
       />
+      <ModalRate visible={isOpenModalRate} onCloseModal={setCloseModalRate} onSelectRateItem={handleSetSpeed} />
     </View>
   );
 };
@@ -164,7 +198,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: Colors.textColor,
-    fontFamily: 'Poppins-Regular',
     marginBottom: 10,
   },
   contentShadow: {

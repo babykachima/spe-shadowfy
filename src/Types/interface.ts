@@ -31,3 +31,8 @@ export enum SizeIcon {
   S = 's',
   L = 'l',
 }
+export interface IRate {
+  id: number;
+  rate: string;
+  value: number;
+}
