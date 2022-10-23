@@ -19,6 +19,7 @@ import Sentence from '../Screens/MainScreens/Sentence';
 import TermAndPolicy from '../Screens/MainScreens/TermAndPolicy';
 import Translations from '../Screens/MainScreens/Translation';
 import Tabbar from './Tabbar';
+import EditProfile from '../Screens/MainScreens/EditProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +50,7 @@ const App: React.FC = () => {
         <Stack.Screen name="TermAndPolicy" component={TermAndPolicy} />
         <Stack.Screen name="AboutApp" component={AboutApp} />
         <Stack.Screen name="InfoUser" component={InfoUser} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
       </React.Fragment>
     );
   }, []);

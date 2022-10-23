@@ -27,14 +27,28 @@
  },
  "messages":{
   "change_language_success":"Thay đổi ngôn ngữ thành công!",
+  "change_name_success":"Thay đổi tên thành công!",
+  "change_img_success":"Ảnh đại diện đã được cập nhật!",
   "failed":"Có lỗi xảy ra",
   "confirm_logout":"Bạn chắc chắn muốn đăng xuất?",
   "logout_success":"Đăng xuất thành công!",
-  "login_with":"đăng nhập với"
+  "login_with":"đăng nhập với",
+  "hint":"Lưu ý",
+  "can_not_edit_phone":"Bạn không thể chỉnh sửa số điện thoại",
+  "can_not_edit_email":"Bạn không thể chỉnh sửa email",
+  "verify_img":"Vui lòng chọn file có kích thước < 25MB"
+  
  },
  "forms":{
   "cancel":"Huỷ",
-  "oke":"Đồng ý"
+  "oke":"Đồng ý",
+  "edit_name":"Chỉnh sửa tên",
+  "submit":"Xác nhận"
+ },
+ "profile":{
+    "name":"Họ tên",
+    "phone":"Số điện thoại",
+    "email":"Email"
  }
 
 

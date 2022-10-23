@@ -14,6 +14,7 @@ export const Screens = {
   TermAndPolicy: 'TermAndPolicy',
   AboutApp: 'AboutApp',
   InfoUser: 'InfoUser',
+  EditProfile: 'EditProfile',
 };
 
 export type RootStackParamList = {

@@ -27,21 +27,33 @@
  },
  "messages":{
   "change_language_success":"Change language successfully!",
+  "change_name_success":"Update name successfully!",
+  "change_img_success":"Profile photo has been updated!",
   "failed":"Error occurs!",
   "confirm_logout":"You definitely want to sign out?",
   "logout_success":"Sign out successful!",
-  "login_with":"login with"
+  "login_with":"login with",
+  "hint":"Hint",
+  "can_not_edit_phone":"You can't edit phone number",
+  "can_not_edit_email":"You can't edit phone email",
+  "verify_img":"Please choose file size < 25MB"
  },
  "forms":{
   "cancel":"Cancel",
-  "oke":"OK"
+  "oke":"OK",
+  "edit_name":"Edit name",
+  "submit":"Submit"
  },
  "popover":{
   "dictionary": "Dictionary",
   "sentence": "Sentence",
   "pharagraph":"Pharagraph"
+ },
+  "profile":{
+    "name":"Name",
+    "phone":"Phone number",
+    "email":"Email"
  }
-
 
  
 }

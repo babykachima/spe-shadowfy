@@ -1,4 +1,4 @@
-import auth, { firebase, FirebaseAuthTypes } from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,8 +6,8 @@ import { Alert, Image, Modal, ScrollView, StyleSheet, TouchableOpacity, View } f
 import Snackbar from 'react-native-snackbar';
 
 import { ic_cancel, ic_faq, ic_paper, ic_person, ic_question, ic_translation, ic_uk, ic_vietnam } from '../../Assets';
-import Avatar from '../../Common/Components/Avatar';
 import ButtonCustom from '../../Common/Components/ButtonCustom';
+import { Header } from '../../Common/Components/Header';
 
 import IconCustom from '../../Common/Components/IconCustom';
 import TextCommon from '../../Common/Components/TextCommon';
@@ -74,7 +74,6 @@ const Settings: React.FC = () => {
   const { t, i18n } = useTranslation();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const user: FirebaseAuthTypes.User | null = firebase.auth().currentUser;
 
   const [openModal, setOpenModal] = useState<boolean>(false);
 
@@ -143,15 +142,8 @@ const Settings: React.FC = () => {
 
   return (
     <View style={styles.contain}>
+      <Header title="Settings" goBack={navigation.goBack} />
       <View style={styles.subContent}>
-        <View style={styles.header}>
-          <Avatar photoURL={user?.photoURL || null} />
-          <View>
-            <TextCommon title={user?.displayName || null} numberOfLines={1} containStyles={styles.textName} />
-            <TextCommon title={user?.phoneNumber || null} numberOfLines={1} containStyles={styles.textPhoneNumber} />
-          </View>
-        </View>
-        <View style={styles.dive} />
         <View style={styles.content}>
           <TouchableOpacity style={styles.item} onPress={navigateInfoUser}>
             <IconCustom iconUrl={ic_person} size="l" />
@@ -188,6 +180,7 @@ const styles = StyleSheet.create({
   contain: {
     flex: 1,
     paddingHorizontal: 20,
+    backgroundColor: Colors.white,
   },
   header: {
     justifyContent: 'center',
@@ -279,6 +272,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     marginLeft: 10,
+  },
+  avatar: {
+    width: 88,
+    height: 88,
   },
 });
 export default Settings;

@@ -7,9 +7,10 @@ interface IIconCustom {
   iconUrl: number;
   tintColor?: string;
   size?: string;
+  containStyles?: any;
 }
 
-const IconCustom: React.FC<IIconCustom> = ({ iconUrl, tintColor, size }) => {
+const IconCustom: React.FC<IIconCustom> = ({ iconUrl, tintColor, size, containStyles }) => {
   const renderCustomSizeIcon = useMemo(() => {
     switch (size) {
       case SizeIcon.S: {
@@ -32,7 +33,7 @@ const IconCustom: React.FC<IIconCustom> = ({ iconUrl, tintColor, size }) => {
 
   return (
     <View style={styles.contain}>
-      {iconUrl && <Image source={iconUrl} style={[renderCustomSizeIcon, renderColorIcon]} />}
+      {iconUrl && <Image source={iconUrl} style={[renderCustomSizeIcon, renderColorIcon, containStyles]} />}
     </View>
   );
 };

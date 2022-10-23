@@ -21,6 +21,9 @@ export const ic_uk = require('./images/icons/ic_united_kingdom.png');
 export const ic_checkmark = require('./images/icons/ic_checkmark.png');
 export const ic_person = require('./images/icons/ic_person_circle.png');
 export const ic_textbook = require('./images/icons/ic_textbook.png');
+export const ic_arrow_backward = require('./images/icons/ic_arrow_backward.png');
+export const ic_chevron_right = require('./images/icons/ic_chevron_right.png');
+export const ic_edit = require('./images/icons/ic_edit.png');
 
 // LIST IMAGES
 export const ic_view_01 = require('./images/ic_view_01.png');

@@ -1,6 +1,6 @@
-import { firebase, FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { useNavigation } from '@react-navigation/native';
-import React, { useCallback, useMemo } from 'react';
+import { firebase } from '@react-native-firebase/auth';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, ListRenderItem, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Avatar from '../../Common/Components/Avatar';
@@ -35,13 +35,14 @@ const Banner = () => {
 const HeaderWelcome = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
-  const user: FirebaseAuthTypes.User | null = firebase.auth().currentUser;
-  const renderName = useMemo(() => {
-    if (user?.displayName) {
-      return user.displayName;
+  const user = firebase.auth().currentUser;
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      firebase.auth().currentUser?.reload();
     }
-    return '';
-  }, [user?.displayName]);
+  }, [isFocused]);
   const navigateInfoUser = useCallback(() => {
     navigation.navigate(Screens.InfoUser as never);
   }, [navigation]);
@@ -52,7 +53,7 @@ const HeaderWelcome = () => {
         <View style={styles.titleContent}>
           <View style={styles.contentName}>
             <TextCommon title={t('app.hello_users')} containStyles={styles.headerTitle} />
-            <TextCommon title={renderName} containStyles={styles.userName} numberOfLines={1} />
+            <TextCommon title={user?.displayName || ''} containStyles={styles.userName} numberOfLines={1} />
           </View>
           <TextCommon title={t('app.welcome')} containStyles={styles.titleWelcome} />
         </View>
