@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import TrackPlayer from 'react-native-track-player';
@@ -11,13 +11,15 @@ import { Colors } from '../../Utils/colors';
 import Voice from '@react-native-voice/voice';
 
 import ShadowComponent from '../../Common/Components/ShadowComponent';
-import { Screens } from '../../Utils/navigationConfig';
+import { RootRouteProps, Screens } from '../../Utils/navigationConfig';
 import { ModalRate } from '../../Common/Components/ModalCustom';
 import { IRate } from '../../Types';
 
 const Pharagraph: React.FC = () => {
   const navigation = useNavigation();
-  const [lessionsDetail] = useGetDetailDataFireStore('lessions', 'nsTbaEpUysbeU7IeGG5m');
+  const route = useRoute<RootRouteProps<'Pharagraph'>>();
+  const keyLession = route?.params?.key;
+  const [lessionsDetail] = useGetDetailDataFireStore('lessions', keyLession);
   const [result, setResult] = useState<string>('');
   const [isLoading, setLoading] = useState(false);
   const [isOpenModalRate, setIsOpenModalRate] = useState<boolean>(false);

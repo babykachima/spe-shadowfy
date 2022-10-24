@@ -8,3 +8,5 @@ export const configGoogleSignIn = () => {
 };
 
 export const regexCharacters = /[.,\n]/g;
+
+export const uriDictinary = 'https://dictionary.cambridge.org/';

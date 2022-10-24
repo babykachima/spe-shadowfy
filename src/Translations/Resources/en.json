@@ -23,7 +23,8 @@
  "lessions":{
   "recommend":"Recommend",
   "see_all":"See all",
-  "study_now":"Study now"
+  "study_now":"Study now",
+  "unchecked":"Uncheck"
  },
  "messages":{
   "change_language_success":"Change language successfully!",
@@ -46,7 +47,7 @@
  },
  "popover":{
   "dictionary": "Dictionary",
-  "sentence": "Sentence",
+  "guide_line": "Guide line",
   "pharagraph":"Pharagraph"
  },
   "profile":{

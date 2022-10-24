@@ -15,7 +15,7 @@ import FAQ from '../Screens/MainScreens/FAQ';
 import InfoUser from '../Screens/MainScreens/InfoUser';
 import Pharagraph from '../Screens/MainScreens/Pharagraph';
 import PracticeShadowing from '../Screens/MainScreens/PracticeShadowing';
-import Sentence from '../Screens/MainScreens/Sentence';
+import Dictionary from '../Screens/MainScreens/Dictionary';
 import TermAndPolicy from '../Screens/MainScreens/TermAndPolicy';
 import Translations from '../Screens/MainScreens/Translation';
 import Tabbar from './Tabbar';
@@ -42,7 +42,7 @@ const App: React.FC = () => {
         <Stack.Screen name="ListLession" component={ListLession} />
         <Stack.Screen name="Tabbar" component={Tabbar} />
         <Stack.Screen name="PracticeShadowing" component={PracticeShadowing} />
-        <Stack.Screen name="Sentence" component={Sentence} />
+        <Stack.Screen name="Dictionary" component={Dictionary} />
         <Stack.Screen name="Pharagraph" component={Pharagraph} />
         <Stack.Screen name="CheckVoice" component={CheckVoice} />
         <Stack.Screen name="Translations" component={Translations} />

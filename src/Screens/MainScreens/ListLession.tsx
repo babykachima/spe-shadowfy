@@ -1,33 +1,53 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback } from 'react';
-import { FlatList, ListRenderItem, SafeAreaView, StyleSheet, View } from 'react-native';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { FlatList, ListRenderItem, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ButtonIconCustom } from '../../Common/Components/ButtonCustom';
 
 import ItemLessions from '../../Common/Components/ItemLession';
 import TextCommon from '../../Common/Components/TextCommon';
-import { DATA_LESSION, IconCategories } from '../../Common/mockData';
+import { IconCategories } from '../../Common/mockData';
+import { useGetDataFireStore } from '../../Hooks/fetchDataFireStore';
+
 import { IIconCategories, ILession } from '../../Types';
 import { Colors } from '../../Utils/colors';
 import { Screens } from '../../Utils/navigationConfig';
 
-const SlideCategory: React.FC = () => {
-  const _renderItem = useCallback<ListRenderItem<IIconCategories>>(({ item }) => {
-    return (
-      <ButtonIconCustom
-        title={item.title}
-        iconUrl={item.icon}
-        onPress={() => console.log('select button icon')}
-        tintColor={Colors.white}
-        containStyles={styles.btnSilde}
-      />
-    );
-  }, []);
+interface ISlideCategory {
+  selectCategory: (category: IIconCategories) => void;
+  onUChecked: () => void;
+  isChecked: boolean;
+}
+
+const SlideCategory: React.FC<ISlideCategory> = ({ selectCategory, onUChecked, isChecked }) => {
+  const { t } = useTranslation();
+  const _renderItem = useCallback<ListRenderItem<IIconCategories>>(
+    ({ item }) => {
+      return (
+        <ButtonIconCustom
+          title={item.title}
+          iconUrl={item.icon}
+          onPress={() => selectCategory(item)}
+          tintColor={Colors.white}
+          containStyles={styles.btnSilde}
+        />
+      );
+    },
+    [selectCategory]
+  );
   const _keyExtractor = (item: IIconCategories) => {
     return `${item.id}`;
   };
   return (
     <View style={styles.containSlide}>
-      <TextCommon title="List lessions" containStyles={styles.title} />
+      <View style={styles.header}>
+        <TextCommon title="List lessions" containStyles={styles.title} />
+        {isChecked && (
+          <TouchableOpacity onPress={onUChecked}>
+            <TextCommon title={t('lessions.unchecked')} containStyles={styles.unChecked} />
+          </TouchableOpacity>
+        )}
+      </View>
       <FlatList
         data={IconCategories}
         renderItem={_renderItem}
@@ -40,23 +60,30 @@ const SlideCategory: React.FC = () => {
   );
 };
 
-const Lessions = () => {
+interface ILessions {
+  lessions: ILession[] | undefined;
+}
+
+const Lessions: React.FC<ILessions> = ({ lessions }) => {
   const navigation = useNavigation();
-  const navigateScreen = useCallback(() => {
-    navigation.navigate(Screens.PracticeShadowing as never);
-  }, [navigation]);
+  const navigateScreen = useCallback(
+    (key: string) => {
+      return navigation.navigate(Screens.PracticeShadowing as never, { key: key } as never);
+    },
+    [navigation]
+  );
   const _renderItem = useCallback<ListRenderItem<ILession>>(
     ({ item }) => {
-      return <ItemLessions item={item} onPress={navigateScreen} />;
+      return <ItemLessions item={item} onPress={() => navigateScreen(item.key)} />;
     },
     [navigateScreen]
   );
   const _keyExtractor = (item: ILession) => {
-    return `${item.id}`;
+    return `${item.key}`;
   };
   return (
     <FlatList
-      data={DATA_LESSION}
+      data={lessions}
       renderItem={_renderItem}
       keyExtractor={_keyExtractor}
       showsVerticalScrollIndicator={false}
@@ -66,11 +93,29 @@ const Lessions = () => {
 };
 
 const ListLession: React.FC = () => {
+  const [lessions] = useGetDataFireStore('lessions');
+  const [categorySelected, setCategorySelected] = useState<IIconCategories>();
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const handleSelectCategory = useCallback((category: IIconCategories) => {
+    setCategorySelected(category);
+    setIsChecked(true);
+  }, []);
+
+  const filterLession = useMemo(() => {
+    if (categorySelected) {
+      return lessions?.filter((item: ILession) => item.category === categorySelected.value);
+    }
+    return lessions;
+  }, [categorySelected, lessions]);
+  const handleUnChecked = useCallback(() => {
+    setCategorySelected(undefined);
+    setIsChecked(false);
+  }, []);
   return (
     <SafeAreaView style={styles.contain}>
-      <SlideCategory />
+      <SlideCategory selectCategory={handleSelectCategory} onUChecked={handleUnChecked} isChecked={isChecked} />
       <View style={styles.lessions}>
-        <Lessions />
+        <Lessions lessions={filterLession} />
       </View>
     </SafeAreaView>
   );
@@ -84,6 +129,11 @@ const styles = StyleSheet.create({
   containSlide: {
     marginHorizontal: 20,
   },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   lessions: {
     flex: 1,
     marginHorizontal: 20,
@@ -91,6 +141,11 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 26,
+  },
+  unChecked: {
+    fontSize: 16,
+    textDecorationLine: 'underline',
+    color: Colors.grayColor,
   },
   btnSilde: {
     marginRight: 10,
