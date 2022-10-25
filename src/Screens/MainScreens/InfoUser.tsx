@@ -3,7 +3,7 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import React, { useState, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { ic_chevron_right, ic_edit } from '../../Assets';
+import { ic_avatar, ic_chevron_right, ic_edit } from '../../Assets';
 
 import Avatar from '../../Common/Components/Avatar';
 import { Header } from '../../Common/Components/Header';
@@ -35,7 +35,7 @@ const InfoUser: React.FC = () => {
   const navigation = useNavigation();
   const user = firebase.auth().currentUser;
   const { t } = useTranslation();
-  const [image, setImage] = useState<string | null>(user?.photoURL);
+  const [image, setImage] = useState<string | null>(user?.photoURL || ic_avatar);
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -65,13 +65,13 @@ const InfoUser: React.FC = () => {
         const uri = response.assets?.map((asset) => asset.uri);
         const fileSize = response.assets?.map((asset) => asset.fileSize);
         const sideMode = fileSize ?? 0 / 1024 / 1024;
-        if (false) {
+        if (sideMode > 25) {
           Alert.alert(t('messages.hint'), t('messages.verify_img'), [{ text: 'OK' }]);
           return;
         }
         if (uri) {
           user?.updateProfile({ photoURL: uri[0] });
-          setImage(uri[0]);
+          setImage(uri[0] || ic_avatar);
           Snackbar.show({
             text: t('messages.change_img_success'),
             duration: Snackbar.LENGTH_SHORT,
@@ -79,7 +79,6 @@ const InfoUser: React.FC = () => {
         }
       }
     });
-    console.log('handleSelectImage');
   }, [t, user]);
   return (
     <SafeAreaView style={styles.contain}>

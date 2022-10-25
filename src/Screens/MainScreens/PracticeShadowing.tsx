@@ -22,6 +22,7 @@ TrackPlayer.updateOptions({
   capabilities: [Capability.Play, Capability.Pause],
   compactCapabilities: [Capability.Play, Capability.Pause],
 });
+TrackPlayer.setupPlayer();
 
 const PracticeShadowing: React.FC = () => {
   const navigation = useNavigation();
@@ -65,7 +66,6 @@ const PracticeShadowing: React.FC = () => {
       if (!lessionsDetail?.audio) {
         return;
       }
-      await TrackPlayer.setupPlayer();
       await TrackPlayer.add([
         {
           id: lessionsDetail?.key,
@@ -78,14 +78,13 @@ const PracticeShadowing: React.FC = () => {
     }
   }, [lessionsDetail?.audio, lessionsDetail?.title, lessionsDetail?.key]);
   const pauseTemporary = useCallback(async () => {
-    await TrackPlayer.pause();
+    await TrackPlayer.reset();
   }, []);
 
   useEffect(() => {
     setupPlayer();
     return () => {
       pauseTemporary();
-      setupPlayer();
     };
   }, [setupPlayer, pauseTemporary]);
 

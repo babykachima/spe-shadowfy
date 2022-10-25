@@ -15,6 +15,8 @@ import { RootRouteProps, Screens } from '../../Utils/navigationConfig';
 import { ModalRate } from '../../Common/Components/ModalCustom';
 import { IRate } from '../../Types';
 
+TrackPlayer.setupPlayer();
+
 const Pharagraph: React.FC = () => {
   const navigation = useNavigation();
   const route = useRoute<RootRouteProps<'Pharagraph'>>();
@@ -79,17 +81,16 @@ const Pharagraph: React.FC = () => {
 
   // Play Track
   const pauseTemporary = useCallback(async () => {
-    await TrackPlayer.pause();
+    await TrackPlayer.reset();
   }, []);
   const setupPlayer = useCallback(async () => {
     try {
       if (!lessionsDetail?.audio) {
         return;
       }
-      await TrackPlayer.setupPlayer();
       await TrackPlayer.add([
         {
-          id: 'nsTbaEpUysbeU7IeGG5m',
+          id: keyLession,
           url: lessionsDetail?.audio || '',
           title: lessionsDetail?.title,
         },
@@ -97,12 +98,11 @@ const Pharagraph: React.FC = () => {
     } catch (error) {
       console.log('setupPlayer error ->', error);
     }
-  }, [lessionsDetail?.audio, lessionsDetail?.title]);
+  }, [keyLession, lessionsDetail?.audio, lessionsDetail?.title]);
 
   useEffect(() => {
     setupPlayer();
     return () => {
-      setupPlayer();
       pauseTemporary();
     };
   }, [pauseTemporary, setupPlayer]);
