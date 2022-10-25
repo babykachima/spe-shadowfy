@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Alert, Image, Modal, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Snackbar from 'react-native-snackbar';
 
-import { ic_cancel, ic_faq, ic_paper, ic_person, ic_question, ic_translation, ic_uk, ic_vietnam } from '../../Assets';
+import { ic_cancel, ic_faq, ic_paper, ic_person, ic_translation, ic_uk, ic_vietnam } from '../../Assets';
 import ButtonCustom from '../../Common/Components/ButtonCustom';
 import { Header } from '../../Common/Components/Header';
 
@@ -136,23 +136,15 @@ const Settings: React.FC = () => {
   const navigateInfoUser = useCallback(() => {
     navigation.navigate(Screens.InfoUser as never);
   }, [navigation]);
-  const navigateAboutApp = useCallback(() => {
-    navigation.navigate(Screens.AboutApp as never);
-  }, [navigation]);
 
   return (
     <View style={styles.contain}>
-      <Header title="Settings" goBack={navigation.goBack} />
+      <Header title={t('screens.Settings')} goBack={navigation.goBack} />
       <View style={styles.subContent}>
         <View style={styles.content}>
           <TouchableOpacity style={styles.item} onPress={navigateInfoUser}>
             <IconCustom iconUrl={ic_person} size="l" />
             <TextCommon title={t('app.manager_account')} containStyles={styles.textItem} />
-          </TouchableOpacity>
-          <View style={styles.diveItem} />
-          <TouchableOpacity style={styles.item} onPress={navigateAboutApp}>
-            <IconCustom iconUrl={ic_question} size="l" />
-            <TextCommon title={t('app.about_app')} containStyles={styles.textItem} />
           </TouchableOpacity>
           <View style={styles.diveItem} />
           <TouchableOpacity style={styles.item} onPress={onSetOpenModal}>
@@ -196,7 +188,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.borderColor,
     marginVertical: 20,
     width: '90%',
-    height: 320,
+    height: 265,
     borderRadius: 10,
     padding: 20,
   },

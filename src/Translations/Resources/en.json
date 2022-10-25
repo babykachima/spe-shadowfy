@@ -43,7 +43,9 @@
   "cancel":"Cancel",
   "oke":"OK",
   "edit_name":"Edit name",
-  "submit":"Submit"
+  "submit":"Submit",
+  "check":"Check",
+  "clear":"Clear"
  },
  "popover":{
   "dictionary": "Dictionary",
@@ -54,6 +56,20 @@
     "name":"Name",
     "phone":"Phone number",
     "email":"Email"
+ },
+ "screens":{
+  "ListLession": "List Lession",
+  "PracticeShadowing": "Practice Shadowing",
+  "Settings": "Settings",
+  "Dictionary": "Dictionary",
+  "Pharagraph": "Pharagraph",
+  "CheckVoice": "Check Voice",
+  "Translations": "Translations",
+  "FAQ": "FAQ",
+  "TermAndPolicy": "Term & Policy",
+  "Account": "Account",
+  "EditProfile": "Edit Profile",
+  "Guide":"Guide line"
  }
 
  

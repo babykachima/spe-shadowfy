@@ -21,7 +21,7 @@
 
  },
  "lessions":{
-  "recommend":"Recommend",
+  "recommend":"Đề xuất",
   "see_all":"Xem tất cả",
   "study_now":"Học ngay",
   "unchecked":"Bỏ chọn"
@@ -44,7 +44,9 @@
   "cancel":"Huỷ",
   "oke":"Đồng ý",
   "edit_name":"Chỉnh sửa tên",
-  "submit":"Xác nhận"
+  "submit":"Xác nhận",
+  "check":"Kiểm tra",
+  "clear":"Xoá"
  },
   "popover":{
   "dictionary": "Từ điển",
@@ -55,8 +57,21 @@
     "name":"Họ tên",
     "phone":"Số điện thoại",
     "email":"Email"
+ },
+ "screens":{
+  "ListLession": "Danh sách bài học",
+  "PracticeShadowing": "Luyện tập",
+  "Settings": "Cài đặt",
+  "Dictionary": "Từ điển",
+  "Pharagraph": "Đoạn văn",
+  "CheckVoice": "Kiểm tra",
+  "Translations": "Google dịch",
+  "FAQ": "Câu hỏi thường gặp",
+  "TermAndPolicy": "Điều khoản & Quyền riêng tư",
+  "Account": "Tài khoản",
+  "EditProfile": "Chỉnh sửa",
+  "Guide":"Hướng dẫn"
  }
-
 
  
 }

@@ -82,7 +82,7 @@ const InfoUser: React.FC = () => {
   }, [t, user]);
   return (
     <SafeAreaView style={styles.contain}>
-      <Header title={'Account'} rightIcon={false} goBack={navigation.goBack} />
+      <Header title={t('screens.Account')} rightIcon={false} goBack={navigation.goBack} />
       <View style={styles.content}>
         <TouchableOpacity style={styles.contentAvatar} onPress={handleSelectImage}>
           <Avatar photoURL={image} containStyle={styles.avatar} />

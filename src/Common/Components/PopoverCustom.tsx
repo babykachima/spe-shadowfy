@@ -57,7 +57,7 @@ export const PopoverNote: React.FC<IPopoverNote> = ({ isVisible, onRequestClose,
         return;
       }
       case ENodeItem.GUIDE_LINE: {
-        navigation.navigate(Screens.Dictionary as never);
+        navigation.navigate(Screens.GuideLine as never);
         onRequestClose();
         return;
       }

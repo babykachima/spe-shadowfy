@@ -9,17 +9,18 @@ import Home from '../Screens/MainScreens/Home';
 import ListLession from '../Screens/MainScreens/ListLession';
 
 import { useAppSelector } from '../Redux/hooks';
-import AboutApp from '../Screens/MainScreens/AboutApp';
+
 import CheckVoice from '../Screens/MainScreens/CheckVoice';
+import Dictionary from '../Screens/MainScreens/Dictionary';
+import EditProfile from '../Screens/MainScreens/EditProfile';
 import FAQ from '../Screens/MainScreens/FAQ';
+import GuideLine from '../Screens/MainScreens/GuideLine';
 import InfoUser from '../Screens/MainScreens/InfoUser';
 import Pharagraph from '../Screens/MainScreens/Pharagraph';
 import PracticeShadowing from '../Screens/MainScreens/PracticeShadowing';
-import Dictionary from '../Screens/MainScreens/Dictionary';
 import TermAndPolicy from '../Screens/MainScreens/TermAndPolicy';
 import Translations from '../Screens/MainScreens/Translation';
 import Tabbar from './Tabbar';
-import EditProfile from '../Screens/MainScreens/EditProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,7 +49,7 @@ const App: React.FC = () => {
         <Stack.Screen name="Translations" component={Translations} />
         <Stack.Screen name="FAQ" component={FAQ} />
         <Stack.Screen name="TermAndPolicy" component={TermAndPolicy} />
-        <Stack.Screen name="AboutApp" component={AboutApp} />
+        <Stack.Screen name="GuideLine" component={GuideLine} />
         <Stack.Screen name="InfoUser" component={InfoUser} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
       </React.Fragment>

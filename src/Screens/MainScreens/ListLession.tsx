@@ -41,7 +41,7 @@ const SlideCategory: React.FC<ISlideCategory> = ({ selectCategory, onUChecked, i
   return (
     <View style={styles.containSlide}>
       <View style={styles.header}>
-        <TextCommon title="List lessions" containStyles={styles.title} />
+        <TextCommon title={t('screens.ListLession')} containStyles={styles.title} />
         {isChecked && (
           <TouchableOpacity onPress={onUChecked}>
             <TextCommon title={t('lessions.unchecked')} containStyles={styles.unChecked} />

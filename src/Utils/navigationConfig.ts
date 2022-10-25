@@ -12,7 +12,7 @@ export const Screens = {
   Translations: 'Translations',
   FAQ: 'FAQ',
   TermAndPolicy: 'TermAndPolicy',
-  AboutApp: 'AboutApp',
+  GuideLine: 'GuideLine',
   InfoUser: 'InfoUser',
   EditProfile: 'EditProfile',
 };

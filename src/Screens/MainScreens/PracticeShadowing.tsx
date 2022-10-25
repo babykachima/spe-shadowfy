@@ -145,7 +145,12 @@ const PracticeShadowing: React.FC = () => {
 
   return (
     <View style={styles.contain}>
-      <Header title="Practice Shadowing" goBack={navigation.goBack} onPressPopover={setOpenPopover} rightIcon={true} />
+      <Header
+        title={t('screens.PracticeShadowing')}
+        goBack={navigation.goBack}
+        onPressPopover={setOpenPopover}
+        rightIcon={true}
+      />
       <ScrollView style={styles.contentDescription}>
         <TextCommon title={lessionsDetail?.title || ''} containStyles={styles.title} numberOfLines={2} />
         <View style={styles.textContent}>

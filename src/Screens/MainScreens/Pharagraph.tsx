@@ -10,15 +10,18 @@ import { Colors } from '../../Utils/colors';
 
 import Voice from '@react-native-voice/voice';
 
-import ShadowComponent from '../../Common/Components/ShadowComponent';
-import { RootRouteProps, Screens } from '../../Utils/navigationConfig';
 import { ModalRate } from '../../Common/Components/ModalCustom';
+import ShadowComponent from '../../Common/Components/ShadowComponent';
 import { IRate } from '../../Types';
+import { RootRouteProps, Screens } from '../../Utils/navigationConfig';
+
+import { useTranslation } from 'react-i18next';
 
 TrackPlayer.setupPlayer();
 
 const Pharagraph: React.FC = () => {
   const navigation = useNavigation();
+  const { t } = useTranslation();
   const route = useRoute<RootRouteProps<'Pharagraph'>>();
   const keyLession = route?.params?.key;
   const [lessionsDetail] = useGetDetailDataFireStore('lessions', keyLession);
@@ -157,7 +160,7 @@ const Pharagraph: React.FC = () => {
 
   return (
     <View style={styles.contain}>
-      <Header title={'Pharagraph'} rightIcon={false} goBack={navigation.goBack} />
+      <Header title={t('screens.Pharagraph')} rightIcon={false} goBack={navigation.goBack} />
       <View style={styles.content}>
         <TextCommon title={lessionsDetail?.title || ''} numberOfLines={2} containStyles={styles.title} />
         <PlaySound
