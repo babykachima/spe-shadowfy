@@ -1,5 +1,5 @@
 import Slider from '@react-native-community/slider';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Dimensions, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import TrackPlayer, { Capability, State, usePlaybackState, useProgress } from 'react-native-track-player';
@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import IconCustom from '../../Common/Components/IconCustom';
 import { PopoverNote } from '../../Common/Components/PopoverCustom';
 import { Colors } from '../../Utils/colors';
-import { Screens } from '../../Utils/navigationConfig';
+import { RootRouteProps, Screens } from '../../Utils/navigationConfig';
 import ModalCustom, { ModalRate } from '../../Common/Components/ModalCustom';
 import { IRate } from '../../Types';
 
@@ -26,7 +26,9 @@ TrackPlayer.updateOptions({
 const PracticeShadowing: React.FC = () => {
   const navigation = useNavigation();
   const playBackState = usePlaybackState();
-  const [lessionsDetail] = useGetDetailDataFireStore('lessions', 'nsTbaEpUysbeU7IeGG5m');
+  const route = useRoute<RootRouteProps<'PracticeShadowing'>>();
+  const keyLession = route?.params?.key;
+  const [lessionsDetail] = useGetDetailDataFireStore('lessions', keyLession);
   const { position, duration } = useProgress();
   const [isOpenPopover, setIsOpenPopover] = useState(false);
   const [isOpenModalDictionary, setIsOpenModalDictionary] = useState<boolean>(false);
@@ -66,7 +68,7 @@ const PracticeShadowing: React.FC = () => {
       await TrackPlayer.setupPlayer();
       await TrackPlayer.add([
         {
-          id: 'nsTbaEpUysbeU7IeGG5m',
+          id: lessionsDetail?.key,
           url: lessionsDetail?.audio || '',
           title: lessionsDetail?.title,
         },
@@ -74,7 +76,7 @@ const PracticeShadowing: React.FC = () => {
     } catch (error) {
       console.log('setupPlayer error ->', error);
     }
-  }, [lessionsDetail?.audio, lessionsDetail?.title]);
+  }, [lessionsDetail?.audio, lessionsDetail?.title, lessionsDetail?.key]);
   const pauseTemporary = useCallback(async () => {
     await TrackPlayer.pause();
   }, []);
@@ -198,7 +200,7 @@ const PracticeShadowing: React.FC = () => {
         </View>
       </View>
       {/* Modal */}
-      <PopoverNote isVisible={isOpenPopover} onRequestClose={setClosePopover} />
+      <PopoverNote isVisible={isOpenPopover} onRequestClose={setClosePopover} keyLession={keyLession} />
       <ModalCustom isVisible={isOpenModalDictionary} onRequestClose={setCloseModalDictionary} word={textSelected} />
       <ModalRate visible={isOpenModalRate} onCloseModal={setCloseModalRate} onSelectRateItem={handleSetSpeed} />
     </View>

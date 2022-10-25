@@ -5,23 +5,28 @@ import { useTranslation } from 'react-i18next';
 import { FlatList, ListRenderItem, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Avatar from '../../Common/Components/Avatar';
 import TextCommon from '../../Common/Components/TextCommon';
-import { dataBanner } from '../../Common/mockData';
+
+import { useGetDataFireStore } from '../../Hooks/fetchDataFireStore';
 
 import { IBanner } from '../../Types';
 import { Colors } from '../../Utils/colors';
 import { Screens } from '../../Utils/navigationConfig';
 import ItemBanner from './ItemBanner';
 
-const Banner = () => {
+interface IBanners {
+  banners: IBanner[] | undefined;
+}
+
+const Banner: React.FC<IBanners> = ({ banners }) => {
   const _renderItem = useCallback<ListRenderItem<IBanner>>(({ item }) => {
     return <ItemBanner data={item} />;
   }, []);
   const _keyExtractor = (item: IBanner) => {
-    return `${item.id}`;
+    return `${item.key}`;
   };
   return (
     <FlatList
-      data={dataBanner}
+      data={banners}
       renderItem={_renderItem}
       keyExtractor={_keyExtractor}
       horizontal
@@ -37,6 +42,8 @@ const HeaderWelcome = () => {
   const navigation = useNavigation();
   const user = firebase.auth().currentUser;
   const isFocused = useIsFocused();
+
+  const [banners] = useGetDataFireStore('banners');
 
   useEffect(() => {
     if (isFocused) {
@@ -61,7 +68,7 @@ const HeaderWelcome = () => {
           <Avatar photoURL={user?.photoURL || null} />
         </TouchableOpacity>
       </View>
-      <Banner />
+      <Banner banners={banners} />
     </SafeAreaView>
   );
 };

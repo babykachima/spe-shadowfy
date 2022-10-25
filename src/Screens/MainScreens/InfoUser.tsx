@@ -35,7 +35,7 @@ const InfoUser: React.FC = () => {
   const navigation = useNavigation();
   const user = firebase.auth().currentUser;
   const { t } = useTranslation();
-  const [image, setImage] = useState<string | null>(user?.photoURL || null);
+  const [image, setImage] = useState<string | null>(user?.photoURL);
   const isFocused = useIsFocused();
 
   useEffect(() => {

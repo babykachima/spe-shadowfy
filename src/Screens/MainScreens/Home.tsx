@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Colors } from '../../Utils/colors';
 import { Screens } from '../../Utils/navigationConfig';
 
@@ -10,18 +10,19 @@ import Sections from './Sections';
 const Home: React.FC = () => {
   const navigation = useNavigation();
 
-  const navigateScreen = useCallback(() => {
-    navigation.navigate(Screens.PracticeShadowing as never);
-  }, [navigation]);
+  const navigateScreen = useCallback(
+    (key: string) => {
+      return navigation.navigate(Screens.PracticeShadowing as never, { key: key } as never);
+    },
+    [navigation]
+  );
 
   return (
     <SafeAreaView style={styles.contain}>
       <View style={styles.header}>
         <HeaderWelcome />
       </View>
-      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        <Sections onMoveScreen={navigateScreen} />
-      </ScrollView>
+      <Sections onMoveScreen={navigateScreen} />
     </SafeAreaView>
   );
 };

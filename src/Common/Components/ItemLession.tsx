@@ -1,12 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ILession } from '../../Types';
 import { Colors } from '../../Utils/colors';
 import ButtonCustom from './ButtonCustom';
 import TextCommon from './TextCommon';
 
 interface IItemLessions {
-  item: any;
+  item: ILession;
   onPress: () => void;
 }
 
@@ -20,7 +21,7 @@ const ItemLessions: React.FC<IItemLessions> = ({ item, onPress }) => {
       <View style={styles.content}>
         <View style={styles.topContent}>
           <TextCommon title={item.title} containStyles={styles.title} numberOfLines={2} />
-          <TextCommon title={item.description} containStyles={styles.description} numberOfLines={3} />
+          <TextCommon title={item.content} containStyles={styles.contentDes} numberOfLines={2} />
         </View>
         <View style={styles.button}>
           <ButtonCustom title={t('lessions.study_now')} onPress={onPress} styleTitle={styles.titleButton} />
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 10,
     backgroundColor: Colors.white,
-    shadowColor: '#000',
+    shadowColor: Colors.textColor,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -57,9 +58,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   content: {
-    flex: 0.6,
+    flex: 0.63,
     marginTop: 5,
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
   topContent: {
     justifyContent: 'flex-start',
@@ -72,9 +73,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 18,
   },
-  description: {
+  contentDes: {
+    marginTop: 10,
+    marginRight: 5,
     fontSize: 12,
     fontWeight: '600',
     color: Colors.borderColor,
@@ -82,7 +85,8 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    marginHorizontal: 10,
+    marginRight: 10,
+    marginBottom: 10,
   },
 
   titleButton: {

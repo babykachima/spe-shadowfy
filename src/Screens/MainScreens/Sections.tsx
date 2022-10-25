@@ -1,17 +1,18 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlatList, ListRenderItem, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import ItemLessions from '../../Common/Components/ItemLession';
 import TextCommon from '../../Common/Components/TextCommon';
 
-import { DATA_LESSION } from '../../Common/mockData';
+import { useGetDataFireStore } from '../../Hooks/fetchDataFireStore';
+import { ILession } from '../../Types';
 import { Colors } from '../../Utils/colors';
 import { Screens } from '../../Utils/navigationConfig';
 
 interface ISectionProps {
-  onMoveScreen: () => void;
+  onMoveScreen: (id: string) => void;
 }
 const Sections: React.FC<ISectionProps> = ({ onMoveScreen }) => {
   const { t } = useTranslation();
@@ -19,24 +20,53 @@ const Sections: React.FC<ISectionProps> = ({ onMoveScreen }) => {
   const moveListLessions = useCallback(() => {
     navigation.navigate(Screens.ListLession as never);
   }, [navigation]);
+
+  const [lessions] = useGetDataFireStore('lessions');
+
+  const _renderItem = useCallback<ListRenderItem<ILession>>(
+    ({ item }) => {
+      return <ItemLessions item={item} onPress={() => onMoveScreen(item.key)} />;
+    },
+    [onMoveScreen]
+  );
+  const _keyExtractor = (item: ILession) => {
+    return `${item.key}`;
+  };
+
   return (
-    <View>
+    <View style={styles.contain}>
       <View style={styles.header}>
         <TextCommon title={t('lessions.recommend')} containStyles={styles.recommend} />
         <TouchableOpacity onPress={moveListLessions}>
           <TextCommon title={t('lessions.see_all')} containStyles={styles.seeAll} />
         </TouchableOpacity>
       </View>
-      {DATA_LESSION.map((item) => (
-        <React.Fragment key={item.id}>
-          <ItemLessions item={item} onPress={onMoveScreen} />
-        </React.Fragment>
-      ))}
+      <View style={styles.lessions}>
+        <FlatList
+          data={lessions}
+          renderItem={_renderItem}
+          keyExtractor={_keyExtractor}
+          style={styles.flatlist}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  contain: {
+    flex: 1,
+    paddingHorizontal: 20,
+    marginTop: 30,
+  },
+  lessions: {
+    height: '100%',
+  },
+  flatlist: {
+    marginTop: 10,
+    marginBottom: 40,
+  },
   header: {
     marginBottom: 20,
     flexDirection: 'row',

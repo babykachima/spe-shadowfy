@@ -11,6 +11,7 @@ import TextCommon from './TextCommon';
 
 interface IPopoverNote {
   isVisible: boolean;
+  keyLession: string;
   onRequestClose: () => void;
 }
 
@@ -22,20 +23,20 @@ type TListsNode = {
 };
 enum ENodeItem {
   DICTIONARY = 'Dictionary',
-  SENTENCE = 'Sentence',
+  GUIDE_LINE = 'Guide line',
   PHARAGRAPH = 'Pharagraph',
 }
 const DataChooseNote: Array<TListsNode> = [
   {
     id: 1,
     name: i18n.t('popover.dictionary'),
-    key: 'Tool Tip',
+    key: 'Dictionary',
     icon: ic_textbook,
   },
   {
     id: 2,
-    name: i18n.t('popover.sentence'),
-    key: 'Sentence',
+    name: i18n.t('popover.guide_line'),
+    key: 'Guide line',
     icon: ic_pencil,
   },
   {
@@ -46,21 +47,22 @@ const DataChooseNote: Array<TListsNode> = [
   },
 ];
 
-export const PopoverNote: React.FC<IPopoverNote> = ({ isVisible, onRequestClose }) => {
+export const PopoverNote: React.FC<IPopoverNote> = ({ isVisible, onRequestClose, keyLession }) => {
   const navigation = useNavigation();
   const onHandlePopover = (item: TListsNode) => {
     switch (item.key) {
       case ENodeItem.DICTIONARY: {
-        console.log('TOOLTIP');
+        navigation.navigate(Screens.Dictionary as never);
+        onRequestClose();
         return;
       }
-      case ENodeItem.SENTENCE: {
-        navigation.navigate(Screens.Sentence as never);
+      case ENodeItem.GUIDE_LINE: {
+        navigation.navigate(Screens.Dictionary as never);
         onRequestClose();
         return;
       }
       case ENodeItem.PHARAGRAPH: {
-        navigation.navigate(Screens.Pharagraph as never);
+        navigation.navigate(Screens.Pharagraph as never, { key: keyLession } as never);
         onRequestClose();
         return;
       }

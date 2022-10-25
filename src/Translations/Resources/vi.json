@@ -7,7 +7,7 @@
   "logout":"Đăng xuất",
   "hello_users":"Xin chào",
   "about_app":"Thông tin về app",
-  "change_language":"Ngôn ngữ mẹ đẻ",
+  "change_language":"Ngôn ngữ hiển thị",
   "faq": "Câu hỏi thường gặp",
   "term_and_policy":"Điều khoản và quyền riêng tư",
   "manager_account":"Quản lý tài khoản",
@@ -23,7 +23,8 @@
  "lessions":{
   "recommend":"Recommend",
   "see_all":"Xem tất cả",
-  "study_now":"Học ngay"
+  "study_now":"Học ngay",
+  "unchecked":"Bỏ chọn"
  },
  "messages":{
   "change_language_success":"Thay đổi ngôn ngữ thành công!",
@@ -44,6 +45,11 @@
   "oke":"Đồng ý",
   "edit_name":"Chỉnh sửa tên",
   "submit":"Xác nhận"
+ },
+  "popover":{
+  "dictionary": "Từ điển",
+  "guide_line": "Hướng dẫn",
+  "pharagraph":"Đoạn văn"
  },
  "profile":{
     "name":"Họ tên",

@@ -1,20 +1,22 @@
 export interface IBanner {
-  id: number;
+  key: string;
   image: string;
 }
 export interface IIconCategories {
   id: number;
   title: string;
   icon: string | number;
+  value: string;
 }
 export interface ILession {
-  id: number | string;
+  key: string;
   title: string;
   content: string;
   image: string;
   date: string;
   audio: string;
   create_at: string;
+  category: string;
 }
 export interface IRouteTabar {
   name: string;

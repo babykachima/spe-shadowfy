@@ -6,7 +6,7 @@ export const Screens = {
   Welcome: 'Welcome',
   Login: 'Login',
   Settings: 'Settings',
-  Sentence: 'Sentence',
+  Dictionary: 'Dictionary',
   Pharagraph: 'Pharagraph',
   CheckVoice: 'CheckVoice',
   Translations: 'Translations',
@@ -26,6 +26,12 @@ export type RootStackParamList = {
   };
   Translations: {
     data: string;
+  };
+  PracticeShadowing: {
+    key: string;
+  };
+  Pharagraph: {
+    key: string;
   };
 };
 
