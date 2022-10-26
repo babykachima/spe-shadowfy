@@ -14,7 +14,7 @@ interface IItemLessions {
 const ItemLessions: React.FC<IItemLessions> = ({ item, onPress }) => {
   const { t } = useTranslation();
   return (
-    <TouchableOpacity style={styles.contain} key={item.id} onPress={onPress}>
+    <TouchableOpacity style={styles.contain} key={item.key} onPress={onPress}>
       <View style={styles.img}>
         <Image source={{ uri: item.image }} style={styles.image} resizeMode="cover" />
       </View>
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    marginVertical: 10,
     borderRadius: 10,
     backgroundColor: Colors.white,
     shadowColor: Colors.textColor,

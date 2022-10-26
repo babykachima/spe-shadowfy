@@ -82,11 +82,9 @@ const styles = StyleSheet.create({
   selectedTitle: {
     fontWeight: '600',
     color: Colors.primaryColor,
-    marginTop: 5,
   },
   noSelectTitle: {
     color: Colors.grayColor,
-    marginTop: 5,
   },
 });
 

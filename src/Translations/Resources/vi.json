@@ -7,7 +7,7 @@
   "logout":"Đăng xuất",
   "hello_users":"Xin chào",
   "about_app":"Thông tin về app",
-  "change_language":"Ngôn ngữ hiển thị",
+  "display_language":"Ngôn ngữ hiển thị",
   "faq": "Câu hỏi thường gặp",
   "term_and_policy":"Điều khoản và quyền riêng tư",
   "manager_account":"Quản lý tài khoản",
@@ -71,6 +71,19 @@
   "Account": "Tài khoản",
   "EditProfile": "Chỉnh sửa",
   "Guide":"Hướng dẫn"
+ },
+ "faqs":{
+  "question_1":"App này dùng cho mục đích gì?",
+  "answer_1":"Shawdowfy là ứng dụng cho phép người dùng luyện tập nói tiếng anh bằng phương pháp Shadowing.",
+
+  "question_2":"App này phù hợp cho trình độ nào?",
+  "answer_2":"App dành cho tất cả mọi trình độ, nhưng phù hợp nhất là từ A1 - B2 ",
+
+  "question_3":"App có chứa quảng cáo không?",
+  "answer_3":"App sẽ không chứa bất kỳ thông tin quảng cáo nào để người dùng có trải nghiệm tốt nhất khi sử dụng app.",
+
+  "question_4":"Sử dụng app như nào để đạt hiệu quả?",
+  "answer_4":"Với mỗi  bài học, người dùng cần kiên trì luyện tập thật thành thạo đến một mức nhất định rồi chuyển sang bài học tiếp theo. “Practices makes perfect”."
  }
 
  

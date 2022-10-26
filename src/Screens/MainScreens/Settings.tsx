@@ -49,19 +49,18 @@ const ModalLanguages: React.FC<IModalLanguages> = ({ visible, onCloseModal, onCh
         <View style={styles.contentModal}>
           <View style={styles.headerModal}>
             <TouchableOpacity onPress={onCloseModal}>
-              <IconCustom iconUrl={ic_cancel} size="l" tintColor={Colors.warningColor} />
+              <IconCustom iconUrl={ic_cancel} size="l" />
             </TouchableOpacity>
           </View>
           <ScrollView style={styles.languages}>
             {listLanguage.map((language) => (
-              <TouchableOpacity
-                style={styles.modalItem}
-                key={language.id}
-                onPress={() => onChangeLanguage(language.value)}
-              >
-                <Image source={language.icon} style={styles.iconFlat} />
-                <TextCommon title={language.name} containStyles={styles.nameContry} />
-              </TouchableOpacity>
+              <React.Fragment key={language.id}>
+                <TouchableOpacity style={styles.modalItem} onPress={() => onChangeLanguage(language.value)}>
+                  <Image source={language.icon} style={styles.iconFlat} />
+                  <TextCommon title={language.name} containStyles={styles.nameContry} />
+                </TouchableOpacity>
+                <View style={styles.diveItem} />
+              </React.Fragment>
             ))}
           </ScrollView>
         </View>
@@ -149,7 +148,7 @@ const Settings: React.FC = () => {
           <View style={styles.diveItem} />
           <TouchableOpacity style={styles.item} onPress={onSetOpenModal}>
             <IconCustom iconUrl={ic_translation} size="l" />
-            <TextCommon title={t('app.change_language')} containStyles={styles.textItem} />
+            <TextCommon title={t('app.display_language')} containStyles={styles.textItem} />
           </TouchableOpacity>
           <View style={styles.diveItem} />
           <TouchableOpacity style={styles.item} onPress={navigateFAQ}>
@@ -235,11 +234,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: Colors.textColor,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   contentModal: {
     borderRadius: 20,
     width: 300,
-    height: 300,
+    height: 200,
     backgroundColor: Colors.white,
   },
   modalItem: {

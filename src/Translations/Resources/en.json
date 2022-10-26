@@ -1,13 +1,13 @@
 {
  "app":{
-  "welcome":"Let's Learning Together!",
+  "welcome":"Enjoy Learning!",
   "home":"Home",
   "lessions":"Lessions",
   "settings":"Settings",
   "logout":"Log out",
   "hello_users":"Hello",
   "about_app":"About app",
-  "change_language":"Languages",
+  "display_language":"Display language",
   "faq": "FAQ",
   "term_and_policy":"Term and Policy",
   "manager_account":"Account",
@@ -70,7 +70,20 @@
   "Account": "Account",
   "EditProfile": "Edit Profile",
   "Guide":"Guide line"
- }
+ },
+ "faqs":{
+  "question_1":"What is this app used for? ",
+  "answer_1":"Shawdowfy is an application that allows users to practice speaking English using the Shadowing method.",
 
+  "question_2":" What level is this app suitable for? ",
+  "answer_2":"App for all levels, but most suitable from A1 - B2.",
+
+  "question_3":"Does the App contain ads?",
+  "answer_3":"App will not contain any advertising information so that users have the best experience when using the app.",
+
+  "question_4":"How to use the app to be effective? ",
+  "answer_4":"With each lesson, users need to persevere and practice proficiently to a certain level and then move on to the next lesson.“Practices makes perfect”."
+ }
  
+
 }

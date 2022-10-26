@@ -58,17 +58,17 @@ const styles = StyleSheet.create({
   contain: {
     flex: 1,
     paddingHorizontal: 20,
-    marginTop: 30,
+    marginTop: 15,
   },
   lessions: {
     height: '100%',
   },
   flatlist: {
-    marginTop: 10,
+    flex: 1,
     marginBottom: 40,
   },
   header: {
-    marginBottom: 20,
+    marginBottom: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

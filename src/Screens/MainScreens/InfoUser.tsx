@@ -63,12 +63,6 @@ const InfoUser: React.FC = () => {
     launchImageLibrary(defaultOptions, (response: ImagePickerResponse) => {
       if (!response.didCancel) {
         const uri = response.assets?.map((asset) => asset.uri);
-        const fileSize = response.assets?.map((asset) => asset.fileSize);
-        const sideMode = fileSize ?? 0 / 1024 / 1024;
-        if (sideMode > 25) {
-          Alert.alert(t('messages.hint'), t('messages.verify_img'), [{ text: 'OK' }]);
-          return;
-        }
         if (uri) {
           user?.updateProfile({ photoURL: uri[0] });
           setImage(uri[0] || ic_avatar);
