@@ -1,6 +1,8 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as diff from 'diff';
+
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Dimensions, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Header } from '../../Common/Components/Header';
 import { regexCharacters } from '../../Utils';
@@ -11,6 +13,7 @@ const CheckVoice: React.FC = () => {
   const navigation = useNavigation();
   const route = useRoute<RootRouteProps<'CheckVoice'>>();
   const resultVoiceData = route?.params;
+  const { t } = useTranslation();
 
   const formatVoiceData = useMemo(() => {
     if (resultVoiceData.data?.content) {
@@ -43,7 +46,7 @@ const CheckVoice: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.contain}>
-      <Header title={'CheckVoice'} rightIcon={false} goBack={navigation.goBack} />
+      <Header title={t('screens.CheckVoice')} rightIcon={false} goBack={navigation.goBack} />
       <View style={styles.content}>
         <View style={styles.group}>
           <ScrollView>

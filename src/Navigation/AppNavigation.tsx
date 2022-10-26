@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React, { useMemo } from 'react';
-import { getIdUserToken } from '../Redux/selector';
+import React, { useEffect, useMemo } from 'react';
+import { checkLoading, getIdUserToken } from '../Redux/selector';
 
 import Login from '../Screens/AuthScreens/Login';
 import Welcome from '../Screens/AuthScreens/Welcome';
@@ -10,6 +10,9 @@ import ListLession from '../Screens/MainScreens/ListLession';
 
 import { useAppSelector } from '../Redux/hooks';
 
+import SplashScreen from 'react-native-splash-screen';
+import { useSelector } from 'react-redux';
+import Loading from '../Common/Components/Loading';
 import CheckVoice from '../Screens/MainScreens/CheckVoice';
 import Dictionary from '../Screens/MainScreens/Dictionary';
 import EditProfile from '../Screens/MainScreens/EditProfile';
@@ -26,7 +29,11 @@ const Stack = createNativeStackNavigator();
 
 const App: React.FC = () => {
   const accessToken = useAppSelector(getIdUserToken);
+  const isLoading = useSelector(checkLoading);
 
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
   const authScreens = useMemo(() => {
     return (
       <React.Fragment>
@@ -66,7 +73,12 @@ const App: React.FC = () => {
     );
   }, [accessToken, authScreens, mainScreens]);
 
-  return <React.Fragment>{NavigationView}</React.Fragment>;
+  return (
+    <React.Fragment>
+      {NavigationView}
+      {isLoading && <Loading />}
+    </React.Fragment>
+  );
 };
 
 export default App;

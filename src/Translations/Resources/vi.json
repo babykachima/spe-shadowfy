@@ -1,6 +1,6 @@
 {
  "app":{
-  "welcome":"Hãy học cùng nhau nào!",
+  "welcome":"Tận hưởng việc học!",
   "home":"Trang chủ",
   "lessions":"Bài học",
   "settings":"Cài đặt",
@@ -46,7 +46,10 @@
   "edit_name":"Chỉnh sửa tên",
   "submit":"Xác nhận",
   "check":"Kiểm tra",
-  "clear":"Xoá"
+  "clear":"Xoá",
+  "stop":"Dừng",
+  "practices":"Hãy luyện tập nào!",
+  "start":"Bắt đầu"
  },
   "popover":{
   "dictionary": "Từ điển",
@@ -84,6 +87,17 @@
 
   "question_4":"Sử dụng app như nào để đạt hiệu quả?",
   "answer_4":"Với mỗi  bài học, người dùng cần kiên trì luyện tập thật thành thạo đến một mức nhất định rồi chuyển sang bài học tiếp theo. “Practices makes perfect”."
+ },
+ "guide":{
+  "step_1":"Bước 1: Đọc và tra từ điển ",
+  "guide_1":"Đầu tiên bạn nên dịch toàn bộ bài viết bằng việc nhấp chọn nút “Dịch”. Bạn có thể dịch từng từ bằng việc nhấp chọn từng từ. Từ điển tự động bật lên. Bạn nhấp chọn từ điển muốn tra cứu.",
+
+  "step_2":"Bước 2: Nghe file âm thanh",
+  "guide_2":"Để chạy file âm thanh bạn có thể nhấp nút Play. Có nhiều tuỳ chọn cho việc nghe âm thanh của bạn dễ dàng hơn.",
+
+  "step_3":"Bước 3: Bắt đầu luyện tập",
+  "guide_3":"Sau khi hiểu toàn bộ nội dung của bài viết. Bạn nên bắt đầu nhại lại đoạn văn mà không sử dụng file âm thanh. Sau đó bật song song file âm thanh trong quá trình luyện tập. Với chế độ “Đoạn văn”, bạn có thể kiểm tra mình đã đọc đúng chưa bằng việc nhấp nút  Kiểm tra."
+
  }
 
  

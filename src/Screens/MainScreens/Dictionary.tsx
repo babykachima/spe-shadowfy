@@ -1,23 +1,28 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { ActivityIndicator, StyleSheet } from 'react-native';
+import React, { useCallback } from 'react';
+import { StyleSheet } from 'react-native';
 
 import WebView from 'react-native-webview';
 import { Header } from '../../Common/Components/Header';
+import { useAppDispatch } from '../../Redux/hooks';
+import { setLoading } from '../../Redux/Slices/appSlice';
 import { uriDictinary } from '../../Utils';
-import { Colors } from '../../Utils/colors';
 
 const Dictionary: React.FC = () => {
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+
+  const onLoadStart = useCallback(() => {
+    dispatch(setLoading(true));
+  }, [dispatch]);
+  const onLoadEnd = useCallback(() => {
+    dispatch(setLoading(false));
+  }, [dispatch]);
 
   return (
     <React.Fragment>
       <Header title="Cambridge Dictionary" goBack={navigation.goBack} />
-      <WebView
-        source={{ uri: uriDictinary }}
-        style={styles.webView}
-        reload={() => <ActivityIndicator size="small" color={Colors.primaryColor} />}
-      />
+      <WebView source={{ uri: uriDictinary }} style={styles.webView} onLoadStart={onLoadStart} onLoadEnd={onLoadEnd} />
     </React.Fragment>
   );
 };

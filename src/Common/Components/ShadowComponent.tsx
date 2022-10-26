@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, ScrollView, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import { ic_mic } from '../../Assets';
 import { Colors } from '../../Utils/colors';
@@ -25,6 +26,7 @@ const ShadowComponent: React.FC<IShadow> = ({
   clearTextVoice,
   onCheckVoice,
 }) => {
+  const { t } = useTranslation();
   const renderStatusButton = useMemo(() => {
     return value ? false : true;
   }, [value]);
@@ -34,27 +36,27 @@ const ShadowComponent: React.FC<IShadow> = ({
         <TextInput
           value={value}
           multiline={true}
-          placeholder="Let's practice"
+          placeholder={t('forms.practices')}
           style={styles.textDes}
           onChangeText={(text) => onTextChange(text)}
         />
       </ScrollView>
       <View style={styles.contentBottomButton}>
-        <ButtonCustom title="Clear" onPress={clearTextVoice} />
+        <ButtonCustom title={t('forms.clear')} onPress={clearTextVoice} />
         {loading ? (
           <View style={styles.contentBtnStop}>
             <ActivityIndicator size="large" color={Colors.primaryColor} />
-            <ButtonCustom title="Stop" containStyles={styles.btnStop} onPress={stopRecording} />
+            <ButtonCustom title={t('forms.stop')} containStyles={styles.btnStop} onPress={stopRecording} />
           </View>
         ) : (
           <View style={styles.contentVoice}>
             <TouchableOpacity onPress={startRecording}>
               <IconCustom iconUrl={ic_mic} />
             </TouchableOpacity>
-            <TextCommon title="Start Voice" containStyles={styles.textVoice} />
+            <TextCommon title={t('forms.start')} containStyles={styles.textVoice} />
           </View>
         )}
-        <ButtonCustom title="Check" onPress={onCheckVoice} disabled={renderStatusButton} />
+        <ButtonCustom title={t('forms.check')} onPress={onCheckVoice} disabled={renderStatusButton} />
       </View>
     </View>
   );

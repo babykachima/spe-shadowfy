@@ -58,7 +58,7 @@ export const IconCategories: Array<IIconCategories> = [
   {
     id: 6,
     title: 'Sport',
-    value: 'port',
+    value: 'sport',
     icon: ic_paper,
   },
 ];

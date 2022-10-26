@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState, useRef } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
@@ -37,11 +37,11 @@ enum EDictionary {
 const dataDictionary: Array<ISlide> = [
   {
     id: 1,
-    name: 'Cambrige Dictionary',
+    name: 'Cambrige',
   },
   {
     id: 2,
-    name: 'Oxford Dictionary',
+    name: 'Oxford',
   },
   {
     id: 3,
@@ -132,7 +132,7 @@ const ModalCustom: React.FC<IModalCustom> = ({ isVisible, onRequestClose, word }
       <View style={styles.container}>
         <View style={styles.content}>
           <TouchableOpacity onPress={onRequestClose} style={styles.header}>
-            <IconCustom iconUrl={ic_cancel} tintColor={Colors.warningColor} size="l" />
+            <IconCustom iconUrl={ic_cancel} tintColor={Colors.primaryColor} size="l" />
           </TouchableOpacity>
           <SlideDictionary setSelected={setItemSelected} />
           <WebView
@@ -182,7 +182,7 @@ export const ModalRate: React.FC<IModalPopupRate> = ({ visible, onCloseModal, on
       <View style={styles.modal}>
         <View style={styles.contentModal}>
           <TouchableOpacity style={styles.headerContentModal} onPress={onCloseModal}>
-            <IconCustom iconUrl={ic_cancel} size="l" tintColor={Colors.warningColor} />
+            <IconCustom iconUrl={ic_cancel} size="l" tintColor={Colors.primaryColor} />
           </TouchableOpacity>
           {listRates.map((rate) => (
             <TouchableOpacity style={styles.listRates} key={rate.id} onPress={() => onSelectRateItem(rate)}>

@@ -45,7 +45,10 @@
   "edit_name":"Edit name",
   "submit":"Submit",
   "check":"Check",
-  "clear":"Clear"
+  "clear":"Clear",
+  "stop":"Stop",
+  "practices":"Let's practice",
+  "start":"Start Voice"
  },
  "popover":{
   "dictionary": "Dictionary",
@@ -83,7 +86,16 @@
 
   "question_4":"How to use the app to be effective? ",
   "answer_4":"With each lesson, users need to persevere and practice proficiently to a certain level and then move on to the next lesson.“Practices makes perfect”."
- }
- 
+ },
+ "guide":{
+  "step_1":"Step 1: Read and look up the dictionary",
+  "guide_1":"You should first translate the entire article by clicking the “Translate” button. You can translate each word by clicking on each word. The dictionary automatically pops up. Click on the dictionary you want to look up.",
 
+  "step_2":"Step 2: Listen to audio files",
+  "guide_2":"To play the audio file you can click the Play button. There are many options for easier listening to your audio.",
+
+  "step_3":"Step 3: Start practicing",
+  "guide_3":"After understanding the entire content of the article. You should start parodying the passage without using audio files. Then play the audio file in parallel during practice. With the “Paragraph” mode, you can check if you have read it correctly by clicking the Check button."
+
+ }
 }

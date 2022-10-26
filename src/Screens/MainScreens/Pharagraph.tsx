@@ -139,6 +139,7 @@ const Pharagraph: React.FC = () => {
         },
       } as never
     );
+    stopRecording;
   }, [lessionsDetail?.content, navigation, result]);
   // Modal rate
   const setOpenModalRate = useCallback(() => {
