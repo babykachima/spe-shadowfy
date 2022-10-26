@@ -6,6 +6,7 @@ import { IUserState } from '../redux-state';
 export function createInitUserState(): IUserState {
   return {
     accessToken: null,
+    isLoading: false,
   };
 }
 
@@ -23,7 +24,10 @@ export const appSlice = createSlice({
       state.accessToken = '';
       storage.delete(EStorage.TOKEN);
     },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
   },
 });
-export const { setAccessToken, logOut } = appSlice.actions;
+export const { setAccessToken, logOut, setLoading } = appSlice.actions;
 export default appSlice.reducer;

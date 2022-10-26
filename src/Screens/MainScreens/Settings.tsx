@@ -2,7 +2,7 @@ import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Image, Modal, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, Modal, Pressable, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Snackbar from 'react-native-snackbar';
 
 import { ic_cancel, ic_faq, ic_paper, ic_person, ic_translation, ic_uk, ic_vietnam } from '../../Assets';
@@ -45,7 +45,7 @@ const listLanguage: ILanguage[] = [
 const ModalLanguages: React.FC<IModalLanguages> = ({ visible, onCloseModal, onChangeLanguage }) => {
   return (
     <Modal animationType="slide" transparent={true} visible={visible}>
-      <View style={styles.centeredView}>
+      <Pressable style={styles.centeredView} onPress={onCloseModal}>
         <View style={styles.contentModal}>
           <View style={styles.headerModal}>
             <TouchableOpacity onPress={onCloseModal}>
@@ -64,7 +64,7 @@ const ModalLanguages: React.FC<IModalLanguages> = ({ visible, onCloseModal, onCh
             ))}
           </ScrollView>
         </View>
-      </View>
+      </Pressable>
     </Modal>
   );
 };

@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
   contentModal: {
     width: '60%',
     height: 230,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Colors.white,
     borderRadius: 20,
   },
   headerContentModal: {
