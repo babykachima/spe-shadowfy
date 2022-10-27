@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   contentSlide: {
-    width: 250,
+    width: 240,
     height: 40,
   },
   button: {

@@ -1,18 +1,20 @@
-import { firebase } from '@react-native-firebase/auth';
+import auth, { firebase } from '@react-native-firebase/auth';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { ic_avatar, ic_chevron_right, ic_edit } from '../../Assets';
+import Snackbar from 'react-native-snackbar';
+import { ic_avatar, ic_chevron_right } from '../../Assets';
 
 import Avatar from '../../Common/Components/Avatar';
+import ButtonCustom from '../../Common/Components/ButtonCustom';
 import { Header } from '../../Common/Components/Header';
 import IconCustom from '../../Common/Components/IconCustom';
 import TextCommon from '../../Common/Components/TextCommon';
+import { useAppDispatch } from '../../Redux/hooks';
+import { logOut } from '../../Redux/Slices/appSlice';
 import { Colors } from '../../Utils/colors';
 import { Screens } from '../../Utils/navigationConfig';
-import { ImageLibraryOptions, ImagePickerResponse, launchImageLibrary } from 'react-native-image-picker';
-import Snackbar from 'react-native-snackbar';
 
 interface IItemProfile {
   title: string;
@@ -35,8 +37,9 @@ const InfoUser: React.FC = () => {
   const navigation = useNavigation();
   const user = firebase.auth().currentUser;
   const { t } = useTranslation();
-  const [image, setImage] = useState<string | null>(user?.photoURL || ic_avatar);
   const isFocused = useIsFocused();
+  const dispatch = useAppDispatch();
+  console.log('user ==>', user);
 
   useEffect(() => {
     if (isFocused) {
@@ -47,51 +50,51 @@ const InfoUser: React.FC = () => {
   const handleEditName = useCallback(() => {
     navigation.navigate(Screens.EditProfile as never);
   }, [navigation]);
-  const handleEditPhone = useCallback(() => {
-    Alert.alert(t('messages.hint'), t('messages.can_not_edit_phone'), [{ text: 'OK' }]);
-  }, [t]);
   const handleEditEmail = useCallback(() => {
     Alert.alert(t('messages.hint'), t('messages.can_not_edit_email'), [{ text: 'OK' }]);
   }, [t]);
-
-  const handleSelectImage = useCallback(() => {
-    const defaultOptions: ImageLibraryOptions = {
-      mediaType: 'photo',
-      quality: 0.5,
-      includeBase64: false,
-    };
-    launchImageLibrary(defaultOptions, (response: ImagePickerResponse) => {
-      if (!response.didCancel) {
-        const uri = response.assets?.map((asset) => asset.uri);
-        if (uri) {
-          user?.updateProfile({ photoURL: uri[0] });
-          setImage(uri[0] || ic_avatar);
-          Snackbar.show({
-            text: t('messages.change_img_success'),
-            duration: Snackbar.LENGTH_SHORT,
-          });
-        }
+  const handleLogOut = useCallback(() => {
+    const signOut = async () => {
+      try {
+        dispatch(logOut());
+        await auth().signOut();
+        Snackbar.show({
+          text: t('messages.logout_success'),
+          duration: Snackbar.LENGTH_LONG,
+        });
+        navigation.navigate(Screens.Welcome as never);
+      } catch (error) {
+        Snackbar.show({
+          text: t('messages.failed'),
+          duration: Snackbar.LENGTH_LONG,
+        });
       }
-    });
-  }, [t, user]);
+    };
+    Alert.alert(t('app.signout'), t('messages.confirm_logout'), [
+      {
+        text: t('forms.cancel'),
+        style: 'cancel',
+      },
+      { text: t('forms.oke'), onPress: signOut },
+    ]);
+  }, [dispatch, navigation, t]);
+
   return (
     <SafeAreaView style={styles.contain}>
       <Header title={t('screens.Account')} rightIcon={false} goBack={navigation.goBack} />
       <View style={styles.content}>
-        <TouchableOpacity style={styles.contentAvatar} onPress={handleSelectImage}>
-          <Avatar photoURL={image} containStyle={styles.avatar} />
-          <View style={styles.editView}>
-            <IconCustom iconUrl={ic_edit} size="s" tintColor={Colors.white} containStyles={styles.editIcon} />
-          </View>
-        </TouchableOpacity>
+        <View style={styles.contentAvatar}>
+          <Avatar photoURL={user?.photoURL || ic_avatar} containStyle={styles.avatar} />
+        </View>
         <View style={styles.contentInfo}>
           <ItemProfile title={t('profile.name')} value={user?.displayName || ''} onPress={handleEditName} />
-          <View style={styles.line} />
-          <ItemProfile title={t('profile.phone')} value={user?.phoneNumber || 'no phone'} onPress={handleEditPhone} />
           <View style={styles.line} />
           <ItemProfile title={t('profile.email')} value={user?.email || ''} onPress={handleEditEmail} />
           <View style={styles.line} />
         </View>
+      </View>
+      <View style={styles.btnContent}>
+        <ButtonCustom title={t('app.logout')} onPress={handleLogOut} />
       </View>
     </SafeAreaView>
   );
@@ -159,10 +162,14 @@ const styles = StyleSheet.create({
     right: 150,
     bottom: 0,
   },
-
   editIcon: {
     width: 12,
     height: 12,
+  },
+  btnContent: {
+    marginTop: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 export default InfoUser;

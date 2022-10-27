@@ -18,7 +18,7 @@ const TermAndPolicy: React.FC = () => {
           <TextCommon title={'Terms of Use'} containStyles={styles.question} />
           <TextCommon
             title={
-              'By downloading, installing and/or using the SpeShadowfy App (hereinafter referred to as the “App”), you acknowledge that you have read, understood, accepted and agreed to The following Terms of Use:'
+              'By downloading, installing and/or using the SpeShadowfy App (here in after referred to as the “App”), you acknowledge that you have read, understood, accepted and agreed to The following Terms of Use:'
             }
             containStyles={styles.answer}
           />
@@ -42,7 +42,7 @@ const TermAndPolicy: React.FC = () => {
           />
           <TextCommon
             title={
-              '4. In the application will not contain ads. By downloading and installingapp you wont not see any ads in the content of app. If the integrated websites contain advertising information, we are not responsible for these advertisements.'
+              '4. In the application will not contain ads. By downloading and installing app you wont not see any ads in the content of app. If the integrated websites contain advertising information, we are not responsible for these advertisements.'
             }
             containStyles={styles.answer}
           />
@@ -69,7 +69,7 @@ const TermAndPolicy: React.FC = () => {
           />
           <TextCommon
             title={
-              '4. Due to the integration of using Google account login, so users can only change personal information including: + Photo + Display name Other information includes: gmail , phone number phone willcannot be edited in the app.'
+              '4. Due to the integration of using Google account login, so users can only change personal information just only "Display name" Other information includes: photo, gmail , phone number phone will cannot be edited in the app.'
             }
             containStyles={styles.answer}
           />
@@ -77,7 +77,7 @@ const TermAndPolicy: React.FC = () => {
         <View style={styles.lineItem}>
           <TextCommon title={'Contact us'} containStyles={styles.question} />
           <TextCommon
-            title={'If you have any questions or comments. Please contact: nguyenhoangtuan.workvn@gmail.com'}
+            title={'If you have any questions or suggestions. Please contact: nguyenhoangtuan.workvn@gmail.com'}
             containStyles={styles.answer}
           />
           <TextCommon title={'Thank you'} containStyles={styles.answer} />
