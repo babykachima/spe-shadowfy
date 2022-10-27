@@ -1,19 +1,15 @@
-import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Image, Modal, Pressable, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, Modal, Pressable, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Snackbar from 'react-native-snackbar';
 
 import { ic_cancel, ic_faq, ic_paper, ic_person, ic_translation, ic_uk, ic_vietnam } from '../../Assets';
-import ButtonCustom from '../../Common/Components/ButtonCustom';
 import { Header } from '../../Common/Components/Header';
 
 import IconCustom from '../../Common/Components/IconCustom';
 import TextCommon from '../../Common/Components/TextCommon';
-import { useAppDispatch } from '../../Redux/hooks';
 
-import { logOut } from '../../Redux/Slices/appSlice';
 import { Colors } from '../../Utils/colors';
 import { Screens } from '../../Utils/navigationConfig';
 
@@ -71,9 +67,7 @@ const ModalLanguages: React.FC<IModalLanguages> = ({ visible, onCloseModal, onCh
 
 const Settings: React.FC = () => {
   const { t, i18n } = useTranslation();
-  const dispatch = useAppDispatch();
   const navigation = useNavigation();
-
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   const onSetOpenModal = useCallback(() => {
@@ -82,31 +76,6 @@ const Settings: React.FC = () => {
   const onSetCloseModal = useCallback(() => {
     setOpenModal(false);
   }, []);
-
-  const handleLogOut = useCallback(() => {
-    const signOut = async () => {
-      try {
-        dispatch(logOut());
-        await auth().signOut();
-        Snackbar.show({
-          text: t('messages.logout_success'),
-          duration: Snackbar.LENGTH_LONG,
-        });
-      } catch (error) {
-        Snackbar.show({
-          text: t('messages.failed'),
-          duration: Snackbar.LENGTH_LONG,
-        });
-      }
-    };
-    Alert.alert(t('app.signout'), t('messages.confirm_logout'), [
-      {
-        text: t('forms.cancel'),
-        style: 'cancel',
-      },
-      { text: t('forms.oke'), onPress: signOut },
-    ]);
-  }, [dispatch, t]);
 
   const handleChangeLanguages = useCallback(
     (value: string | number) => {
@@ -161,7 +130,6 @@ const Settings: React.FC = () => {
             <TextCommon title={t('app.term_and_policy')} containStyles={styles.textItem} />
           </TouchableOpacity>
         </View>
-        <ButtonCustom title={t('app.logout')} onPress={handleLogOut} />
       </View>
       <ModalLanguages visible={openModal} onCloseModal={onSetCloseModal} onChangeLanguage={handleChangeLanguages} />
     </View>

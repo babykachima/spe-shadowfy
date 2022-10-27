@@ -5,6 +5,7 @@ import {
   FlatList,
   ListRenderItem,
   Modal,
+  Pressable,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -179,7 +180,7 @@ const listRates: Array<IRate> = [
 export const ModalRate: React.FC<IModalPopupRate> = ({ visible, onCloseModal, onSelectRateItem }) => {
   return (
     <Modal animationType="fade" transparent={true} visible={visible}>
-      <View style={styles.modal}>
+      <Pressable style={styles.modal} onPress={onCloseModal}>
         <View style={styles.contentModal}>
           <TouchableOpacity style={styles.headerContentModal} onPress={onCloseModal}>
             <IconCustom iconUrl={ic_cancel} size="l" tintColor={Colors.primaryColor} />
@@ -190,7 +191,7 @@ export const ModalRate: React.FC<IModalPopupRate> = ({ visible, onCloseModal, on
             </TouchableOpacity>
           ))}
         </View>
-      </View>
+      </Pressable>
     </Modal>
   );
 };

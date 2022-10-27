@@ -53,7 +53,7 @@
  "popover":{
   "dictionary": "Dictionary",
   "guide_line": "Guide line",
-  "pharagraph":"Pharagraph"
+  "pharagraph":"Paragraph"
  },
   "profile":{
     "name":"Name",
@@ -65,7 +65,7 @@
   "PracticeShadowing": "Practice Shadowing",
   "Settings": "Settings",
   "Dictionary": "Dictionary",
-  "Pharagraph": "Pharagraph",
+  "Pharagraph": "Paragraph",
   "CheckVoice": "Check Voice",
   "Translations": "Translations",
   "FAQ": "FAQ",
@@ -76,7 +76,7 @@
  },
  "faqs":{
   "question_1":"What is this app used for? ",
-  "answer_1":"Shawdowfy is an application that allows users to practice speaking English using the Shadowing method.",
+  "answer_1":"SpeShadowfy is an application that allows users to practice speaking English using the Shadowing method.",
 
   "question_2":" What level is this app suitable for? ",
   "answer_2":"App for all levels, but most suitable from A1 - B2.",

@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     color: Colors.textColor,
   },
   titleWelcome: {
-    fontSize: 28,
+    fontSize: 25,
     fontWeight: 'bold',
   },
   contentName: {

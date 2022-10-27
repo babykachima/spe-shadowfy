@@ -3,13 +3,13 @@ import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firest
 import { ILession } from '../Types';
 
 export const useGetDataFireStore = (collectionName: string) => {
-  const [data, setData] = useState<[]>();
+  const [data, setData] = useState<[]>([]);
   const fetchData = useCallback(async () => {
     const results = firestore()
       .collection(collectionName)
       .onSnapshot((querySnapshot) => {
         const listsData: any = [];
-        querySnapshot.forEach((documentSnapshot: FirebaseFirestoreTypes.DocumentSnapshot) => {
+        querySnapshot?.forEach((documentSnapshot: FirebaseFirestoreTypes.DocumentSnapshot) => {
           listsData.push({ ...documentSnapshot.data(), key: documentSnapshot.id }), setData(listsData);
         });
       });
@@ -18,9 +18,6 @@ export const useGetDataFireStore = (collectionName: string) => {
 
   useEffect(() => {
     fetchData();
-    return () => {
-      fetchData();
-    };
   }, [fetchData]);
 
   return [data];
@@ -32,15 +29,12 @@ export const useGetDetailDataFireStore = (collectionName: string, docummentId: s
     const results = await firestore()
       .collection(collectionName)
       .doc(docummentId)
-      .onSnapshot((docummentData: FirebaseFirestoreTypes.DocumentData) => setDataDetail(docummentData.data()));
+      .onSnapshot((docummentData: FirebaseFirestoreTypes.DocumentData) => setDataDetail(docummentData?.data()));
     return results;
   }, [collectionName, docummentId]);
 
   useEffect(() => {
     fetchDataDetail();
-    return () => {
-      fetchDataDetail();
-    };
   }, [fetchDataDetail]);
   return [dataDetail];
 };
