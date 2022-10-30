@@ -1,47 +1,40 @@
 import React from 'react';
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
-import { ic_rightdown } from '../../Assets';
+import { useTranslation } from 'react-i18next';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import TextCommon from '../../Common/Components/TextCommon';
+import { Colors } from '../../Utils/colors';
 
-const HeaderFlatlist: React.FC = () => {
+interface IHeaderFlatlist {
+  onNavigate: () => void;
+}
+
+const HeaderFlatlist: React.FC<IHeaderFlatlist> = ({ onNavigate }) => {
+  const { t } = useTranslation();
   return (
-    <View style={styles.contain}>
-      <TextCommon title="RECOMMEND" containStyles={styles.recommend} />
-      <TouchableOpacity style={styles.contentRight}>
-        <TextCommon title="See all" containStyles={styles.seeAll} />
-        <Image source={ic_rightdown} style={styles.icon} />
+    <View style={styles.header}>
+      <TextCommon title={t('lessions.recommend')} containStyles={styles.recommend} />
+      <TouchableOpacity onPress={onNavigate}>
+        <TextCommon title={t('lessions.see_all')} containStyles={styles.seeAll} />
       </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  contain: {
+  header: {
+    marginBottom: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginVertical: 20,
-    borderTopColor: '#ACADAD',
-    borderTopWidth: 1,
-    paddingTop: 10,
-  },
-  contentRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
   },
   recommend: {
-    fontWeight: 'bold',
     fontSize: 20,
+    fontWeight: 'bold',
+    color: Colors.textColor,
   },
   seeAll: {
-    fontWeight: '600',
-    fontSize: 14,
-  },
-  icon: {
-    marginLeft: 5,
-    tintColor: '#ACADAD',
-    width: 20,
-    height: 20,
+    fontSize: 16,
+    textDecorationLine: 'underline',
+    color: Colors.grayColor,
   },
 });
 export default HeaderFlatlist;

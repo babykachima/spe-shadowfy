@@ -1,21 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { FlatList, ListRenderItem, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlatList, ListRenderItem, StyleSheet, View } from 'react-native';
 
 import ItemLessions from '../../Common/Components/ItemLession';
-import TextCommon from '../../Common/Components/TextCommon';
-
 import { useGetDataFireStore } from '../../Hooks/fetchDataFireStore';
 import { ILession } from '../../Types';
-import { Colors } from '../../Utils/colors';
 import { Screens } from '../../Utils/navigationConfig';
+import HeaderFlatlist from './HeaderFlatlist';
 
 interface ISectionProps {
   onMoveScreen: (id: string) => void;
 }
 const Sections: React.FC<ISectionProps> = ({ onMoveScreen }) => {
-  const { t } = useTranslation();
   const navigation = useNavigation();
   const moveListLessions = useCallback(() => {
     navigation.navigate(Screens.ListLession as never);
@@ -35,12 +31,7 @@ const Sections: React.FC<ISectionProps> = ({ onMoveScreen }) => {
 
   return (
     <View style={styles.contain}>
-      <View style={styles.header}>
-        <TextCommon title={t('lessions.recommend')} containStyles={styles.recommend} />
-        <TouchableOpacity onPress={moveListLessions}>
-          <TextCommon title={t('lessions.see_all')} containStyles={styles.seeAll} />
-        </TouchableOpacity>
-      </View>
+      <HeaderFlatlist onNavigate={moveListLessions} />
       <View style={styles.lessions}>
         <FlatList
           data={lessions}
@@ -66,21 +57,6 @@ const styles = StyleSheet.create({
   flatlist: {
     flex: 1,
     marginBottom: 40,
-  },
-  header: {
-    marginBottom: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  recommend: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: Colors.textColor,
-  },
-  seeAll: {
-    fontSize: 16,
-    textDecorationLine: 'underline',
-    color: Colors.grayColor,
   },
 });
 
