@@ -39,7 +39,6 @@ const InfoUser: React.FC = () => {
   const { t } = useTranslation();
   const isFocused = useIsFocused();
   const dispatch = useAppDispatch();
-  console.log('user ==>', user);
 
   useEffect(() => {
     if (isFocused) {

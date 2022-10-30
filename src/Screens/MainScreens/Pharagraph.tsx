@@ -41,29 +41,28 @@ const Pharagraph: React.FC = () => {
     };
   }, []);
   const onSpeechStartHandler = (e: any) => {
-    console.log('start handler==>>>', e);
+    console.log('onSpeechStartHandler:', e);
   };
   const onSpeechEndHandler = (e: any) => {
     setLoading(false);
-    console.log('stop handler', e);
+    console.log('onSpeechEndHandler:', e);
   };
 
   const onSpeechResultsHandler = (e: any) => {
     let text = e.value[0];
     setResult(text);
-    console.log('speech result handler', e);
+    console.log('onSpeechResultsHandler:', e);
   };
 
   const startRecording = async () => {
     setLoading(true);
     try {
       const check = await Voice.isAvailable();
-      console.log('check=>', check);
       if (check) {
         await Voice.start('en-Us');
       }
     } catch (error) {
-      console.log('error raised ===>', error);
+      console.log('startRecording error:', error);
     }
   };
 
@@ -72,7 +71,7 @@ const Pharagraph: React.FC = () => {
     try {
       await Voice.stop();
     } catch (error) {
-      console.log('error raised', error);
+      console.log('stopRecording error:', error);
     }
   };
   const onHandleTextChange = useCallback((text: string) => {
@@ -99,7 +98,7 @@ const Pharagraph: React.FC = () => {
         },
       ]);
     } catch (error) {
-      console.log('setupPlayer error ->', error);
+      console.log('setupPlayer error:', error);
     }
   }, [keyLession, lessionsDetail?.audio, lessionsDetail?.title]);
 
@@ -114,14 +113,14 @@ const Pharagraph: React.FC = () => {
     try {
       await TrackPlayer.play();
     } catch (error) {
-      console.log('error play: ', error);
+      console.log('playTrack error: ', error);
     }
   }, []);
   const pauseTrack = useCallback(async () => {
     try {
       await TrackPlayer.pause();
     } catch (error) {
-      console.log('error pause: ', error);
+      console.log('pauseTrack error: ', error);
     }
   }, []);
 
@@ -139,8 +138,9 @@ const Pharagraph: React.FC = () => {
         },
       } as never
     );
-    stopRecording;
-  }, [lessionsDetail?.content, navigation, result]);
+    stopRecording();
+    pauseTrack();
+  }, [lessionsDetail?.content, navigation, pauseTrack, result]);
   // Modal rate
   const setOpenModalRate = useCallback(() => {
     setIsOpenModalRate(true);
