@@ -1,5 +1,5 @@
 import Slider from '@react-native-community/slider';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Dimensions, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import TrackPlayer, { Capability, State, usePlaybackState, useProgress } from 'react-native-track-player';
@@ -22,7 +22,7 @@ TrackPlayer.updateOptions({
   capabilities: [Capability.Play, Capability.Pause],
   compactCapabilities: [Capability.Play, Capability.Pause],
 });
-TrackPlayer.setupPlayer();
+TrackPlayer.setupPlayer().catch(() => console.log('Error setup'));
 
 const PracticeShadowing: React.FC = () => {
   const navigation = useNavigation();
@@ -37,6 +37,7 @@ const PracticeShadowing: React.FC = () => {
   const [textSelected, setTextSelected] = useState<string>('');
   const paragraph = lessionsDetail?.content.split(' ');
   const [itemRate, setItemRate] = useState<string>('1x');
+  const isFocused = useIsFocused();
 
   const { t } = useTranslation();
 
@@ -81,12 +82,24 @@ const PracticeShadowing: React.FC = () => {
     await TrackPlayer.reset();
   }, []);
 
+  const handleSpeed = useCallback(async () => {
+    await TrackPlayer.setRate(1);
+  }, []);
+
   useEffect(() => {
     setupPlayer();
     return () => {
       pauseTemporary();
     };
   }, [setupPlayer, pauseTemporary]);
+  //when focus screen will be initial value
+  useEffect(() => {
+    if (isFocused) {
+      setupPlayer();
+      handleSpeed();
+      setItemRate('1x');
+    }
+  }, [handleSpeed, isFocused, setupPlayer]);
 
   const playTrack = useCallback(async () => {
     try {

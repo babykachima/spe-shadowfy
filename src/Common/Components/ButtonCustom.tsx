@@ -13,8 +13,9 @@ interface IButtonProps {
 }
 
 interface IButtonIconProps extends IButtonProps {
-  iconUrl: number;
+  iconUrl: string | number;
   tintColor?: string;
+  selected?: boolean;
 }
 
 const ButtonCustom: React.FC<IButtonProps> = ({ title, containStyles, onPress, disabled }) => {
@@ -35,11 +36,27 @@ export const ButtonIconCustom: React.FC<IButtonIconProps> = ({
   onPress,
   tintColor,
   disabled,
+  selected,
 }) => {
+  const selectedStyles = useMemo(() => {
+    if (selected) {
+      return {
+        buttonContain: styles.buttonIconSelected,
+        titleIconBtn: styles.titleBtnIconSelected,
+        tintColors: Colors.primaryColor,
+      };
+    } else {
+      return {
+        buttonContain: styles.buttonIcon,
+        titleIconBtn: styles.titleBtnIcon,
+        tintColors: tintColor,
+      };
+    }
+  }, [selected, tintColor]);
   return (
-    <TouchableOpacity style={[styles.buttonIcon, containStyles]} onPress={onPress} disabled={disabled}>
-      <IconCustom iconUrl={iconUrl} size="m" tintColor={tintColor} />
-      <TextCommon title={title} containStyles={styles.titleBtnIcon} numberOfLines={1} />
+    <TouchableOpacity style={[selectedStyles.buttonContain, containStyles]} onPress={onPress} disabled={disabled}>
+      <IconCustom iconUrl={iconUrl} size="m" tintColor={selectedStyles.tintColors} />
+      <TextCommon title={title} containStyles={selectedStyles.titleIconBtn} numberOfLines={1} />
     </TouchableOpacity>
   );
 };
@@ -68,6 +85,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  buttonIconSelected: {
+    maxWidth: 120,
+    backgroundColor: Colors.white,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    borderRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: Colors.primaryColor,
+  },
   title: {
     color: Colors.white,
     fontWeight: 'bold',
@@ -76,6 +105,12 @@ const styles = StyleSheet.create({
   titleBtnIcon: {
     marginLeft: 5,
     color: Colors.white,
+    fontWeight: 'bold',
+    fontSize: 14,
+  },
+  titleBtnIconSelected: {
+    marginLeft: 5,
+    color: Colors.primaryColor,
     fontWeight: 'bold',
     fontSize: 14,
   },

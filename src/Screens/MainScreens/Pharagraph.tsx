@@ -1,4 +1,4 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import TrackPlayer from 'react-native-track-player';
@@ -29,6 +29,7 @@ const Pharagraph: React.FC = () => {
   const [isLoading, setLoading] = useState(false);
   const [isOpenModalRate, setIsOpenModalRate] = useState<boolean>(false);
   const [itemRate, setItemRate] = useState<string>('1x');
+  const isFocused = useIsFocused();
 
   //Recording
   useEffect(() => {
@@ -85,6 +86,9 @@ const Pharagraph: React.FC = () => {
   const pauseTemporary = useCallback(async () => {
     await TrackPlayer.reset();
   }, []);
+  const handleSpeed = useCallback(async () => {
+    await TrackPlayer.setRate(1);
+  }, []);
   const setupPlayer = useCallback(async () => {
     try {
       if (!lessionsDetail?.audio) {
@@ -108,6 +112,14 @@ const Pharagraph: React.FC = () => {
       pauseTemporary();
     };
   }, [pauseTemporary, setupPlayer]);
+  //when focus screen will be initial value
+  useEffect(() => {
+    if (isFocused) {
+      setupPlayer();
+      handleSpeed();
+      setItemRate('1x');
+    }
+  }, [handleSpeed, isFocused, setupPlayer]);
 
   const playTrack = useCallback(async () => {
     try {

@@ -4,7 +4,7 @@ import { SizeIcon } from '../../Types';
 import { Colors } from '../../Utils/colors';
 
 interface IIconCustom {
-  iconUrl: number;
+  iconUrl: number | string;
   tintColor?: string;
   size?: string;
   containStyles?: any;

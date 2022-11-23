@@ -15,11 +15,12 @@ import { Screens } from '../../Utils/navigationConfig';
 
 interface ISlideCategory {
   selectCategory: (category: IIconCategories) => void;
+  itemSelected: IIconCategories | undefined;
   onUChecked: () => void;
   isChecked: boolean;
 }
 
-const SlideCategory: React.FC<ISlideCategory> = ({ selectCategory, onUChecked, isChecked }) => {
+const SlideCategory: React.FC<ISlideCategory> = ({ selectCategory, onUChecked, isChecked, itemSelected }) => {
   const { t } = useTranslation();
   const _renderItem = useCallback<ListRenderItem<IIconCategories>>(
     ({ item }) => {
@@ -30,10 +31,11 @@ const SlideCategory: React.FC<ISlideCategory> = ({ selectCategory, onUChecked, i
           onPress={() => selectCategory(item)}
           tintColor={Colors.white}
           containStyles={styles.btnSilde}
+          selected={item.id === itemSelected?.id ? true : false}
         />
       );
     },
-    [selectCategory]
+    [itemSelected?.id, selectCategory]
   );
   const _keyExtractor = (item: IIconCategories) => {
     return `${item.id}`;
@@ -96,6 +98,7 @@ const ListLession: React.FC = () => {
   const [lessions] = useGetDataFireStore('lessions');
   const [categorySelected, setCategorySelected] = useState<IIconCategories>();
   const [isChecked, setIsChecked] = useState<boolean>(false);
+
   const handleSelectCategory = useCallback((category: IIconCategories) => {
     setCategorySelected(category);
     setIsChecked(true);
@@ -113,7 +116,12 @@ const ListLession: React.FC = () => {
   }, []);
   return (
     <SafeAreaView style={styles.contain}>
-      <SlideCategory selectCategory={handleSelectCategory} onUChecked={handleUnChecked} isChecked={isChecked} />
+      <SlideCategory
+        selectCategory={handleSelectCategory}
+        onUChecked={handleUnChecked}
+        isChecked={isChecked}
+        itemSelected={categorySelected}
+      />
       <View style={styles.lessions}>
         <Lessions lessions={filterLession} />
       </View>
@@ -144,8 +152,9 @@ const styles = StyleSheet.create({
   },
   unChecked: {
     fontSize: 16,
+    fontWeight: 'bold',
     textDecorationLine: 'underline',
-    color: Colors.grayColor,
+    color: Colors.primaryColor,
   },
   btnSilde: {
     marginRight: 10,

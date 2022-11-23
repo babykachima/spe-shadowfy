@@ -24,6 +24,11 @@ export const ic_textbook = require('./images/icons/ic_textbook.png');
 export const ic_arrow_backward = require('./images/icons/ic_arrow_backward.png');
 export const ic_chevron_right = require('./images/icons/ic_chevron_right.png');
 export const ic_edit = require('./images/icons/ic_edit.png');
+export const ic_nature = require('./images/icons/ic_leaves.png');
+export const ic_sport = require('./images/icons/ic_running.png');
+export const ic_funny = require('./images/icons/ic_laugh.png');
+export const ic_history = require('./images/icons/ic_history.png');
+export const ic_interseting = require('./images/icons/ic_interseting.png');
 
 // LIST IMAGES
 export const ic_view_01 = require('./images/ic_view_01.png');
