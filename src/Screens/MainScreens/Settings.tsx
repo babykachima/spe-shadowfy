@@ -138,7 +138,6 @@ const Settings: React.FC = () => {
 const styles = StyleSheet.create({
   contain: {
     flex: 1,
-    paddingHorizontal: 20,
     backgroundColor: Colors.white,
   },
   header: {
@@ -149,6 +148,7 @@ const styles = StyleSheet.create({
     marginVertical: 50,
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingHorizontal: 20,
   },
   content: {
     borderWidth: 1,
