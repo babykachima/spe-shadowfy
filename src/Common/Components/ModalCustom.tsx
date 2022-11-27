@@ -1,6 +1,6 @@
 import React from 'react';
-import { Dimensions, Modal, Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { ic_cancel } from '../../Assets';
+import { Dimensions, Image, Modal, Pressable, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ic_cancel, ic_uk, ic_vietnam } from '../../Assets';
 import { IRate } from '../../Types';
 import { Colors } from '../../Utils/colors';
 import IconCustom from './IconCustom';
@@ -69,6 +69,58 @@ export const ModalRate: React.FC<IModalPopupRate> = ({ visible, onCloseModal, on
               <TextCommon title={rate.rate} containStyles={styles.titleRate} />
             </TouchableOpacity>
           ))}
+        </View>
+      </Pressable>
+    </Modal>
+  );
+};
+
+interface IModalLanguages {
+  visible: boolean;
+  onCloseModal: () => void;
+  onChangeLanguage: (value: string | number) => void;
+}
+interface ILanguage {
+  id: number;
+  name: string;
+  value: string | number;
+  icon: number;
+}
+const listLanguage: ILanguage[] = [
+  {
+    id: 1,
+    name: 'Tiếng Việt',
+    value: 'vi',
+    icon: ic_vietnam,
+  },
+  {
+    id: 2,
+    name: 'English',
+    value: 'en',
+    icon: ic_uk,
+  },
+];
+export const ModalLanguages: React.FC<IModalLanguages> = ({ visible, onCloseModal, onChangeLanguage }) => {
+  return (
+    <Modal animationType="fade" transparent={true} visible={visible}>
+      <Pressable style={styles.centeredView} onPress={onCloseModal}>
+        <View style={styles.contentModalLanguage}>
+          <View style={styles.headerModal}>
+            <TouchableOpacity onPress={onCloseModal}>
+              <IconCustom iconUrl={ic_cancel} size="l" />
+            </TouchableOpacity>
+          </View>
+          <ScrollView style={styles.languages}>
+            {listLanguage.map((language) => (
+              <React.Fragment key={language.id}>
+                <TouchableOpacity style={styles.modalItem} onPress={() => onChangeLanguage(language.value)}>
+                  <Image source={language.icon} style={styles.iconFlat} />
+                  <TextCommon title={language.name} containStyles={styles.nameContry} />
+                </TouchableOpacity>
+                <View style={styles.diveItem} />
+              </React.Fragment>
+            ))}
+          </ScrollView>
         </View>
       </Pressable>
     </Modal>
@@ -152,6 +204,55 @@ const styles = StyleSheet.create({
   titleRate: {
     fontWeight: '600',
     fontSize: 14,
+  },
+  //modal language
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: Colors.textColor,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+  },
+  contentModalLanguage: {
+    borderRadius: 20,
+    width: 300,
+    height: 200,
+    backgroundColor: Colors.white,
+  },
+  modalItem: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  headerModal: {
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    margin: 10,
+  },
+  languages: {
+    padding: 10,
+    marginLeft: 30,
+  },
+  iconFlat: {
+    width: 50,
+    height: 50,
+  },
+  nameContry: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginLeft: 10,
+  },
+  diveItem: {
+    width: '100%',
+    height: 1,
+    backgroundColor: Colors.borderColor,
   },
 });
 
