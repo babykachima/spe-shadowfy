@@ -17,6 +17,7 @@ import { Colors } from '../../Utils/colors';
 import { RootRouteProps, Screens } from '../../Utils/navigationConfig';
 import ModalCustom, { ModalRate } from '../../Common/Components/ModalCustom';
 import { IRate } from '../../Types';
+import Loading from '../../Common/Components/Loading';
 
 TrackPlayer.updateOptions({
   capabilities: [Capability.Play, Capability.Pause],
@@ -155,7 +156,9 @@ const PracticeShadowing: React.FC = () => {
     },
     [setOpenModalDictionary]
   );
-
+  if (!lessionsDetail) {
+    return <Loading />;
+  }
   return (
     <View style={styles.contain}>
       <Header

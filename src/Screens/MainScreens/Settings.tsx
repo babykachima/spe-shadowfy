@@ -40,7 +40,7 @@ const listLanguage: ILanguage[] = [
 ];
 const ModalLanguages: React.FC<IModalLanguages> = ({ visible, onCloseModal, onChangeLanguage }) => {
   return (
-    <Modal animationType="slide" transparent={true} visible={visible}>
+    <Modal animationType="fade" transparent={true} visible={visible}>
       <Pressable style={styles.centeredView} onPress={onCloseModal}>
         <View style={styles.contentModal}>
           <View style={styles.headerModal}>

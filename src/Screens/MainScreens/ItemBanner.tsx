@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dimensions, Image, StyleSheet, View } from 'react-native';
+import { ic_banner_placeholder } from '../../Assets';
 
 import { IBanner } from '../../Types';
 
@@ -10,7 +11,12 @@ interface IData {
 const ItemBanner: React.FC<IData> = ({ data }) => {
   return (
     <View style={styles.bannerItem}>
-      <Image source={{ uri: data.image }} style={styles.itemImage} resizeMode="cover" />
+      <Image
+        source={{ uri: data.image }}
+        style={styles.itemImage}
+        resizeMode="cover"
+        defaultSource={ic_banner_placeholder}
+      />
     </View>
   );
 };

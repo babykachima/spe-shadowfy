@@ -76,7 +76,7 @@ export const PopoverNote: React.FC<IPopoverNote> = ({ isVisible, onRequestClose,
       onRequestClose={onRequestClose}
       placement={PopoverPlacement.BOTTOM}
       backgroundStyle={styles.backgroundStyle}
-      from={new Rect(300, 40, 200, 40)}
+      from={new Rect(500, 40, 200, 40)}
     >
       <View style={styles.contain}>
         {DataChooseNote.map((item) => (

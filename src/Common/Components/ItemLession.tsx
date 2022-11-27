@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ic_placeholder } from '../../Assets';
 import { ILession } from '../../Types';
 import { Colors } from '../../Utils/colors';
 import ButtonCustom from './ButtonCustom';
@@ -16,7 +17,7 @@ const ItemLessions: React.FC<IItemLessions> = ({ item, onPress }) => {
   return (
     <TouchableOpacity style={styles.contain} key={item.key} onPress={onPress}>
       <View style={styles.img}>
-        <Image source={{ uri: item.image }} style={styles.image} resizeMode="cover" />
+        <Image source={{ uri: item.image }} style={styles.image} resizeMode="cover" defaultSource={ic_placeholder} />
       </View>
       <View style={styles.content}>
         <View style={styles.topContent}>
