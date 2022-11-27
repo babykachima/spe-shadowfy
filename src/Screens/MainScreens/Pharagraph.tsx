@@ -16,6 +16,7 @@ import { IRate } from '../../Types';
 import { RootRouteProps, Screens } from '../../Utils/navigationConfig';
 
 import { useTranslation } from 'react-i18next';
+import Loading from '../../Common/Components/Loading';
 
 TrackPlayer.setupPlayer();
 
@@ -170,7 +171,9 @@ const Pharagraph: React.FC = () => {
     },
     [setCloseModalRate]
   );
-
+  if (!lessionsDetail) {
+    return <Loading />;
+  }
   return (
     <View style={styles.contain}>
       <Header title={t('screens.Pharagraph')} rightIcon={false} goBack={navigation.goBack} />

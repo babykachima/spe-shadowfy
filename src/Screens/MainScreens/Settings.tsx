@@ -1,69 +1,18 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, Modal, Pressable, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Snackbar from 'react-native-snackbar';
 
-import { ic_cancel, ic_faq, ic_paper, ic_person, ic_translation, ic_uk, ic_vietnam } from '../../Assets';
+import { ic_faq, ic_paper, ic_person, ic_translation } from '../../Assets';
 import { Header } from '../../Common/Components/Header';
 
 import IconCustom from '../../Common/Components/IconCustom';
+import { ModalLanguages } from '../../Common/Components/ModalCustom';
 import TextCommon from '../../Common/Components/TextCommon';
 
 import { Colors } from '../../Utils/colors';
 import { Screens } from '../../Utils/navigationConfig';
-
-interface IModalLanguages {
-  visible: boolean;
-  onCloseModal: () => void;
-  onChangeLanguage: (value: string | number) => void;
-}
-interface ILanguage {
-  id: number;
-  name: string;
-  value: string | number;
-  icon: number;
-}
-const listLanguage: ILanguage[] = [
-  {
-    id: 1,
-    name: 'Tiếng Việt',
-    value: 'vi',
-    icon: ic_vietnam,
-  },
-  {
-    id: 2,
-    name: 'English',
-    value: 'en',
-    icon: ic_uk,
-  },
-];
-const ModalLanguages: React.FC<IModalLanguages> = ({ visible, onCloseModal, onChangeLanguage }) => {
-  return (
-    <Modal animationType="slide" transparent={true} visible={visible}>
-      <Pressable style={styles.centeredView} onPress={onCloseModal}>
-        <View style={styles.contentModal}>
-          <View style={styles.headerModal}>
-            <TouchableOpacity onPress={onCloseModal}>
-              <IconCustom iconUrl={ic_cancel} size="l" />
-            </TouchableOpacity>
-          </View>
-          <ScrollView style={styles.languages}>
-            {listLanguage.map((language) => (
-              <React.Fragment key={language.id}>
-                <TouchableOpacity style={styles.modalItem} onPress={() => onChangeLanguage(language.value)}>
-                  <Image source={language.icon} style={styles.iconFlat} />
-                  <TextCommon title={language.name} containStyles={styles.nameContry} />
-                </TouchableOpacity>
-                <View style={styles.diveItem} />
-              </React.Fragment>
-            ))}
-          </ScrollView>
-        </View>
-      </Pressable>
-    </Modal>
-  );
-};
 
 const Settings: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -197,49 +146,6 @@ const styles = StyleSheet.create({
   },
   iconItem: {
     marginRight: 5,
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: Colors.textColor,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
-  },
-  contentModal: {
-    borderRadius: 20,
-    width: 300,
-    height: 200,
-    backgroundColor: Colors.white,
-  },
-  modalItem: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  headerModal: {
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    margin: 10,
-  },
-  languages: {
-    padding: 10,
-    marginLeft: 30,
-  },
-  iconFlat: {
-    width: 50,
-    height: 50,
-  },
-  nameContry: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginLeft: 10,
   },
   avatar: {
     width: 88,
