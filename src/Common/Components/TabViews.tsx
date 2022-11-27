@@ -113,7 +113,7 @@ const TabViews: React.FC<ITabView> = ({ word }) => {
 const styles = StyleSheet.create({
   labelStyle: {
     color: Colors.white,
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: 'bold',
     fontFamily: 'Poppins-Regular',
   },

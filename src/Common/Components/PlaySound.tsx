@@ -1,6 +1,6 @@
 import Slider from '@react-native-community/slider';
-import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useMemo } from 'react';
+import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { State, usePlaybackState, useProgress } from 'react-native-track-player';
 import { ic_pause, ic_play } from '../../Assets';
 import { Colors } from '../../Utils/colors';
@@ -18,19 +18,27 @@ interface IPlaySound {
 const PlaySound: React.FC<IPlaySound> = ({ rate, pauseTrack, playTrack, handleSlidingComplete, openModal }) => {
   const { position, duration } = useProgress();
   const playBackState = usePlaybackState();
+
+  const styleSlice = useMemo(() => {
+    return Platform.OS !== 'android' ? styles.slide : undefined;
+  }, []);
+  const renderPauseBtn = useMemo(() => {
+    return playBackState === State.Playing ? (
+      <TouchableOpacity onPress={pauseTrack}>
+        <IconCustom iconUrl={ic_pause} />
+      </TouchableOpacity>
+    ) : (
+      <TouchableOpacity onPress={playTrack}>
+        <IconCustom iconUrl={ic_play} />
+      </TouchableOpacity>
+    );
+  }, [pauseTrack, playBackState, playTrack]);
+
   return (
     <View style={styles.contain}>
       <View style={styles.contentPlaySound}>
-        {playBackState === State.Playing ? (
-          <TouchableOpacity onPress={pauseTrack}>
-            <IconCustom iconUrl={ic_pause} />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity onPress={playTrack}>
-            <IconCustom iconUrl={ic_play} />
-          </TouchableOpacity>
-        )}
-        <View style={styles.slide}>
+        {renderPauseBtn}
+        <View style={styleSlice}>
           <Slider
             style={styles.contentSlide}
             value={position}
@@ -63,14 +71,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   slide: {
-    marginHorizontal: 8,
+    marginHorizontal: 5,
   },
   contentSlide: {
     width: 240,
     height: 40,
   },
   button: {
-    width: 65,
+    flexShrink: 1,
   },
 });
 export default PlaySound;

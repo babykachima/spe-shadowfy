@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import i18n from 'i18next';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import Popover, { PopoverPlacement, Rect } from 'react-native-popover-view';
+import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import Popover, { Rect } from 'react-native-popover-view';
 import { ic_paper, ic_pencil, ic_textbook } from '../../Assets';
 import { Colors } from '../../Utils/colors';
 import { Screens } from '../../Utils/navigationConfig';
@@ -24,7 +24,7 @@ type TListsNode = {
 enum ENodeItem {
   DICTIONARY = 'Dictionary',
   GUIDE_LINE = 'Guide line',
-  PHARAGRAPH = 'Pharagraph',
+  PRACTICES = 'Practices',
 }
 const DataChooseNote: Array<TListsNode> = [
   {
@@ -42,7 +42,7 @@ const DataChooseNote: Array<TListsNode> = [
   {
     id: 3,
     name: i18n.t('popover.pharagraph'),
-    key: 'Pharagraph',
+    key: 'Practices',
     icon: ic_paper,
   },
 ];
@@ -61,7 +61,7 @@ export const PopoverNote: React.FC<IPopoverNote> = ({ isVisible, onRequestClose,
         onRequestClose();
         return;
       }
-      case ENodeItem.PHARAGRAPH: {
+      case ENodeItem.PRACTICES: {
         navigation.navigate(Screens.Pharagraph as never, { key: keyLession } as never);
         onRequestClose();
         return;
@@ -70,13 +70,13 @@ export const PopoverNote: React.FC<IPopoverNote> = ({ isVisible, onRequestClose,
         return;
     }
   };
+
   return (
     <Popover
       isVisible={isVisible}
       onRequestClose={onRequestClose}
-      placement={PopoverPlacement.BOTTOM}
       backgroundStyle={styles.backgroundStyle}
-      from={new Rect(500, 40, 200, 40)}
+      from={Platform.OS === 'android' ? new Rect(500, 8, 20, 40) : new Rect(500, 35, 20, 40)}
     >
       <View style={styles.contain}>
         {DataChooseNote.map((item) => (
@@ -92,7 +92,7 @@ export const PopoverNote: React.FC<IPopoverNote> = ({ isVisible, onRequestClose,
 
 const styles = StyleSheet.create({
   contain: {
-    width: 200,
+    width: 180,
     height: 150,
     justifyContent: 'space-around',
     paddingHorizontal: 20,

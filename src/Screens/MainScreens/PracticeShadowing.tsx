@@ -156,13 +156,24 @@ const PracticeShadowing: React.FC = () => {
     },
     [setOpenModalDictionary]
   );
+  const renderPauseBtn = useMemo(() => {
+    return playBackState === State.Playing ? (
+      <TouchableOpacity onPress={pauseTrack}>
+        <IconCustom iconUrl={ic_pause} />
+      </TouchableOpacity>
+    ) : (
+      <TouchableOpacity onPress={playTrack}>
+        <IconCustom iconUrl={ic_play} />
+      </TouchableOpacity>
+    );
+  }, [pauseTrack, playBackState, playTrack]);
   if (!lessionsDetail) {
     return <Loading />;
   }
   return (
     <View style={styles.contain}>
       <Header
-        title={t('screens.PracticeShadowing')}
+        title={t('screens.Pharagraph')}
         goBack={navigation.goBack}
         onPressPopover={setOpenPopover}
         rightIcon={true}
@@ -197,6 +208,7 @@ const PracticeShadowing: React.FC = () => {
             maximumTrackTintColor={Colors.primaryColorLayout}
             minimumTrackTintColor={Colors.primaryColor}
             onSlidingComplete={(value) => handleSlidingComplete(value)}
+            style={styles.containSlice}
           />
           <View style={styles.progressContent}>
             <TextCommon title={convertPosition} containStyles={styles.position} />
@@ -204,17 +216,7 @@ const PracticeShadowing: React.FC = () => {
           </View>
           <View style={styles.contentButton}>
             <ButtonCustom title={itemRate} onPress={setOpenModalRate} containStyles={styles.button} />
-            <View>
-              {playBackState === State.Playing ? (
-                <TouchableOpacity onPress={pauseTrack}>
-                  <IconCustom iconUrl={ic_pause} />
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity onPress={playTrack}>
-                  <IconCustom iconUrl={ic_play} />
-                </TouchableOpacity>
-              )}
-            </View>
+            <View>{renderPauseBtn}</View>
             <ButtonCustom title="Reset" onPress={handleResetTrack} containStyles={styles.button} />
           </View>
         </View>
@@ -239,6 +241,10 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     backgroundColor: Colors.bgModalColor,
+  },
+  containSlice: {
+    width: '100%',
+    height: 40,
   },
   slide: {
     paddingHorizontal: 20,
