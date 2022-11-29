@@ -185,7 +185,7 @@ const PracticeShadowing: React.FC = () => {
             paragraph.map((text, index) => (
               <TextCommon
                 key={index}
-                containStyles={styles.textDes}
+                containStyles={text === textSelected ? styles.textDesSelected : styles.textDes}
                 onPress={() => handleTextInParagraph(text)}
                 title={text}
               />
@@ -267,6 +267,13 @@ const styles = StyleSheet.create({
     marginRight: 5,
     fontSize: 16.5,
     lineHeight: 30,
+  },
+  textDesSelected: {
+    marginRight: 5,
+    fontSize: 16.5,
+    lineHeight: 30,
+    fontWeight: 'bold',
+    color: Colors.primaryColor,
   },
   contentButton: {
     flexDirection: 'row',

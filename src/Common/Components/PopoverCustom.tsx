@@ -3,7 +3,7 @@ import i18n from 'i18next';
 import React from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Popover, { Rect } from 'react-native-popover-view';
-import { ic_paper, ic_pencil, ic_textbook } from '../../Assets';
+import { ic_guide_book, ic_talking, ic_vocab } from '../../Assets';
 import { Colors } from '../../Utils/colors';
 import { Screens } from '../../Utils/navigationConfig';
 import IconCustom from './IconCustom';
@@ -31,19 +31,19 @@ const DataChooseNote: Array<TListsNode> = [
     id: 1,
     name: i18n.t('popover.dictionary'),
     key: 'Dictionary',
-    icon: ic_textbook,
+    icon: ic_vocab,
   },
   {
     id: 2,
     name: i18n.t('popover.guide_line'),
     key: 'Guide line',
-    icon: ic_pencil,
+    icon: ic_guide_book,
   },
   {
     id: 3,
     name: i18n.t('popover.pharagraph'),
     key: 'Practices',
-    icon: ic_paper,
+    icon: ic_talking,
   },
 ];
 

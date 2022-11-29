@@ -30,7 +30,9 @@ export const ic_funny = require('./images/icons/ic_laugh.png');
 export const ic_history = require('./images/icons/ic_history.png');
 export const ic_interseting = require('./images/icons/ic_interseting.png');
 export const ic_placeholder = require('./images/icons/ic_placeholder.png');
-export const ic_banner_placeholder = require('./images/icons/ic_banner_placeholder.png');
+export const ic_guide_book = require('./images/icons/ic_guide_book.png');
+export const ic_talking = require('./images/icons/ic_talking.png');
+export const ic_vocab = require('./images/icons/ic_vocab.png');
 
 // LIST IMAGES
 export const ic_view_01 = require('./images/ic_view_01.png');
