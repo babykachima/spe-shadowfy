@@ -74,12 +74,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 17,
   },
   contentDes: {
-    marginTop: 10,
+    marginTop: 5,
     marginRight: 5,
-    fontSize: 12,
+    fontSize: 11.5,
     fontWeight: '600',
     color: Colors.borderColor,
   },

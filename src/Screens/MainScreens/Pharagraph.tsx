@@ -176,7 +176,7 @@ const Pharagraph: React.FC = () => {
   }
   return (
     <View style={styles.contain}>
-      <Header title={t('screens.Pharagraph')} rightIcon={false} goBack={navigation.goBack} />
+      <Header title={t('screens.PracticeShadowing')} rightIcon={false} goBack={navigation.goBack} />
       <View style={styles.content}>
         <TextCommon title={lessionsDetail?.title || ''} numberOfLines={2} containStyles={styles.title} />
         <PlaySound
