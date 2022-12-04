@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { ic_avatar } from '../../Assets';
+import { ic_avatar, ic_logo } from '../../Assets';
 
 interface IAvatar {
   photoURL: string | null;
@@ -12,7 +12,12 @@ const Avatar: React.FC<IAvatar> = ({ photoURL, containStyle }) => {
   }, [photoURL]);
   return (
     <View style={styles.contain}>
-      <Image source={renderImage} resizeMode="cover" style={[styles.styleImage, containStyle]} />
+      <Image
+        source={renderImage}
+        resizeMode="cover"
+        style={[styles.styleImage, containStyle]}
+        defaultSource={ic_logo}
+      />
     </View>
   );
 };

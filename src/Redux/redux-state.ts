@@ -5,4 +5,5 @@ export interface IStore {
 export interface IUserState {
   accessToken: string | null;
   isLoading: boolean;
+  language: string;
 }

@@ -78,12 +78,12 @@ export const ModalRate: React.FC<IModalPopupRate> = ({ visible, onCloseModal, on
 interface IModalLanguages {
   visible: boolean;
   onCloseModal: () => void;
-  onChangeLanguage: (value: string | number) => void;
+  onChangeLanguage: (value: string) => void;
 }
 interface ILanguage {
   id: number;
   name: string;
-  value: string | number;
+  value: string;
   icon: number;
 }
 const listLanguage: ILanguage[] = [
@@ -113,7 +113,7 @@ export const ModalLanguages: React.FC<IModalLanguages> = ({ visible, onCloseModa
           <ScrollView style={styles.languages}>
             {listLanguage.map((language) => (
               <React.Fragment key={language.id}>
-                <TouchableOpacity style={styles.modalItem} onPress={() => onChangeLanguage(language.value)}>
+                <TouchableOpacity style={styles.modalItem} onPress={() => onChangeLanguage(String(language.value))}>
                   <Image source={language.icon} style={styles.iconFlat} />
                   <TextCommon title={language.name} containStyles={styles.nameContry} />
                 </TouchableOpacity>
