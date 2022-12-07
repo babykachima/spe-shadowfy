@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Snackbar from 'react-native-snackbar';
+import { useSelector } from 'react-redux';
 
 import { ic_faq, ic_paper, ic_person, ic_translation } from '../../Assets';
 import { Header } from '../../Common/Components/Header';
@@ -10,6 +11,9 @@ import { Header } from '../../Common/Components/Header';
 import IconCustom from '../../Common/Components/IconCustom';
 import { ModalLanguages } from '../../Common/Components/ModalCustom';
 import TextCommon from '../../Common/Components/TextCommon';
+import { useAppDispatch } from '../../Redux/hooks';
+import { getLanguage } from '../../Redux/selector';
+import { setLanguage } from '../../Redux/Slices/appSlice';
 
 import { Colors } from '../../Utils/colors';
 import { Screens } from '../../Utils/navigationConfig';
@@ -17,7 +21,13 @@ import { Screens } from '../../Utils/navigationConfig';
 const Settings: React.FC = () => {
   const { t, i18n } = useTranslation();
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const language = useSelector(getLanguage);
+
+  useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [i18n, language]);
 
   const onSetOpenModal = useCallback(() => {
     setOpenModal(true);
@@ -27,21 +37,21 @@ const Settings: React.FC = () => {
   }, []);
 
   const handleChangeLanguages = useCallback(
-    (value: string | number) => {
+    (value: string) => {
       if (!value) {
         Snackbar.show({
           text: t('messages.failed'),
           duration: Snackbar.LENGTH_SHORT,
         });
       }
-      i18n.changeLanguage(String(value));
+      dispatch(setLanguage(value));
       setOpenModal(false);
       Snackbar.show({
         text: t('messages.change_language_success'),
         duration: Snackbar.LENGTH_SHORT,
       });
     },
-    [i18n, t]
+    [dispatch, t]
   );
 
   const navigateFAQ = useCallback(() => {

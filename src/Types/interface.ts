@@ -26,6 +26,7 @@ export enum EStorage {
   TOKEN = 'TOKEN',
   GUEST_MODE = 'GUEST_MODE',
   REFRESH_TOKEN = 'REFRESH_TOKEN',
+  LANGUAGE = 'LANGUAGE',
 }
 
 export enum SizeIcon {
@@ -37,4 +38,10 @@ export interface IRate {
   id: number;
   rate: string;
   value: number;
+}
+export interface ILanguage {
+  id: number;
+  name: string;
+  value: string;
+  icon: number;
 }

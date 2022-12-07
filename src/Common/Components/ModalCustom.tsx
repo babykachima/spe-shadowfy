@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimensions, Image, Modal, Pressable, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ic_cancel, ic_uk, ic_vietnam } from '../../Assets';
-import { IRate } from '../../Types';
+import { ILanguage, IRate } from '../../Types';
 import { Colors } from '../../Utils/colors';
 import IconCustom from './IconCustom';
 import TabViews from './TabViews';
@@ -78,14 +78,9 @@ export const ModalRate: React.FC<IModalPopupRate> = ({ visible, onCloseModal, on
 interface IModalLanguages {
   visible: boolean;
   onCloseModal: () => void;
-  onChangeLanguage: (value: string | number) => void;
+  onChangeLanguage: (value: string) => void;
 }
-interface ILanguage {
-  id: number;
-  name: string;
-  value: string | number;
-  icon: number;
-}
+
 const listLanguage: ILanguage[] = [
   {
     id: 1,
@@ -113,7 +108,7 @@ export const ModalLanguages: React.FC<IModalLanguages> = ({ visible, onCloseModa
           <ScrollView style={styles.languages}>
             {listLanguage.map((language) => (
               <React.Fragment key={language.id}>
-                <TouchableOpacity style={styles.modalItem} onPress={() => onChangeLanguage(language.value)}>
+                <TouchableOpacity style={styles.modalItem} onPress={() => onChangeLanguage(String(language.value))}>
                   <Image source={language.icon} style={styles.iconFlat} />
                   <TextCommon title={language.name} containStyles={styles.nameContry} />
                 </TouchableOpacity>

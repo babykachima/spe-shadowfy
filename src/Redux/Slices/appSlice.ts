@@ -7,6 +7,7 @@ export function createInitUserState(): IUserState {
   return {
     accessToken: null,
     isLoading: false,
+    language: 'en',
   };
 }
 
@@ -27,7 +28,13 @@ export const appSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
+    setLanguage: (state, action: PayloadAction<string>) => {
+      if (action.payload) {
+        storage.set(EStorage.LANGUAGE, action.payload);
+        state.language = action.payload;
+      }
+    },
   },
 });
-export const { setAccessToken, logOut, setLoading } = appSlice.actions;
+export const { setAccessToken, logOut, setLoading, setLanguage } = appSlice.actions;
 export default appSlice.reducer;

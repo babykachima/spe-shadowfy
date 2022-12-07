@@ -3,6 +3,7 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, ListRenderItem, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ic_logo } from '../../Assets';
 import Avatar from '../../Common/Components/Avatar';
 import TextCommon from '../../Common/Components/TextCommon';
 
@@ -65,7 +66,7 @@ const HeaderWelcome = () => {
           <TextCommon title={t('app.welcome')} containStyles={styles.titleWelcome} />
         </View>
         <TouchableOpacity onPress={navigateInfoUser}>
-          <Avatar photoURL={user?.photoURL || null} />
+          <Avatar photoURL={user?.photoURL ?? ic_logo} />
         </TouchableOpacity>
       </View>
       <Banner banners={banners} />
