@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimensions, Image, Modal, Pressable, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ic_cancel, ic_uk, ic_vietnam } from '../../Assets';
-import { IRate } from '../../Types';
+import { ILanguage, IRate } from '../../Types';
 import { Colors } from '../../Utils/colors';
 import IconCustom from './IconCustom';
 import TabViews from './TabViews';
@@ -80,12 +80,7 @@ interface IModalLanguages {
   onCloseModal: () => void;
   onChangeLanguage: (value: string) => void;
 }
-interface ILanguage {
-  id: number;
-  name: string;
-  value: string;
-  icon: number;
-}
+
 const listLanguage: ILanguage[] = [
   {
     id: 1,

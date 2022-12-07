@@ -39,3 +39,9 @@ export interface IRate {
   rate: string;
   value: number;
 }
+export interface ILanguage {
+  id: number;
+  name: string;
+  value: string;
+  icon: number;
+}

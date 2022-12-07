@@ -66,7 +66,7 @@ const HeaderWelcome = () => {
           <TextCommon title={t('app.welcome')} containStyles={styles.titleWelcome} />
         </View>
         <TouchableOpacity onPress={navigateInfoUser}>
-          <Avatar photoURL={user?.photoURL || ic_logo} />
+          <Avatar photoURL={user?.photoURL ?? ic_logo} />
         </TouchableOpacity>
       </View>
       <Banner banners={banners} />
