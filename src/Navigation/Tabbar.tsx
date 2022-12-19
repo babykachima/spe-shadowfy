@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { ic_home, ic_lessions, ic_setting } from '../Assets';
 import IconCustom from '../Common/Components/IconCustom';
 import TextCommon from '../Common/Components/TextCommon';
@@ -25,8 +25,11 @@ const CustomBarIcon: React.FC<ICustomBarIcon> = ({ iconUrl, title, focused }) =>
   const selectedIcon = useMemo(() => {
     return focused ? Colors.primaryColor : Colors.grayColor;
   }, [focused]);
+  const stylesBuyDevice = useMemo(() => {
+    return Platform.OS === 'android' ? styles.iconAndroid : styles.icon;
+  }, []);
   return (
-    <View style={styles.icon}>
+    <View style={stylesBuyDevice}>
       <IconCustom iconUrl={iconUrl} size="l" tintColor={selectedIcon} />
       <TextCommon title={title} containStyles={selectedTitle} />
     </View>
@@ -78,6 +81,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 10,
+  },
+  iconAndroid: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 10,
   },
   selectedTitle: {
     fontWeight: '600',

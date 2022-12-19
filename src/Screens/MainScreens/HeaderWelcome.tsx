@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
+    marginTop: 10,
   },
   titleContent: {
     flex: 0.8,
@@ -105,7 +106,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginLeft: 5,
-    // maxWidth: 230,
     flexShrink: 1,
   },
 });
