@@ -34,7 +34,6 @@ const Pharagraph: React.FC = () => {
 
   //Recording
   useEffect(() => {
-    Voice.onSpeechStart = onSpeechStartHandler;
     Voice.onSpeechEnd = onSpeechEndHandler;
     Voice.onSpeechResults = onSpeechResultsHandler;
 
@@ -42,18 +41,13 @@ const Pharagraph: React.FC = () => {
       Voice.destroy().then(Voice.removeAllListeners);
     };
   }, []);
-  const onSpeechStartHandler = (e: any) => {
-    console.log('onSpeechStartHandler:', e);
-  };
-  const onSpeechEndHandler = (e: any) => {
+
+  const onSpeechEndHandler = () => {
     setLoading(false);
-    console.log('onSpeechEndHandler:', e);
   };
 
   const onSpeechResultsHandler = (e: any) => {
-    let text = e.value[0];
-    setResult(text);
-    console.log('onSpeechResultsHandler:', e);
+    setResult(e.value[0]);
   };
 
   const startRecording = async () => {

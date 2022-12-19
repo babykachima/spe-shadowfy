@@ -50,10 +50,10 @@ const ShadowComponent: React.FC<IShadow> = ({
           </View>
         ) : (
           <View style={styles.contentVoice}>
-            <TouchableOpacity onPress={startRecording}>
+            <TouchableOpacity onPress={startRecording} style={styles.btnStart}>
               <IconCustom iconUrl={ic_mic} />
+              <TextCommon title={t('forms.start')} containStyles={styles.textVoice} />
             </TouchableOpacity>
-            <TextCommon title={t('forms.start')} containStyles={styles.textVoice} />
           </View>
         )}
         <ButtonCustom title={t('forms.check')} onPress={onCheckVoice} disabled={renderStatusButton} />
@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 40,
-    marginTop: 10,
   },
   btnStop: {
     backgroundColor: Colors.warningColor,
@@ -88,16 +87,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 40,
-    marginTop: 10,
   },
   textVoice: {
     color: Colors.primaryColor,
     fontSize: 16,
     fontWeight: 'bold',
-    marginTop: 5,
+    marginTop: 8,
   },
   textDes: {
     fontSize: 17,
+    color: Colors.textColor,
+  },
+  btnStart: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 export default ShadowComponent;
